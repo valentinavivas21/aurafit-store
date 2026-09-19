@@ -519,20 +519,54 @@
    SCREEN 3: ADMIN LAYOUT
    ========================================================================== */
 
+#screen-admin {
+  background: var(--cream) !important;
+  color: var(--ink) !important;
+}
+
+#screen-admin .admin-sidebar {
+  background: #FFFFFF !important;
+  border-right: 2px solid var(--champagne) !important;
+}
+
+#screen-admin .admin-nav-item {
+  color: var(--ink) !important;
+}
+
+#screen-admin .admin-nav-item:hover,
+#screen-admin .admin-nav-item.active {
+  background: rgba(201,169,110,0.15) !important;
+  color: var(--champagne) !important;
+  border-left: 3px solid var(--champagne) !important;
+}
+
+#screen-admin #admin-content {
+  background: var(--cream) !important;
+}
+
+#screen-admin .admin-panel-label {
+  color: var(--champagne) !important;
+}
+
 .admin-sidebar {
   position: fixed;
   left: 0;
   top: 0;
   height: 100vh;
   width: 240px;
-  background: var(--bg-card);
-  border-right: 1px solid var(--border);
+  background: #FFFFFF;
+  border-right: 2px solid var(--champagne);
   padding: 24px 0;
   z-index: 50;
   display: flex;
   flex-direction: column;
   gap: 20px;
   box-sizing: border-box;
+}
+
+.admin-sidebar .logo-aura,
+.admin-sidebar .logo-fit {
+  color: var(--ink);
 }
 
 .admin-sidebar-header {
@@ -570,13 +604,14 @@
   font-weight: 400;
   text-align: left;
   cursor: pointer;
-  transition: background 0.15s, color 0.15s;
+  transition: background 0.15s, color 0.15s, border-left 0.15s;
 }
 
 .admin-nav-item:hover,
 .admin-nav-item.active {
-  background: var(--surface);
-  color: var(--accent);
+  background: rgba(201, 169, 110, 0.15);
+  color: var(--champagne);
+  border-left: 3px solid var(--champagne);
 }
 
 .logout-item {
@@ -590,6 +625,7 @@
   color: var(--danger);
 }
 
+#admin-content,
 .admin-main {
   margin-left: 240px;
   padding: 32px;
@@ -835,4 +871,25 @@
     grid-template-columns: 1fr !important;
   }
 }
+
+/* Dashboard champagne cards */
+#screen-admin .kpi-card,
+#screen-admin .chart-section,
+#screen-admin .stock-section,
+#screen-admin .rotation-section {
+  background: #FBF5E6 !important;
+  border: 2px solid rgba(201,169,110,0.25) !important;
+  color: var(--ink) !important;
+}
+#screen-admin .kpi-label {
+  color: #8B6914 !important;
+}
+#screen-admin .kpi-value {
+  color: #3B2A1A !important;
+}
+#screen-admin table th {
+  background: rgba(201,169,110,0.15) !important;
+  color: #8B6914 !important;
+}
+
 

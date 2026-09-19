@@ -42,28 +42,28 @@ function renderDashboard() {
   }).sort((a, b) => b.totalSold - a.totalSold);
 
   content.innerHTML = `
-    <h2 style="font-family:var(--font-serif);font-size:28px;font-weight:400;margin-bottom:24px">Dashboard</h2>
+    <h2 style="font-family:var(--font-serif);font-size:28px;font-weight:400;margin-bottom:24px;color:var(--ink)">Dashboard</h2>
 
     <!-- KPI Cards -->
     <div class="kpi-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px">
       ${[
-        { label: 'Ingresos Totales', value: '$' + totalRevenue.toFixed(2), sub: 'USD', icon: '💰', color: 'var(--champagne)' },
-        { label: 'Margen Bruto', value: '$' + grossMargin.toFixed(2), sub: marginPct.toFixed(1) + '% del total', icon: '📈', color: grossMargin >= 0 ? '#2E7D32' : 'var(--danger)' },
-        { label: 'Unidades Vendidas', value: totalUnitsSold, sub: activeProductsCount + ' productos activos', icon: '📦', color: 'var(--text)' },
-        { label: 'Sin Stock', value: outOfStockCount, sub: outOfStockCount > 0 ? 'requieren reposición' : 'todo disponible ✓', icon: '⚠️', color: outOfStockCount > 0 ? 'var(--danger)' : '#2E7D32' }
+        { label: 'Ingresos Totales', value: '$' + totalRevenue.toFixed(2), sub: 'USD', icon: '💰' },
+        { label: 'Margen Bruto', value: '$' + grossMargin.toFixed(2), sub: marginPct.toFixed(1) + '% del total', icon: '📈' },
+        { label: 'Unidades Vendidas', value: totalUnitsSold, sub: activeProductsCount + ' productos activos', icon: '📦' },
+        { label: 'Sin Stock', value: outOfStockCount, sub: outOfStockCount > 0 ? 'requieren reposición' : 'todo disponible ✓', icon: '⚠️' }
       ].map(kpi => `
-        <div style="background:var(--bg-card);border:1px solid var(--border);padding:20px;border-radius:var(--radius)">
+        <div class="kpi-card" style="background:#FBF5E6;border:2px solid rgba(201,169,110,0.25);padding:20px;border-radius:var(--radius)">
           <div style="font-size:24px;margin-bottom:8px">${kpi.icon}</div>
-          <p style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px">${kpi.label}</p>
-          <p style="font-size:28px;font-family:var(--font-serif);font-weight:400;color:${kpi.color}">${kpi.value}</p>
+          <p class="kpi-label" style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#8B6914;margin-bottom:6px">${kpi.label}</p>
+          <p class="kpi-value" style="font-size:28px;font-family:var(--font-serif);font-weight:400;color:var(--ink)">${kpi.value}</p>
           <p style="font-size:12px;color:var(--text-muted);margin-top:4px">${kpi.sub}</p>
         </div>
       `).join('')}
     </div>
 
     <!-- Monthly Chart -->
-    <div style="background:var(--bg-card);border:1px solid var(--border);padding:24px;margin-bottom:24px;border-radius:var(--radius-lg)">
-      <h3 style="font-size:14px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:20px">Ventas Mensuales (USD)</h3>
+    <div class="chart-section" id="chart-wrap" style="background:#FBF5E6;border:2px solid rgba(201,169,110,0.25);padding:24px;margin-bottom:24px;border-radius:var(--radius-lg)">
+      <h3 style="font-size:14px;letter-spacing:0.1em;text-transform:uppercase;color:#8B6914;margin-bottom:20px">Ventas Mensuales (USD)</h3>
       <div style="display:flex;align-items:flex-end;gap:12px;height:160px">
         ${months.map(m => `
           <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%">
@@ -78,35 +78,35 @@ function renderDashboard() {
     </div>
 
     <!-- Stock Table -->
-    <div style="background:var(--bg-card);border:1px solid var(--border);padding:24px;margin-bottom:24px;border-radius:var(--radius-lg)">
+    <div class="stock-section" style="background:#FBF5E6;border:2px solid rgba(201,169,110,0.25);padding:24px;margin-bottom:24px;border-radius:var(--radius-lg)">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
-        <h3 style="font-size:14px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted)">Estado de Inventario</h3>
+        <h3 style="font-size:14px;letter-spacing:0.1em;text-transform:uppercase;color:#8B6914">Estado de Inventario</h3>
         <button class="btn-outline" onclick="exportStockCSV()" style="font-size:12px;padding:8px 16px">⬇ Exportar Stock</button>
       </div>
       <div style="overflow-x:auto">
         <table style="width:100%;border-collapse:collapse;font-size:13px">
           <thead>
-            <tr style="border-bottom:2px solid var(--border)">
-              <th style="text-align:left;padding:10px 12px;color:var(--text-muted);font-size:11px;text-transform:uppercase">Producto</th>
-              <th style="text-align:left;padding:10px 12px;color:var(--text-muted);font-size:11px;text-transform:uppercase">Color</th>
-              ${SIZES_ORDER.map(s => `<th style="text-align:center;padding:10px 8px;color:var(--text-muted);font-size:11px">${s}</th>`).join('')}
-              <th style="text-align:center;padding:10px 12px;color:var(--text-muted);font-size:11px;text-transform:uppercase">Total</th>
+            <tr style="border-bottom:2px solid rgba(201,169,110,0.25)">
+              <th style="text-align:left;padding:10px 12px;color:#8B6914;font-size:11px;text-transform:uppercase">Producto</th>
+              <th style="text-align:left;padding:10px 12px;color:#8B6914;font-size:11px;text-transform:uppercase">Color</th>
+              ${SIZES_ORDER.map(s => `<th style="text-align:center;padding:10px 8px;color:#8B6914;font-size:11px">${s}</th>`).join('')}
+              <th style="text-align:center;padding:10px 12px;color:#8B6914;font-size:11px;text-transform:uppercase">Total</th>
             </tr>
           </thead>
           <tbody>
             ${activeProducts.flatMap(p =>
               p.colors.map(c => {
                 const colorTotal = getTotalStock(p, c.name);
-                return `<tr style="border-bottom:1px solid var(--border)">
-                  <td style="padding:10px 12px;font-weight:500">${p.name}</td>
-                  <td style="padding:10px 12px">
+                return `<tr style="border-bottom:1px solid rgba(201,169,110,0.15)">
+                  <td style="padding:10px 12px;font-weight:500;color:var(--ink)">${p.name}</td>
+                  <td style="padding:10px 12px;color:var(--ink)">
                     <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${c.hex};margin-right:6px"></span>
                     ${c.name}
                   </td>
                   ${SIZES_ORDER.map(s => {
-                    if (!p.sizes.includes(s)) return `<td style="padding:10px 8px;text-align:center;color:var(--border)">—</td>`;
+                    if (!p.sizes.includes(s)) return `<td style="padding:10px 8px;text-align:center;color:rgba(201,169,110,0.4)">—</td>`;
                     const qty = getStock(p, c.name, s);
-                    return `<td style="padding:10px 8px;text-align:center;font-weight:${qty === 0 ? '400' : '500'};color:${qty === 0 ? 'var(--danger)' : qty <= 2 ? '#E65100' : 'inherit'}">${qty}</td>`;
+                    return `<td style="padding:10px 8px;text-align:center;font-weight:${qty === 0 ? '400' : '500'};color:${qty === 0 ? 'var(--danger)' : qty <= 2 ? '#E65100' : 'var(--ink)'}">${qty}</td>`;
                   }).join('')}
                   <td style="padding:10px 12px;text-align:center;font-weight:600;color:${colorTotal === 0 ? 'var(--danger)' : 'var(--champagne)'}">${colorTotal}</td>
                 </tr>`;
@@ -118,17 +118,17 @@ function renderDashboard() {
     </div>
 
     <!-- Rotation Table -->
-    <div style="background:var(--bg-card);border:1px solid var(--border);padding:24px;margin-bottom:24px;border-radius:var(--radius-lg)">
+    <div class="rotation-section" style="background:#FBF5E6;border:2px solid rgba(201,169,110,0.25);padding:24px;margin-bottom:24px;border-radius:var(--radius-lg)">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
-        <h3 style="font-size:14px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted)">Rotación de Productos</h3>
+        <h3 style="font-size:14px;letter-spacing:0.1em;text-transform:uppercase;color:#8B6914">Rotación de Productos</h3>
         <button class="btn-outline" onclick="exportSalesCSV()" style="font-size:12px;padding:8px 16px">⬇ Exportar Ventas</button>
       </div>
       <div style="overflow-x:auto">
         <table style="width:100%;border-collapse:collapse;font-size:13px">
           <thead>
-            <tr style="border-bottom:2px solid var(--border)">
+            <tr style="border-bottom:2px solid rgba(201,169,110,0.25)">
               ${['Producto', 'Categoría', 'Unid. Ingresadas', 'Unid. Vendidas', 'Rotación', 'Última Venta'].map(h =>
-                `<th style="text-align:left;padding:10px 12px;color:var(--text-muted);font-size:11px;text-transform:uppercase">${h}</th>`
+                `<th style="text-align:left;padding:10px 12px;color:#8B6914;font-size:11px;text-transform:uppercase">${h}</th>`
               ).join('')}
             </tr>
           </thead>
@@ -136,15 +136,15 @@ function renderDashboard() {
             ${rotation.length === 0
               ? `<tr><td colspan="6" style="text-align:center;padding:30px;color:var(--text-muted)">Sin datos de ventas aún</td></tr>`
               : rotation.map(r => `
-                <tr style="border-bottom:1px solid var(--border)">
-                  <td style="padding:10px 12px;font-weight:500">${r.name}</td>
-                  <td style="padding:10px 12px;color:var(--text-muted)">${r.category}</td>
-                  <td style="padding:10px 12px;text-align:center">${r.totalIn}</td>
-                  <td style="padding:10px 12px;text-align:center;font-weight:500">${r.totalSold}</td>
+                <tr style="border-bottom:1px solid rgba(201,169,110,0.15)">
+                  <td style="padding:10px 12px;font-weight:500;color:var(--ink)">${r.name}</td>
+                  <td style="padding:10px 12px;color:var(--ink)">${r.category}</td>
+                  <td style="padding:10px 12px;text-align:center;color:var(--ink)">${r.totalIn}</td>
+                  <td style="padding:10px 12px;text-align:center;font-weight:500;color:var(--ink)">${r.totalSold}</td>
                   <td style="padding:10px 12px;text-align:center">
                     <span style="color:${r.rotationRate === '—' ? 'var(--text-muted)' : parseFloat(r.rotationRate) >= 50 ? '#2E7D32' : 'var(--champagne)'};font-weight:500">${r.rotationRate}</span>
                   </td>
-                  <td style="padding:10px 12px;color:var(--text-muted)">${r.lastSale}</td>
+                  <td style="padding:10px 12px;color:var(--ink)">${r.lastSale}</td>
                 </tr>`).join('')}
           </tbody>
         </table>
