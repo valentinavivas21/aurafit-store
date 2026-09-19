@@ -45,7 +45,7 @@ function renderDashboard() {
     <h2 style="font-family:var(--font-serif);font-size:28px;font-weight:400;margin-bottom:24px">Dashboard</h2>
 
     <!-- KPI Cards -->
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px">
+    <div class="kpi-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px">
       ${[
         { label: 'Ingresos Totales', value: '$' + totalRevenue.toFixed(2), sub: 'USD', icon: '💰', color: 'var(--champagne)' },
         { label: 'Margen Bruto', value: '$' + grossMargin.toFixed(2), sub: marginPct.toFixed(1) + '% del total', icon: '📈', color: grossMargin >= 0 ? '#2E7D32' : 'var(--danger)' },

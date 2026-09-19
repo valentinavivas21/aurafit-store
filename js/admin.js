@@ -955,4 +955,19 @@ document.addEventListener('DOMContentLoaded', () => {
   SIZES_ORDER.forEach(s => {
     document.getElementById('size-' + s)?.addEventListener('change', () => renderStockGrid(null));
   });
+
+  // Mobile sidebar toggle
+  document.getElementById('admin-menu-toggle')?.addEventListener('click', () => {
+    document.querySelector('.admin-sidebar')?.classList.toggle('open');
+  });
+
+  // Close sidebar when nav item clicked on mobile
+  document.querySelectorAll('.admin-nav-item').forEach(item => {
+    item.addEventListener('click', () => {
+      if (window.innerWidth <= 768) {
+        document.querySelector('.admin-sidebar')?.classList.remove('open');
+      }
+    });
+  });
 });
+

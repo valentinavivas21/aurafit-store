@@ -21,6 +21,30 @@ function goTo(screenId) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+function initBackToTop() {
+  const backToTop = document.createElement('button');
+  backToTop.id = 'back-to-top';
+  backToTop.textContent = '↑';
+  backToTop.setAttribute('aria-label', 'Volver arriba');
+  backToTop.className = 'btn-primary';
+  backToTop.style.cssText = 'position:fixed;bottom:80px;right:24px;width:44px;height:44px;border-radius:50%;display:none;z-index:500;padding:0;font-size:18px;align-items:center;justify-content:center;cursor:pointer;';
+  document.body.appendChild(backToTop);
+
+  window.addEventListener('scroll', () => {
+    backToTop.style.display = window.scrollY > 400 ? 'flex' : 'none';
+  });
+
+  backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initBackToTop);
+} else {
+  initBackToTop();
+}
+
 function downloadCSV(rows, headers, filename) {
   const processRow = (row) =>
     row
@@ -48,4 +72,3 @@ function downloadCSV(rows, headers, filename) {
   link.click();
   document.body.removeChild(link);
 }
-

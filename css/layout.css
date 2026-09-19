@@ -1,14 +1,37 @@
-/* ==========================================================================
-   SCREEN MANAGEMENT
-   ========================================================================== */
-
 .screen {
+  opacity: 0;
+  transition: opacity 0.2s ease;
   display: none;
   min-height: 100vh;
 }
 
 .screen.active {
   display: block;
+  opacity: 1;
+}
+
+/* ==========================================================================
+   SKELETON LOADING
+   ========================================================================== */
+
+.skeleton {
+  background: linear-gradient(90deg, var(--surface) 25%, var(--pearl) 50%, var(--surface) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius);
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.product-card-skeleton {
+  height: 380px;
 }
 
 /* ==========================================================================
@@ -685,8 +708,23 @@
 }
 
 /* ==========================================================================
-   RESPONSIVE DESIGN (768px BREAKPOINT)
+   RESPONSIVE DESIGN BREAKPOINTS
    ========================================================================== */
+
+@media (max-width: 1024px) {
+  #products-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .admin-sidebar {
+    width: 200px;
+  }
+
+  #admin-content,
+  .admin-main {
+    margin-left: 200px;
+  }
+}
 
 @media (max-width: 768px) {
   #products-grid {
@@ -694,13 +732,38 @@
     gap: 16px;
   }
 
+  .hero-headline,
+  .hero-title {
+    font-size: 48px !important;
+  }
+
   .admin-sidebar {
     display: none;
   }
 
+  .admin-sidebar.open {
+    display: block;
+    width: 100%;
+    position: fixed;
+    z-index: 150;
+  }
+
+  #admin-content,
   .admin-main {
     margin-left: 0;
-    padding: 20px 16px;
+    padding: 16px;
+  }
+
+  .kpi-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .modal-card {
+    padding: 20px !important;
+  }
+
+  table {
+    font-size: 12px;
   }
 
   .cart-layout-grid {
@@ -716,3 +779,19 @@
     flex: 1 1 100%;
   }
 }
+
+@media (max-width: 480px) {
+  #products-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-headline,
+  .hero-title {
+    font-size: 36px !important;
+  }
+
+  .kpi-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+

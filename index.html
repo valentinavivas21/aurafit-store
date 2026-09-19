@@ -47,7 +47,7 @@
         </nav>
 
         <div class="header-actions">
-          <button id="theme-toggle" class="icon-btn" aria-label="Cambiar tema claro/oscuro" title="Modo Oscuro">
+          <button id="theme-toggle" class="icon-btn" aria-label="Cambiar tema" title="Modo Oscuro">
             <span class="theme-icon" aria-hidden="true">🌙</span>
           </button>
           <button id="btn-cart" class="cart-btn" aria-label="Ver carrito" onclick="if(typeof goTo==='function')goTo('screen-cart')">
@@ -63,9 +63,9 @@
     <section id="top" class="hero-section">
       <div class="hero-content">
         <span class="hero-eyebrow">NUEVA COLECCIÓN</span>
-        <h1 class="hero-title">Actívate con Estilo</h1>
+        <h1 class="hero-title hero-headline">Actívate con Estilo</h1>
         <p class="hero-sub">Diseñado para mujeres que no se detienen</p>
-        <a href="#catalog" class="btn-outline btn-hero">Explorar Colección</a>
+        <a href="#catalog" class="btn-outline btn-hero hero-cta">Explorar Colección</a>
       </div>
     </section>
 
@@ -179,6 +179,8 @@
        SCREEN 3: ADMIN
        ========================================================================= -->
   <section id="screen-admin" class="screen">
+    <button id="admin-menu-toggle" class="btn-ghost" aria-label="Menú" style="background:var(--bg-card);border:1px solid var(--border);padding:10px 12px;border-radius:var(--radius)">☰</button>
+
     <!-- Admin Sidebar -->
     <aside class="admin-sidebar">
       <div class="admin-sidebar-header">
@@ -188,7 +190,7 @@
         <span class="admin-badge">Panel Admin</span>
       </div>
 
-      <nav class="admin-nav" aria-label="Navegación de administración">
+      <nav class="admin-nav" role="navigation" aria-label="Menú administrador">
         <button id="nav-dashboard" class="admin-nav-item active">
           <span class="nav-item-icon">📊</span>
           <span class="nav-item-text">Dashboard</span>
@@ -335,7 +337,7 @@
   </div>
 
   <!-- Toast Notification Container -->
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div id="toast" class="toast" role="alert" aria-live="polite"></div>
 
 </body>
 </html>

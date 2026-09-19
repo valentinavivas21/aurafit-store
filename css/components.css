@@ -269,3 +269,68 @@
   75% { transform: translateX(8px); }
 }
 
+/* ==========================================================================
+   FINAL POLISH & ACCESSIBILITY STYLES
+   ========================================================================== */
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--champagne);
+}
+
+/* Focus visible */
+*:focus-visible {
+  outline: 2px solid var(--champagne);
+  outline-offset: 2px;
+}
+
+/* Smooth image placeholder hover */
+.product-card .card-image {
+  overflow: hidden;
+}
+
+.product-card .card-image > * {
+  transition: transform 0.4s ease;
+}
+
+.product-card:hover .card-image > * {
+  transform: scale(1.03);
+}
+
+/* Admin table row hover */
+tbody tr:hover {
+  background: var(--surface);
+}
+
+/* Mobile hamburger for admin */
+#admin-menu-toggle {
+  display: none;
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  #admin-menu-toggle {
+    display: flex;
+  }
+}
+
+
