@@ -178,70 +178,111 @@
    HERO SECTION
    ========================================================================== */
 
-.hero-section {
-  width: 100%;
+.hero {
   min-height: 80vh;
-  background: var(--ink);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   gap: 20px;
-  padding: 80px 24px;
+  padding: 60px 24px;
+  background: linear-gradient(135deg, #C9A96E 0%, #E8C97A 35%, #B8954A 65%, #C9A96E 100%);
   position: relative;
   overflow: hidden;
 }
 
-.hero-content {
-  max-width: 800px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
+/* Subtle texture overlay */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 30% 50%, rgba(255, 255, 255, 0.15) 0%, transparent 60%),
+              radial-gradient(ellipse at 70% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 40%);
+  pointer-events: none;
 }
 
+.hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Hero text colors for champagne background */
 .hero-eyebrow {
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.3em;
+  font-size: 11px;
+  letter-spacing: 0.35em;
   text-transform: uppercase;
-  color: var(--champagne);
-  display: inline-block;
-}
-
-.hero-title {
-  font-family: var(--font-serif);
-  font-size: clamp(40px, 7vw, 72px);
-  font-weight: 400;
-  color: #FFFFFF;
-  line-height: 1.1;
-  margin: 0;
-}
-
-.hero-sub {
-  font-family: var(--font-sans);
-  font-size: 16px;
-  font-weight: 300;
-  color: #A89880;
-  max-width: 480px;
-  margin: 0;
-  line-height: 1.6;
-}
-
-.btn-hero {
-  border-color: rgba(255, 255, 255, 0.4);
-  color: #FFFFFF;
-  margin-top: 10px;
-  text-decoration: none;
-  display: inline-block;
-}
-
-.btn-hero:hover {
-  background: #FFFFFF;
   color: var(--ink);
-  border-color: #FFFFFF;
+  opacity: 0.7;
 }
+
+.hero h1 {
+  font-family: var(--font-serif);
+  font-size: 72px;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.1;
+  max-width: 800px;
+}
+
+.hero-subtitle {
+  color: var(--ink);
+  opacity: 0.65;
+  font-size: 16px;
+  max-width: 480px;
+}
+
+.hero .btn-primary {
+  background: var(--ink);
+  color: var(--cream);
+}
+
+.hero .btn-outline {
+  border-color: var(--ink);
+  color: var(--ink);
+  background: transparent;
+}
+
+.hero .btn-primary:hover {
+  background: var(--brown);
+}
+
+.hero .btn-outline:hover {
+  background: rgba(28, 20, 16, 0.08);
+}
+
+/* Decorative elements */
+.hero::after {
+  content: 'AF';
+  position: absolute;
+  right: -40px;
+  bottom: -60px;
+  font-family: var(--font-serif);
+  font-size: 280px;
+  font-weight: 600;
+  color: rgba(28, 20, 16, 0.04);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 48px;
+  }
+  .hero::after {
+    font-size: 160px;
+    right: -20px;
+    bottom: -30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 36px;
+  }
+}
+
 
 /* ==========================================================================
    CATALOG SECTION
