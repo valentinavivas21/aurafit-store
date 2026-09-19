@@ -9,6 +9,12 @@ function saveIncomes() {
   localStorage.setItem('aurafit_incomes', JSON.stringify(incomes));
 }
 
+let sales = JSON.parse(localStorage.getItem('aurafit_sales')) || [];
+let exchangeRate = parseFloat(localStorage.getItem('aurafit_rate')) || 36.5;
+function saveSales() {
+  localStorage.setItem('aurafit_sales', JSON.stringify(sales));
+}
+
 function openAdminLogin() {
   const modal = document.getElementById('modal-login');
   if (!modal) return;
@@ -76,7 +82,7 @@ function loadPanel(name) {
       renderIncomes();
       break;
     case 'sales':
-      if (typeof renderSales === 'function') renderSales();
+      renderSales();
       break;
     case 'outofstock':
       if (typeof renderOutOfStock === 'function') renderOutOfStock();
@@ -516,6 +522,278 @@ function exportIncomesCSV() {
     r.totalCost.toFixed(2)
   ]);
   downloadCSV(rows, headers, 'ingresos_aurafit.csv');
+}
+
+/* ==========================================================================
+   SALES MANAGEMENT (ADMIN)
+   ========================================================================== */
+
+function renderSales() {
+  const content = document.getElementById('admin-content');
+  if (!content) return;
+  const activeProducts = products.filter(p => p.active);
+
+  content.innerHTML = `
+    <h2 style="font-family:var(--font-serif);font-size:28px;font-weight:400;margin-bottom:24px">Registro de Ventas</h2>
+
+    <div style="background:var(--bg-card);border:1px solid var(--border);padding:24px;margin-bottom:32px;border-radius:var(--radius-lg)">
+      <h3 style="font-size:14px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:20px">Registrar Venta</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div class="form-group">
+          <label class="label">Fecha</label>
+          <input type="date" id="sale-date" class="input" value="${new Date().toISOString().split('T')[0]}">
+        </div>
+        <div class="form-group">
+          <label class="label">Producto</label>
+          <select id="sale-product" class="input select" onchange="onSaleProductChange()">
+            <option value="">Seleccionar producto...</option>
+            ${activeProducts.map(p => `<option value="${p.id}">${p.name}</option>`).join('')}
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="label">Color</label>
+          <select id="sale-color" class="input select" onchange="onSaleColorChange()">
+            <option value="">Primero selecciona un producto</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="label">Talla</label>
+          <select id="sale-size" class="input select" onchange="onSaleSizeChange()">
+            <option value="">Primero selecciona un color</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="label">Stock Disponible</label>
+          <input type="text" id="sale-stock-display" class="input" readonly
+            style="background:var(--surface);color:var(--text-muted)" value="—">
+        </div>
+        <div class="form-group">
+          <label class="label">Cliente (opcional)</label>
+          <input type="text" id="sale-client" class="input" placeholder="Nombre del cliente">
+        </div>
+        <div class="form-group">
+          <label class="label">Cantidad</label>
+          <input type="number" id="sale-qty" class="input" min="1" value="1" 
+            oninput="updateSaleTotals()">
+        </div>
+        <div class="form-group">
+          <label class="label">Precio de Venta (USD)</label>
+          <input type="number" id="sale-price" class="input" min="0" step="0.01" placeholder="0.00"
+            oninput="updateSaleTotals()">
+        </div>
+        <div class="form-group">
+          <label class="label">Tasa de Cambio (Bs/USD)</label>
+          <input type="number" id="sale-rate" class="input" min="1" step="0.1" value="${exchangeRate}"
+            oninput="updateSaleTotals()">
+        </div>
+        <div class="form-group">
+          <label class="label">Precio en Bs (calculado)</label>
+          <input type="text" id="sale-price-bs" class="input" readonly
+            style="background:var(--surface);color:var(--text-muted)" value="Bs 0.00">
+        </div>
+        <div class="form-group">
+          <label class="label">Total USD (calculado)</label>
+          <input type="text" id="sale-total-usd" class="input" readonly
+            style="background:var(--surface);color:var(--text-muted)" value="$0.00">
+        </div>
+        <div class="form-group">
+          <label class="label">Total Bs (calculado)</label>
+          <input type="text" id="sale-total-bs" class="input" readonly
+            style="background:var(--surface);color:var(--text-muted)" value="Bs 0.00">
+        </div>
+      </div>
+      <button class="btn-primary" onclick="saveSale()">Registrar Venta</button>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <h3 style="font-size:16px;font-weight:500">Historial de Ventas (${sales.length})</h3>
+      <button class="btn-outline" onclick="exportSalesCSV()" style="font-size:12px;padding:8px 16px">⬇ Exportar CSV</button>
+    </div>
+    <div style="overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse;font-size:14px">
+        <thead>
+          <tr style="border-bottom:2px solid var(--border)">
+            ${['Fecha', 'Producto', 'Color', 'Talla', 'Cliente', 'Cant.', 'Precio USD', 'Total USD', 'Tasa Bs', 'Total Bs'].map(h =>
+              `<th style="text-align:left;padding:10px 12px;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted)">${h}</th>`
+            ).join('')}
+          </tr>
+        </thead>
+        <tbody>
+          ${sales.length === 0
+            ? `<tr><td colspan="10" style="text-align:center;padding:40px;color:var(--text-muted)">Sin ventas registradas aún</td></tr>`
+            : [...sales].reverse().map(r => `
+              <tr style="border-bottom:1px solid var(--border)">
+                <td style="padding:10px 12px">${r.date}</td>
+                <td style="padding:10px 12px;font-weight:500">${r.productName}</td>
+                <td style="padding:10px 12px">${r.color}</td>
+                <td style="padding:10px 12px">${r.size}</td>
+                <td style="padding:10px 12px;color:var(--text-muted)">${r.client || '—'}</td>
+                <td style="padding:10px 12px;text-align:center">${r.qty}</td>
+                <td style="padding:10px 12px">$${r.priceUSD}</td>
+                <td style="padding:10px 12px;font-weight:500;color:var(--champagne)">$${r.totalUSD.toFixed(2)}</td>
+                <td style="padding:10px 12px;color:var(--text-muted)">${r.priceBS.toFixed(2)}</td>
+                <td style="padding:10px 12px;color:var(--champagne)">Bs ${r.totalBS.toFixed(2)}</td>
+              </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>`;
+}
+
+function onSaleProductChange() {
+  const productId = document.getElementById('sale-product').value;
+  const p = products.find(x => x.id === productId);
+  const colorSelect = document.getElementById('sale-color');
+  const sizeSelect = document.getElementById('sale-size');
+  const stockDisplay = document.getElementById('sale-stock-display');
+  if (stockDisplay) stockDisplay.value = '—';
+
+  if (!p) {
+    colorSelect.innerHTML = '<option value="">Primero selecciona un producto</option>';
+    sizeSelect.innerHTML = '<option value="">Primero selecciona un color</option>';
+    return;
+  }
+  document.getElementById('sale-price').value = p.price;
+  colorSelect.innerHTML = '<option value="">Seleccionar color...</option>' +
+    p.colors.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
+  sizeSelect.innerHTML = '<option value="">Primero selecciona un color</option>';
+  updateSaleTotals();
+}
+
+function onSaleColorChange() {
+  const productId = document.getElementById('sale-product').value;
+  const color = document.getElementById('sale-color').value;
+  const p = products.find(x => x.id === productId);
+  const sizeSelect = document.getElementById('sale-size');
+  const stockDisplay = document.getElementById('sale-stock-display');
+  if (stockDisplay) stockDisplay.value = '—';
+
+  if (!p || !color) {
+    sizeSelect.innerHTML = '<option value="">Primero selecciona un color</option>';
+    return;
+  }
+  sizeSelect.innerHTML = '<option value="">Seleccionar talla...</option>' +
+    p.sizes.map(s => {
+      const stock = getStock(p, color, s);
+      return `<option value="${s}" ${stock === 0 ? 'disabled' : ''}>${s} — ${stock} disponibles</option>`;
+    }).join('');
+}
+
+function onSaleSizeChange() {
+  const productId = document.getElementById('sale-product').value;
+  const color = document.getElementById('sale-color').value;
+  const size = document.getElementById('sale-size').value;
+  const p = products.find(x => x.id === productId);
+  if (!p || !color || !size) return;
+  const stock = getStock(p, color, size);
+  const stockDisplay = document.getElementById('sale-stock-display');
+  const qtyInput = document.getElementById('sale-qty');
+  if (stockDisplay) stockDisplay.value = `${stock} unidades disponibles`;
+  if (qtyInput) qtyInput.max = stock;
+  updateSaleTotals();
+}
+
+function updateSaleTotals() {
+  const price = parseFloat(document.getElementById('sale-price')?.value) || 0;
+  const qty = parseInt(document.getElementById('sale-qty')?.value) || 1;
+  const rate = parseFloat(document.getElementById('sale-rate')?.value) || exchangeRate;
+  const priceBS = price * rate;
+  const totalUSD = price * qty;
+  const totalBS = priceBS * qty;
+
+  const priceBsInput = document.getElementById('sale-price-bs');
+  const totalUsdInput = document.getElementById('sale-total-usd');
+  const totalBsInput = document.getElementById('sale-total-bs');
+
+  if (priceBsInput) priceBsInput.value = `Bs ${priceBS.toFixed(2)}`;
+  if (totalUsdInput) totalUsdInput.value = `$${totalUSD.toFixed(2)}`;
+  if (totalBsInput) totalBsInput.value = `Bs ${totalBS.toFixed(2)}`;
+}
+
+function saveSale() {
+  const date = document.getElementById('sale-date').value;
+  const productId = document.getElementById('sale-product').value;
+  const color = document.getElementById('sale-color').value;
+  const size = document.getElementById('sale-size').value;
+  const client = document.getElementById('sale-client').value.trim();
+  const qty = parseInt(document.getElementById('sale-qty').value);
+  const priceUSD = parseFloat(document.getElementById('sale-price').value);
+  const rate = parseFloat(document.getElementById('sale-rate').value) || exchangeRate;
+
+  if (!date || !productId || !color || !size || isNaN(qty) || qty <= 0 || isNaN(priceUSD)) {
+    showToast('Completa todos los campos requeridos', 'warning');
+    return;
+  }
+
+  const p = products.find(x => x.id === productId);
+  if (!p) return;
+
+  const availableStock = getStock(p, color, size);
+  if (qty > availableStock) {
+    showToast(`Stock insuficiente — solo hay ${availableStock} unidades`, 'warning');
+    return;
+  }
+
+  const priceBS = priceUSD * rate;
+  const sale = {
+    id: 'sale' + Date.now(),
+    date,
+    productId,
+    productName: p.name,
+    color,
+    size,
+    client,
+    qty,
+    priceUSD,
+    priceBS,
+    totalUSD: priceUSD * qty,
+    totalBS: priceBS * qty,
+    createdAt: new Date().toISOString()
+  };
+
+  sales.push(sale);
+  saveSales();
+
+  // Decrement stock
+  if (!p.stock[color]) p.stock[color] = {};
+  p.stock[color][size] -= qty;
+  saveProducts();
+  if (typeof renderProducts === 'function') renderProducts();
+
+  // Save exchange rate
+  exchangeRate = rate;
+  localStorage.setItem('aurafit_rate', rate);
+
+  if (p.stock[color][size] === 0) {
+    showToast(`⚠️ ${p.name} (${color} / ${size}) quedó sin stock`, 'warning');
+    setTimeout(() => {
+      renderSales();
+    }, 1800);
+  } else {
+    renderSales();
+  }
+
+  showToast(`✅ Venta registrada — $${(priceUSD * qty).toFixed(2)} USD`);
+}
+
+function exportSalesCSV() {
+  if (sales.length === 0) {
+    showToast('No hay ventas para exportar', 'warning');
+    return;
+  }
+  const headers = ['Fecha', 'Producto', 'Color', 'Talla', 'Cliente', 'Cantidad', 'Precio USD', 'Total USD', 'Tasa Bs', 'Total Bs'];
+  const rows = sales.map(r => [
+    r.date,
+    r.productName,
+    r.color,
+    r.size,
+    r.client || '',
+    r.qty,
+    r.priceUSD,
+    r.totalUSD.toFixed(2),
+    r.priceBS.toFixed(2),
+    r.totalBS.toFixed(2)
+  ]);
+  downloadCSV(rows, headers, 'ventas_aurafit.csv');
 }
 
 /* ==========================================================================
