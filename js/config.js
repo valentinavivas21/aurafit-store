@@ -20,3 +20,32 @@ function goTo(screenId) {
   }
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
+function downloadCSV(rows, headers, filename) {
+  const processRow = (row) =>
+    row
+      .map((val) => {
+        let text = val === null || val === undefined ? '' : String(val);
+        text = text.replace(/"/g, '""');
+        if (text.search(/("|,|\n)/g) >= 0) {
+          text = `"${text}"`;
+        }
+        return text;
+      })
+      .join(',');
+
+  const csvContent = [headers ? processRow(headers) : null, ...rows.map(processRow)]
+    .filter(Boolean)
+    .join('\n');
+
+  const blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' });
+  const link = document.createElement('a');
+  const url = URL.createObjectURL(blob);
+  link.setAttribute('href', url);
+  link.setAttribute('download', filename);
+  link.style.visibility = 'hidden';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+

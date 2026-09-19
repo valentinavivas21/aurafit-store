@@ -4,6 +4,11 @@ let logoClickTimer = null;
 let editingProductId = null;
 let formColors = [];
 
+let incomes = JSON.parse(localStorage.getItem('aurafit_incomes')) || [];
+function saveIncomes() {
+  localStorage.setItem('aurafit_incomes', JSON.stringify(incomes));
+}
+
 function openAdminLogin() {
   const modal = document.getElementById('modal-login');
   if (!modal) return;
@@ -68,7 +73,7 @@ function loadPanel(name) {
       renderProducts_admin();
       break;
     case 'incomes':
-      if (typeof renderIncomes === 'function') renderIncomes();
+      renderIncomes();
       break;
     case 'sales':
       if (typeof renderSales === 'function') renderSales();
@@ -311,6 +316,206 @@ function saveProduct() {
   if (typeof renderProducts === 'function') renderProducts(); // refresh store catalog
   showToast(editingProductId ? '✅ Producto actualizado' : '✅ Producto creado');
   editingProductId = null;
+}
+
+/* ==========================================================================
+   INVENTORY INCOME MANAGEMENT (ADMIN)
+   ========================================================================== */
+
+function renderIncomes() {
+  const content = document.getElementById('admin-content');
+  if (!content) return;
+  const activeProducts = products.filter(p => p.active);
+
+  content.innerHTML = `
+    <h2 style="font-family:var(--font-serif);font-size:28px;font-weight:400;margin-bottom:24px">Ingresos de Inventario</h2>
+
+    <div style="background:var(--bg-card);border:1px solid var(--border);padding:24px;margin-bottom:32px;border-radius:var(--radius-lg)">
+      <h3 style="font-size:14px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:20px">Registrar Ingreso</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div class="form-group">
+          <label class="label">Fecha</label>
+          <input type="date" id="inc-date" class="input" value="${new Date().toISOString().split('T')[0]}">
+        </div>
+        <div class="form-group">
+          <label class="label">Producto</label>
+          <select id="inc-product" class="input select" onchange="onIncomeProductChange()">
+            <option value="">Seleccionar producto...</option>
+            ${activeProducts.map(p => `<option value="${p.id}">${p.name}</option>`).join('')}
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="label">Color</label>
+          <select id="inc-color" class="input select" onchange="onIncomeColorChange()">
+            <option value="">Primero selecciona un producto</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="label">Talla</label>
+          <select id="inc-size" class="input select">
+            <option value="">Primero selecciona un color</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="label">Proveedor</label>
+          <input type="text" id="inc-provider" class="input" placeholder="Nombre del proveedor">
+        </div>
+        <div class="form-group">
+          <label class="label">N° Factura</label>
+          <input type="text" id="inc-invoice" class="input" placeholder="FAC-001">
+        </div>
+        <div class="form-group">
+          <label class="label">Costo Unitario (USD)</label>
+          <input type="number" id="inc-cost-unit" class="input" min="0" step="0.01" placeholder="0.00"
+            oninput="updateIncomeTotals()">
+        </div>
+        <div class="form-group">
+          <label class="label">Unidades Ingresadas</label>
+          <input type="number" id="inc-units" class="input" min="1" placeholder="0"
+            oninput="updateIncomeTotals()">
+        </div>
+        <div class="form-group" style="grid-column:1/-1">
+          <label class="label">Costo Total (calculado)</label>
+          <input type="text" id="inc-total" class="input" readonly 
+            style="background:var(--surface);color:var(--text-muted)" value="$0.00 USD">
+        </div>
+      </div>
+      <button class="btn-primary" onclick="saveIncome()">Registrar Ingreso</button>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <h3 style="font-size:16px;font-weight:500">Historial de Ingresos (${incomes.length})</h3>
+      <button class="btn-outline" onclick="exportIncomesCSV()" style="font-size:12px;padding:8px 16px">⬇ Exportar CSV</button>
+    </div>
+    <div style="overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse;font-size:14px">
+        <thead>
+          <tr style="border-bottom:2px solid var(--border)">
+            ${['Fecha', 'Producto', 'Color', 'Talla', 'Proveedor', 'Factura', 'Costo Unit.', 'Unidades', 'Costo Total'].map(h =>
+              `<th style="text-align:left;padding:10px 12px;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted)">${h}</th>`
+            ).join('')}
+          </tr>
+        </thead>
+        <tbody>
+          ${incomes.length === 0
+            ? `<tr><td colspan="9" style="text-align:center;padding:40px;color:var(--text-muted)">Sin registros aún</td></tr>`
+            : [...incomes].reverse().map(r => `
+              <tr style="border-bottom:1px solid var(--border)">
+                <td style="padding:10px 12px">${r.date}</td>
+                <td style="padding:10px 12px;font-weight:500">${r.productName}</td>
+                <td style="padding:10px 12px">${r.color}</td>
+                <td style="padding:10px 12px">${r.size}</td>
+                <td style="padding:10px 12px;color:var(--text-muted)">${r.provider || '—'}</td>
+                <td style="padding:10px 12px;color:var(--text-muted)">${r.invoice || '—'}</td>
+                <td style="padding:10px 12px">$${r.costUnit}</td>
+                <td style="padding:10px 12px;font-weight:500">${r.units}</td>
+                <td style="padding:10px 12px;color:var(--champagne);font-weight:500">$${r.totalCost.toFixed(2)}</td>
+              </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>`;
+}
+
+function onIncomeProductChange() {
+  const productId = document.getElementById('inc-product').value;
+  const colorSelect = document.getElementById('inc-color');
+  const sizeSelect = document.getElementById('inc-size');
+  const p = products.find(x => x.id === productId);
+  if (!p) {
+    colorSelect.innerHTML = '<option value="">Primero selecciona un producto</option>';
+    sizeSelect.innerHTML = '<option value="">Primero selecciona un color</option>';
+    return;
+  }
+  colorSelect.innerHTML = '<option value="">Seleccionar color...</option>' +
+    p.colors.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
+  sizeSelect.innerHTML = '<option value="">Primero selecciona un color</option>';
+}
+
+function onIncomeColorChange() {
+  const productId = document.getElementById('inc-product').value;
+  const color = document.getElementById('inc-color').value;
+  const sizeSelect = document.getElementById('inc-size');
+  const p = products.find(x => x.id === productId);
+  if (!p || !color) {
+    sizeSelect.innerHTML = '<option value="">Primero selecciona un color</option>';
+    return;
+  }
+  sizeSelect.innerHTML = '<option value="">Seleccionar talla...</option>' +
+    p.sizes.map(s => `<option value="${s}">${s} (stock actual: ${getStock(p, color, s)})</option>`).join('');
+}
+
+function updateIncomeTotals() {
+  const cost = parseFloat(document.getElementById('inc-cost-unit')?.value) || 0;
+  const units = parseInt(document.getElementById('inc-units')?.value) || 0;
+  const total = document.getElementById('inc-total');
+  if (total) total.value = `$${(cost * units).toFixed(2)} USD`;
+}
+
+function saveIncome() {
+  const date = document.getElementById('inc-date').value;
+  const productId = document.getElementById('inc-product').value;
+  const color = document.getElementById('inc-color').value;
+  const size = document.getElementById('inc-size').value;
+  const provider = document.getElementById('inc-provider').value.trim();
+  const invoice = document.getElementById('inc-invoice').value.trim();
+  const costUnit = parseFloat(document.getElementById('inc-cost-unit').value);
+  const units = parseInt(document.getElementById('inc-units').value);
+
+  if (!date || !productId || !color || !size || isNaN(costUnit) || isNaN(units) || units <= 0) {
+    showToast('Completa todos los campos requeridos', 'warning');
+    return;
+  }
+
+  const p = products.find(x => x.id === productId);
+  if (!p) return;
+
+  const income = {
+    id: 'inc' + Date.now(),
+    date,
+    productId,
+    productName: p.name,
+    color,
+    size,
+    provider,
+    invoice,
+    costUnit,
+    units,
+    totalCost: costUnit * units,
+    createdAt: new Date().toISOString()
+  };
+
+  incomes.push(income);
+  saveIncomes();
+
+  // Update stock
+  if (!p.stock[color]) p.stock[color] = {};
+  if (!p.stock[color][size]) p.stock[color][size] = 0;
+  p.stock[color][size] += units;
+  saveProducts();
+  if (typeof renderProducts === 'function') renderProducts();
+
+  renderIncomes();
+  showToast(`✅ Ingreso registrado — +${units} unidades de ${p.name}`);
+}
+
+function exportIncomesCSV() {
+  if (incomes.length === 0) {
+    showToast('No hay ingresos para exportar', 'warning');
+    return;
+  }
+  const headers = ['Fecha', 'Producto', 'Color', 'Talla', 'Proveedor', 'Factura', 'Costo Unitario', 'Unidades', 'Costo Total'];
+  const rows = incomes.map(r => [
+    r.date,
+    r.productName,
+    r.color,
+    r.size,
+    r.provider || '',
+    r.invoice || '',
+    r.costUnit,
+    r.units,
+    r.totalCost.toFixed(2)
+  ]);
+  downloadCSV(rows, headers, 'ingresos_aurafit.csv');
 }
 
 /* ==========================================================================
