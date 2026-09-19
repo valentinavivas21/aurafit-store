@@ -797,6 +797,108 @@ function exportSalesCSV() {
 }
 
 /* ==========================================================================
+   OUT OF STOCK MANAGEMENT (ADMIN)
+   ========================================================================== */
+
+function renderOutOfStock() {
+  const content = document.getElementById('admin-content');
+  if (!content) return;
+  const outOfStock = getOutOfStock();
+
+  // Also find products with low stock (any SKU with 1-2 units)
+  const lowStock = [];
+  products.filter(p => p.active).forEach(p => {
+    p.colors.forEach(c => {
+      p.sizes.forEach(s => {
+        const qty = getStock(p, c.name, s);
+        if (qty > 0 && qty <= 2) {
+          lowStock.push({ product: p, color: c.name, colorHex: c.hex, size: s, qty });
+        }
+      });
+    });
+  });
+
+  content.innerHTML = `
+    <h2 style="font-family:var(--font-serif);font-size:28px;font-weight:400;margin-bottom:24px">Sin Stock</h2>
+
+    ${outOfStock.length === 0 && lowStock.length === 0 ? `
+      <div style="text-align:center;padding:80px 20px;background:var(--bg-card);border:1px solid var(--border)">
+        <div style="font-size:64px;margin-bottom:16px">✅</div>
+        <h3 style="font-family:var(--font-serif);font-size:24px;font-weight:400;margin-bottom:8px">¡Todo en orden!</h3>
+        <p style="color:var(--text-muted)">Todo tu inventario tiene stock disponible.</p>
+      </div>
+    ` : ''}
+
+    ${outOfStock.length > 0 ? `
+      <div style="margin-bottom:32px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+          <span style="font-size:20px">🚨</span>
+          <h3 style="font-size:16px;font-weight:600;color:var(--danger)">Sin Stock Total (${outOfStock.length})</h3>
+        </div>
+        <div style="display:grid;gap:12px">
+          ${outOfStock.map(p => `
+            <div style="background:var(--bg-card);border:1px solid rgba(122,30,46,0.3);padding:20px;display:flex;align-items:center;justify-content:space-between;gap:16px">
+              <div>
+                <p style="font-weight:600;margin-bottom:4px">${p.name}</p>
+                <p style="font-size:13px;color:var(--text-muted)">${p.category} • ${p.colors.map(c => c.name).join(', ')}</p>
+                <div style="display:flex;gap:6px;margin-top:8px">
+                  ${p.colors.map(c => `<span style="display:inline-block;width:14px;height:14px;border-radius:50%;background:${c.hex};border:1px solid var(--border)"></span>`).join('')}
+                </div>
+              </div>
+              <div style="display:flex;gap:10px;flex-shrink:0">
+                <button class="btn-primary" style="font-size:12px;padding:10px 16px" 
+                  onclick="loadPanel('incomes')">📥 Registrar Ingreso</button>
+                <button class="btn-outline" style="font-size:12px;padding:10px 16px"
+                  onclick="openProductForm('${p.id}')">✏️ Editar</button>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    ` : ''}
+
+    ${lowStock.length > 0 ? `
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+          <span style="font-size:20px">⚠️</span>
+          <h3 style="font-size:16px;font-weight:600;color:#E65100">Stock Bajo — 1 a 2 unidades (${lowStock.length} SKUs)</h3>
+        </div>
+        <div style="overflow-x:auto;background:var(--bg-card);border:1px solid var(--border)">
+          <table style="width:100%;border-collapse:collapse;font-size:14px">
+            <thead>
+              <tr style="border-bottom:2px solid var(--border)">
+                ${['Producto', 'Color', 'Talla', 'Stock', 'Acción'].map(h =>
+                  `<th style="text-align:left;padding:12px 16px;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted)">${h}</th>`
+                ).join('')}
+              </tr>
+            </thead>
+            <tbody>
+              ${lowStock.map(item => `
+                <tr style="border-bottom:1px solid var(--border)">
+                  <td style="padding:12px 16px;font-weight:500">${item.product.name}</td>
+                  <td style="padding:12px 16px">
+                    <span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:${item.colorHex};margin-right:6px;vertical-align:middle"></span>
+                    ${item.color}
+                  </td>
+                  <td style="padding:12px 16px">${item.size}</td>
+                  <td style="padding:12px 16px">
+                    <span style="background:#FFF3E0;color:#E65100;padding:4px 10px;border-radius:99px;font-size:12px;font-weight:600">${item.qty} ud${item.qty > 1 ? 's' : ''}.</span>
+                  </td>
+                  <td style="padding:12px 16px">
+                    <button class="btn-ghost" style="font-size:12px;color:var(--champagne)" 
+                      onclick="loadPanel('incomes')">📥 Reponer</button>
+                  </td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    ` : ''}`;
+}
+
+
+/* ==========================================================================
    INITIALIZATION & EVENT LISTENERS
    ========================================================================== */
 
