@@ -249,45 +249,44 @@
   </div>
 
   <!-- MODAL: PRODUCT (ADD / EDIT) -->
-  <div id="modal-product" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-product-title" hidden>
+  <div id="modal-product" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-product-title" style="display: none;">
     <div class="modal-card modal-card-lg">
       <div class="modal-card-header">
         <h3 id="modal-product-title" class="modal-heading">Nuevo Producto</h3>
-        <button type="button" class="modal-close-btn" aria-label="Cerrar modal" onclick="document.getElementById('modal-product').hidden = true;">&times;</button>
+        <button type="button" class="modal-close-btn" aria-label="Cerrar modal" onclick="document.getElementById('modal-product').style.display = 'none';">&times;</button>
       </div>
 
-      <form id="product-form">
+      <form id="product-form" onsubmit="event.preventDefault(); saveProduct();">
         <div class="form-group">
-          <label for="product-name" class="label">Nombre del Producto</label>
-          <input type="text" id="product-name" name="name" class="input" placeholder="Ej. Legging Sculpt Seamless" required>
+          <label for="prod-name" class="label">Nombre del Producto</label>
+          <input type="text" id="prod-name" name="name" class="input" placeholder="Ej. Legging Sculpt Seamless" required>
         </div>
 
         <div class="form-row">
           <div class="form-group col-half">
-            <label for="product-category" class="label">Categoría</label>
-            <select id="product-category" name="category" class="select" required>
-              <option value="">Seleccionar...</option>
-              <option value="tops">Tops</option>
-              <option value="leggings">Leggings</option>
-              <option value="sets">Sets</option>
-              <option value="accesorios">Accesorios</option>
+            <label for="prod-category" class="label">Categoría</label>
+            <select id="prod-category" name="category" class="select" required>
+              <option value="Tops">Tops</option>
+              <option value="Leggings">Leggings</option>
+              <option value="Sets">Sets</option>
+              <option value="Accesorios">Accesorios</option>
             </select>
           </div>
 
           <div class="form-group col-quarter">
-            <label for="product-price" class="label">Precio USD ($)</label>
-            <input type="number" id="product-price" name="price" class="input" step="0.01" min="0" placeholder="0.00" required>
+            <label for="prod-price" class="label">Precio USD ($)</label>
+            <input type="number" id="prod-price" name="price" class="input" step="0.01" min="0" placeholder="0.00" required>
           </div>
 
           <div class="form-group col-quarter">
-            <label for="product-cost" class="label">Costo USD ($)</label>
-            <input type="number" id="product-cost" name="cost" class="input" step="0.01" min="0" placeholder="0.00">
+            <label for="prod-cost" class="label">Costo USD ($)</label>
+            <input type="number" id="prod-cost" name="cost" class="input" step="0.01" min="0" placeholder="0.00">
           </div>
         </div>
 
         <div class="form-group">
-          <label for="product-description" class="label">Descripción</label>
-          <textarea id="product-description" name="description" class="input textarea" rows="3" placeholder="Describe los materiales, ajuste y características..."></textarea>
+          <label for="prod-description" class="label">Descripción</label>
+          <textarea id="prod-description" name="description" class="input textarea" rows="3" placeholder="Describe los materiales, ajuste y características..."></textarea>
         </div>
 
         <!-- Colors Section -->
@@ -305,16 +304,16 @@
         <div class="form-section">
           <label class="label">Tallas Disponibles</label>
           <div class="sizes-checkbox-grid">
-            <label class="checkbox-label"><input type="checkbox" name="sizes" value="XS"> <span>XS</span></label>
-            <label class="checkbox-label"><input type="checkbox" name="sizes" value="S"> <span>S</span></label>
-            <label class="checkbox-label"><input type="checkbox" name="sizes" value="M"> <span>M</span></label>
-            <label class="checkbox-label"><input type="checkbox" name="sizes" value="L"> <span>L</span></label>
-            <label class="checkbox-label"><input type="checkbox" name="sizes" value="XL"> <span>XL</span></label>
-            <label class="checkbox-label"><input type="checkbox" name="sizes" value="XXL"> <span>XXL</span></label>
-            <label class="checkbox-label"><input type="checkbox" name="sizes" value="ÚNICO"> <span>ÚNICO</span></label>
-            <label class="checkbox-label"><input type="checkbox" name="sizes" value="T1"> <span>T1</span></label>
-            <label class="checkbox-label"><input type="checkbox" name="sizes" value="T2"> <span>T2</span></label>
-            <label class="checkbox-label"><input type="checkbox" name="sizes" value="T3"> <span>T3</span></label>
+            <label class="checkbox-label"><input type="checkbox" id="size-XS" name="sizes" value="XS"> <span>XS</span></label>
+            <label class="checkbox-label"><input type="checkbox" id="size-S" name="sizes" value="S"> <span>S</span></label>
+            <label class="checkbox-label"><input type="checkbox" id="size-M" name="sizes" value="M"> <span>M</span></label>
+            <label class="checkbox-label"><input type="checkbox" id="size-L" name="sizes" value="L"> <span>L</span></label>
+            <label class="checkbox-label"><input type="checkbox" id="size-XL" name="sizes" value="XL"> <span>XL</span></label>
+            <label class="checkbox-label"><input type="checkbox" id="size-XXL" name="sizes" value="XXL"> <span>XXL</span></label>
+            <label class="checkbox-label"><input type="checkbox" id="size-ÚNICO" name="sizes" value="ÚNICO"> <span>ÚNICO</span></label>
+            <label class="checkbox-label"><input type="checkbox" id="size-T1" name="sizes" value="T1"> <span>T1</span></label>
+            <label class="checkbox-label"><input type="checkbox" id="size-T2" name="sizes" value="T2"> <span>T2</span></label>
+            <label class="checkbox-label"><input type="checkbox" id="size-T3" name="sizes" value="T3"> <span>T3</span></label>
           </div>
         </div>
 
@@ -328,7 +327,7 @@
 
         <!-- Actions -->
         <div class="modal-actions">
-          <button type="button" id="btn-cancel-product" class="btn-ghost" onclick="document.getElementById('modal-product').hidden = true;">Cancelar</button>
+          <button type="button" id="btn-cancel-product" class="btn-ghost" onclick="document.getElementById('modal-product').style.display = 'none';">Cancelar</button>
           <button type="submit" id="btn-save-product" class="btn-primary">Guardar</button>
         </div>
       </form>
