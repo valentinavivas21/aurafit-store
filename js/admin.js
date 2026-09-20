@@ -23,7 +23,10 @@ function openAdminLogin() {
   if (modal) {
     modal.style.display = 'flex';
     const input = document.getElementById('admin-pin-display');
-    if (input) input.value = '';
+    if (input) {
+      input.value = '';
+      setTimeout(() => input.focus(), 100);
+    }
     const err = document.getElementById('admin-pin-error');
     if (err) err.style.display = 'none';
     document.body.style.overflow = 'hidden';
@@ -55,35 +58,6 @@ function togglePinVisibility() {
   }
 }
 
-function pinKey(digit) {
-  const input = document.getElementById('admin-pin-display');
-  if (input && input.value.length < 20) {
-    input.value += digit;
-    showPinFeedback('+ ' + digit);
-  }
-}
-
-function pinClear() {
-  const input = document.getElementById('admin-pin-display');
-  if (input) input.value = '';
-  showPinFeedback('Vaciado');
-}
-
-function pinBackspace() {
-  const input = document.getElementById('admin-pin-display');
-  if (input) input.value = input.value.slice(0, -1);
-  showPinFeedback('⌫');
-}
-
-function showPinFeedback(text) {
-  const fb = document.getElementById('pin-feedback');
-  if (!fb) return;
-  fb.textContent = text;
-  fb.style.opacity = '1';
-  clearTimeout(window._pinFbTimer);
-  window._pinFbTimer = setTimeout(() => { fb.style.opacity = '0'; }, 800);
-}
-
 function submitAdminPin() {
   const input = document.getElementById('admin-pin-display');
   const err = document.getElementById('admin-pin-error');
@@ -109,6 +83,7 @@ function submitAdminPin() {
       input.value = '';
       input.style.outline = '2px solid #BA1A1A';
       setTimeout(() => { input.style.outline = ''; }, 1200);
+      input.focus();
     }
   }
 }
@@ -116,13 +91,11 @@ function submitAdminPin() {
 const closeAdminLogin = closeAdminModal;
 const doLogin = submitAdminPin;
 
-// Permite presionar Enter / teclado para confirmar
+// Permite presionar Enter / Escape para interactuar con el modal
 document.addEventListener('keydown', function(e) {
   if (document.getElementById('admin-login-modal')?.style.display !== 'none' && document.getElementById('admin-login-modal')?.style.display !== '') {
     if (e.key === 'Enter') submitAdminPin();
     if (e.key === 'Escape') closeAdminModal();
-    if (e.key === 'Backspace') pinBackspace();
-    if (/^[0-9a-zA-Z]$/.test(e.key) && e.key.length === 1) pinKey(e.key);
   }
 });
 

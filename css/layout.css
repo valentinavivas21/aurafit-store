@@ -1734,59 +1734,6 @@
   margin: 0;
 }
 
-/* Keypad */
-.admin-keypad { width: 100%; }
-.admin-keypad-label-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
-  padding: 0 2px;
-}
-.admin-keypad-label {
-  font-size: 0.6875rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #807665;
-}
-.admin-keypad-feedback {
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: #9C404E;
-  min-height: 1em;
-  transition: opacity 0.3s;
-}
-.admin-keypad-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 6px;
-}
-.keypad-btn {
-  height: 48px;
-  border-radius: 10px;
-  border: none;
-  background: #FFEADA;
-  color: #27180A;
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.15s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.keypad-btn:hover { background: #FFD9A8; }
-.keypad-btn:active { transform: scale(0.93); background: #C9A96E; color: white; }
-.keypad-btn-action {
-  background: #FFF1E8;
-  color: #807665;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-.keypad-btn-action:hover { background: #FFE3CD; color: #27180A; }
 
 /* Unlock button */
 .admin-unlock-btn {
