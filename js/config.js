@@ -31,6 +31,7 @@ function goTo(screenId) {
         document.getElementById('nav-store')?.classList.add('active');
       } else if (screenId === 'screen-cart') {
         document.getElementById('nav-cart')?.classList.add('active');
+        if (typeof renderCart === 'function') renderCart();
       }
     }
   }

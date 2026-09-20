@@ -143,50 +143,136 @@
        SCREEN 2: CART
        ========================================================================= -->
   <section id="screen-cart" class="screen">
-    <div class="cart-page-container">
-      <div class="cart-header-row">
-        <button id="btn-back-store" class="btn-ghost back-btn" onclick="goTo('screen-store')">
-          &larr; Volver
+    <div class="cart-wrapper">
+
+      <!-- Header badge -->
+      <div class="cart-header-badge">
+        <div class="cart-header-left">
+          <span class="cart-live-dot"></span>
+          <span class="cart-live-label">Atelier Privé</span>
+        </div>
+        <div class="cart-items-pill" id="cart-items-pill">
+          🛍 <span id="cart-item-count">0</span> Piezas seleccionadas
+        </div>
+      </div>
+
+      <!-- Title -->
+      <div class="cart-title-block">
+        <h1 class="cart-title">Su Bolsa de Selección</h1>
+        <p class="cart-subtitle">Piezas reservadas bajo confirmación WhatsApp.</p>
+      </div>
+
+      <!-- Cart Items List -->
+      <div class="cart-items-list" id="cart-items-list">
+        <!-- Se llena dinámicamente con JS -->
+        <div class="cart-empty" id="cart-empty">
+          <span class="cart-empty-icon">🛍</span>
+          <p>Tu bolsa está vacía</p>
+          <button onclick="showScreen('store')" class="btn-go-store">Ver colección</button>
+        </div>
+      </div>
+
+      <!-- Order ID -->
+      <div class="cart-order-id" id="cart-order-id-section" style="display:none">
+        <div class="order-id-left">
+          <div class="order-id-icon">🧾</div>
+          <div>
+            <p class="order-id-label">Reserva Oficial</p>
+            <p class="order-id-value" id="order-id-display">ORD-...</p>
+          </div>
+        </div>
+        <button class="btn-copy-order" onclick="copyOrderId()">Copiar</button>
+      </div>
+
+      <!-- Financial Summary -->
+      <div class="cart-summary" id="cart-summary" style="display:none">
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span id="cart-subtotal">$0 USD</span>
+        </div>
+        <div class="summary-row">
+          <span>Envío</span>
+          <span class="summary-free">Cortesía Atelier ✨</span>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="summary-row summary-total">
+          <span>Total Estimado</span>
+          <div>
+            <span class="summary-total-amount" id="cart-total">$0</span>
+            <span class="summary-total-currency">USD</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Customer Form -->
+      <div class="cart-form" id="cart-form" style="display:none">
+        <div class="cart-form-header">
+          📍 <h3>Datos para el Envío</h3>
+        </div>
+        <div class="form-group">
+          <label for="cust-name">Nombre Completo</label>
+          <input type="text" id="cust-name" placeholder="Ej. María González" oninput="updateWhatsAppPreview()">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="cust-city">Ciudad</label>
+            <input type="text" id="cust-city" placeholder="Ej. Caracas" oninput="updateWhatsAppPreview()">
+          </div>
+          <div class="form-group">
+            <label for="cust-phone">WhatsApp</label>
+            <input type="tel" id="cust-phone" placeholder="+58 ...">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="cust-address">Dirección</label>
+          <input type="text" id="cust-address" placeholder="Calle, número, sector" oninput="updateWhatsAppPreview()">
+        </div>
+        <div class="form-group">
+          <label for="cust-notes">Notas Especiales</label>
+          <textarea id="cust-notes" rows="2" placeholder="Empaque especial, timbre, etc." oninput="updateWhatsAppPreview()"></textarea>
+        </div>
+      </div>
+
+      <!-- WhatsApp Preview -->
+      <div class="wa-preview" id="wa-preview" style="display:none">
+        <div class="wa-preview-header">
+          <span>💬 Mensaje pre-generado para WhatsApp</span>
+          <span class="wa-preview-badge">Listo</span>
+        </div>
+        <div class="wa-preview-box">
+          <p id="whatsapp-preview-text" class="wa-preview-text"></p>
+        </div>
+      </div>
+
+      <!-- CTA Button -->
+      <div class="cart-cta" id="cart-cta" style="display:none">
+        <button class="btn-whatsapp-checkout" onclick="sendOrderToWhatsApp()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.139.565 4.147 1.547 5.887L0 24l6.267-1.521C7.935 23.47 9.918 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.92 0-3.726-.5-5.29-1.375l-.368-.213-3.72.902.944-3.619-.235-.381C2.533 15.756 2 13.938 2 12 2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+          </svg>
+          Finalizar y Confirmar por WhatsApp
         </button>
-        <h2 class="cart-title">Tu Orden</h2>
+        <p class="cart-cta-note">✅ Atención personalizada directa con Atelier AURA FIT</p>
       </div>
 
-      <div class="cart-layout-grid">
-        <div class="cart-items-wrapper">
-          <div id="cart-items" class="cart-items-list">
-            <!-- Dynamically populated by cart.js -->
+      <!-- Perks -->
+      <div class="cart-perks" id="cart-perks" style="display:none">
+        <div class="perk-card">
+          <span class="perk-icon">🔄</span>
+          <div>
+            <p class="perk-title">Cambio de Talla</p>
+            <p class="perk-desc">30 días sin costo</p>
           </div>
         </div>
-
-        <div class="cart-summary-wrapper">
-          <div id="cart-summary" class="cart-summary-card">
-            <!-- Dynamically populated or base structure with subtotal/total -->
-            <h3 class="summary-title">Resumen de Compra</h3>
-            <div class="summary-row">
-              <span class="summary-label">Subtotal</span>
-              <span id="cart-subtotal" class="summary-value">$0.00</span>
-            </div>
-            <div class="summary-row">
-              <span class="summary-label">Envío</span>
-              <span class="summary-value">Calculado al confirmar</span>
-            </div>
-            <hr class="summary-divider">
-            <div class="summary-row total-row">
-              <span class="summary-label">Total</span>
-              <span id="cart-total" class="summary-value total-value">$0.00</span>
-            </div>
-
-            <div class="cart-actions">
-              <button id="btn-whatsapp" class="btn-primary btn-checkout" onclick="confirmWhatsApp()">
-                Confirmar por WhatsApp 💬
-              </button>
-              <button id="btn-continue-shopping" class="btn-ghost btn-continue" onclick="goTo('screen-store')">
-                Seguir Comprando
-              </button>
-            </div>
+        <div class="perk-card">
+          <span class="perk-icon">🛡</span>
+          <div>
+            <p class="perk-title">Garantía SilkFlex™</p>
+            <p class="perk-desc">Costuras alta resistencia</p>
           </div>
         </div>
       </div>
+
     </div>
   </section>
 
