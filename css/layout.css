@@ -525,19 +525,27 @@
 }
 
 #screen-admin .admin-sidebar {
-  background: #FFFFFF !important;
-  border-right: 2px solid var(--champagne) !important;
+  background: #C9A96E !important;
+  border-right: 2px solid #B8944E !important;
 }
 
 #screen-admin .admin-nav-item {
-  color: var(--ink) !important;
+  color: #6B1A2A !important;
 }
 
 #screen-admin .admin-nav-item:hover,
 #screen-admin .admin-nav-item.active {
-  background: rgba(201,169,110,0.15) !important;
-  color: var(--champagne) !important;
-  border-left: 3px solid var(--champagne) !important;
+  background: rgba(107, 26, 42, 0.15) !important;
+  color: #6B1A2A !important;
+  border-left: 3px solid #6B1A2A !important;
+}
+
+#screen-admin .admin-sidebar h1,
+#screen-admin .admin-sidebar p,
+#screen-admin .admin-sidebar .logo-aura,
+#screen-admin .admin-sidebar .logo-fit,
+#screen-admin .admin-sidebar .admin-badge {
+  color: #6B1A2A !important;
 }
 
 #screen-admin #admin-content {
@@ -554,8 +562,8 @@
   top: 0;
   height: 100vh;
   width: 240px;
-  background: #FFFFFF;
-  border-right: 2px solid var(--champagne);
+  background: #C9A96E;
+  border-right: 2px solid #B8944E;
   padding: 24px 0;
   z-index: 50;
   display: flex;
@@ -566,12 +574,12 @@
 
 .admin-sidebar .logo-aura,
 .admin-sidebar .logo-fit {
-  color: var(--ink);
+  color: #6B1A2A;
 }
 
 .admin-sidebar-header {
   padding: 0 24px 16px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid rgba(107, 26, 42, 0.15);
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -581,13 +589,23 @@
   font-size: 10px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: #6B1A2A;
+  opacity: 0.8;
 }
 
 .admin-nav {
   display: flex;
   flex-direction: column;
   flex: 1;
+}
+
+.nav-item-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
 }
 
 .admin-nav-item {
@@ -891,5 +909,38 @@
   background: rgba(201,169,110,0.15) !important;
   color: #8B6914 !important;
 }
+#screen-admin table tbody tr:hover,
+#screen-admin table tbody tr:hover td,
+#screen-admin table tbody tr:hover th {
+  background: #FDF9F0 !important;
+  color: #3B2A1A !important;
+  box-shadow: none !important;
+}
+
+#btn-admin-float {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #C9A96E;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FBF5E6;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: transform 0.2s, box-shadow 0.2s;
+  z-index: 999;
+}
+#btn-admin-float:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+}
+
+
+
 
 
