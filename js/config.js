@@ -18,6 +18,23 @@ function goTo(screenId) {
   if (target) {
     target.classList.add('active');
   }
+
+  // Synchronize bottom navigation bar active state
+  const bottomNav = document.getElementById('bottom-nav');
+  if (bottomNav) {
+    if (screenId === 'screen-admin') {
+      bottomNav.style.display = 'none';
+    } else {
+      bottomNav.style.display = 'flex';
+      document.querySelectorAll('.bottom-nav-item').forEach(b => b.classList.remove('active'));
+      if (screenId === 'screen-store') {
+        document.getElementById('nav-store')?.classList.add('active');
+      } else if (screenId === 'screen-cart') {
+        document.getElementById('nav-cart')?.classList.add('active');
+      }
+    }
+  }
+
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 

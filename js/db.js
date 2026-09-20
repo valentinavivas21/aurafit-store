@@ -5,6 +5,7 @@ const DEMO_PRODUCTS = [
     category: 'Leggings',
     price: 45,
     cost: 18,
+    badge: 'BEST SELLER',
     description: 'Control total con tela de compresión 4-way stretch. Cintura alta que moldea y sostiene.',
     colors: [
       { name: 'Negro Obsidiana', hex: '#1C1410' },
@@ -23,6 +24,7 @@ const DEMO_PRODUCTS = [
     category: 'Tops',
     price: 28,
     cost: 11,
+    badge: 'NUEVO',
     description: 'Top deportivo con espalda abierta y soporte integrado. Perfecto para entrenamientos de alta intensidad.',
     colors: [
       { name: 'Crema Suave', hex: '#F5F0E8' },
@@ -41,6 +43,7 @@ const DEMO_PRODUCTS = [
     category: 'Sets',
     price: 68,
     cost: 27,
+    badge: 'FAVORITO',
     description: 'Conjunto top + legging en tela sin costuras. Comodidad y estilo en un solo look.',
     colors: [
       { name: 'Negro Obsidiana', hex: '#1C1410' },
@@ -59,6 +62,7 @@ const DEMO_PRODUCTS = [
     category: 'Accesorios',
     price: 22,
     cost: 8,
+    badge: 'ESENCIAL',
     description: 'Bolso deportivo en malla transpirable. Ideal para llevar al gym con estilo.',
     colors: [
       { name: 'Negro Obsidiana', hex: '#1C1410' },
@@ -74,6 +78,14 @@ const DEMO_PRODUCTS = [
 ];
 
 let products = JSON.parse(localStorage.getItem('aurafit_products')) || [...DEMO_PRODUCTS];
+// Ensure demo products or stored products have badge if available in demo
+products = products.map(p => {
+  if (!p.badge) {
+    const demoMatch = DEMO_PRODUCTS.find(d => d.id === p.id || d.name === p.name);
+    if (demoMatch && demoMatch.badge) p.badge = demoMatch.badge;
+  }
+  return p;
+});
 let cart = JSON.parse(localStorage.getItem('aurafit_cart')) || [];
 
 function saveProducts() {

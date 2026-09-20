@@ -5,6 +5,11 @@ function updateCartBadge() {
     badge.textContent = total;
     badge.style.display = total > 0 ? 'flex' : 'none';
   }
+  const navBadge = document.getElementById('nav-cart-count');
+  if (navBadge) {
+    navBadge.textContent = total;
+    navBadge.style.display = total > 0 ? 'flex' : 'none';
+  }
 }
 
 function addToCart(product, color, size, qty) {
