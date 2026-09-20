@@ -15,45 +15,116 @@ function saveSales() {
   localStorage.setItem('aurafit_sales', JSON.stringify(sales));
 }
 
-function openAdminLogin() {
-  const modal = document.getElementById('modal-login');
-  if (!modal) return;
-  modal.style.display = 'flex';
-  const input = document.getElementById('admin-password-input');
-  if (input) input.value = '';
-  const error = document.getElementById('login-error');
-  if (error) error.style.display = 'none';
-  setTimeout(() => input?.focus(), 100);
-}
+// ======== ADMIN LOGIN MODAL ========
+const ADMIN_PASSWORD = typeof ADMIN_PASS !== 'undefined' ? ADMIN_PASS : 'aurafit2024';
 
-function closeAdminLogin() {
-  const modal = document.getElementById('modal-login');
+function openAdminLogin() {
+  const modal = document.getElementById('admin-login-modal');
   if (modal) {
-    modal.style.display = 'none';
+    modal.style.display = 'flex';
+    const input = document.getElementById('admin-pin-display');
+    if (input) input.value = '';
+    const err = document.getElementById('admin-pin-error');
+    if (err) err.style.display = 'none';
+    document.body.style.overflow = 'hidden';
   }
 }
 
-function doLogin() {
-  const input = document.getElementById('admin-password-input');
-  const error = document.getElementById('login-error');
-  if (!input) return;
+function closeAdminModal() {
+  const modal = document.getElementById('admin-login-modal');
+  if (modal) modal.style.display = 'none';
+  document.body.style.overflow = '';
+}
 
-  if (input.value === ADMIN_PASS) {
+function closeAdminModalOutside(event) {
+  if (event.target === document.getElementById('admin-login-modal')) {
+    closeAdminModal();
+  }
+}
+
+function togglePinVisibility() {
+  const input = document.getElementById('admin-pin-display');
+  const btn = document.getElementById('toggle-pin-visibility');
+  if (!input) return;
+  if (input.type === 'password') {
+    input.type = 'text';
+    if (btn) btn.textContent = '🙈';
+  } else {
+    input.type = 'password';
+    if (btn) btn.textContent = '👁';
+  }
+}
+
+function pinKey(digit) {
+  const input = document.getElementById('admin-pin-display');
+  if (input && input.value.length < 20) {
+    input.value += digit;
+    showPinFeedback('+ ' + digit);
+  }
+}
+
+function pinClear() {
+  const input = document.getElementById('admin-pin-display');
+  if (input) input.value = '';
+  showPinFeedback('Vaciado');
+}
+
+function pinBackspace() {
+  const input = document.getElementById('admin-pin-display');
+  if (input) input.value = input.value.slice(0, -1);
+  showPinFeedback('⌫');
+}
+
+function showPinFeedback(text) {
+  const fb = document.getElementById('pin-feedback');
+  if (!fb) return;
+  fb.textContent = text;
+  fb.style.opacity = '1';
+  clearTimeout(window._pinFbTimer);
+  window._pinFbTimer = setTimeout(() => { fb.style.opacity = '0'; }, 800);
+}
+
+function submitAdminPin() {
+  const input = document.getElementById('admin-pin-display');
+  const err = document.getElementById('admin-pin-error');
+  const val = input?.value || '';
+
+  if (val === ADMIN_PASSWORD || (typeof ADMIN_PASS !== 'undefined' && val === ADMIN_PASS)) {
     adminLoggedIn = true;
-    closeAdminLogin();
+    closeAdminModal();
+    if (typeof showScreen === 'function') {
+      showScreen('admin');
+    }
     goTo('screen-admin');
     loadPanel('dashboard');
+    showToast('¡Bienvenida al Panel de Control! 🛡️');
   } else {
-    if (error) {
-      error.textContent = 'Contraseña incorrecta';
-      error.style.display = 'block';
+    if (err) {
+      err.style.display = 'block';
+      err.style.animation = 'none';
+      void err.offsetWidth; // reflow para reiniciar animación
+      err.style.animation = '';
     }
-    input.classList.add('shake');
-    setTimeout(() => input.classList.remove('shake'), 500);
-    input.value = '';
-    input.focus();
+    if (input) {
+      input.value = '';
+      input.style.outline = '2px solid #BA1A1A';
+      setTimeout(() => { input.style.outline = ''; }, 1200);
+    }
   }
 }
+
+const closeAdminLogin = closeAdminModal;
+const doLogin = submitAdminPin;
+
+// Permite presionar Enter / teclado para confirmar
+document.addEventListener('keydown', function(e) {
+  if (document.getElementById('admin-login-modal')?.style.display !== 'none' && document.getElementById('admin-login-modal')?.style.display !== '') {
+    if (e.key === 'Enter') submitAdminPin();
+    if (e.key === 'Escape') closeAdminModal();
+    if (e.key === 'Backspace') pinBackspace();
+    if (/^[0-9a-zA-Z]$/.test(e.key) && e.key.length === 1) pinKey(e.key);
+  }
+});
 
 function logoutAdmin() {
   adminLoggedIn = false;
