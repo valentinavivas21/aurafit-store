@@ -169,7 +169,7 @@ function renderDashboard() {
       <div class="admin-orders-feed-header">
         <div>
           <span class="admin-feed-label">CANAL EXCLUSIVO</span>
-          <h3 class="admin-feed-title">Pedidos WhatsApp Concierge</h3>
+          <h3 class="admin-feed-title">Pedidos Recientes por WhatsApp</h3>
         </div>
         <button class="admin-feed-view-all" onclick="loadPanel('sales')">Ver Todos ›</button>
       </div>
@@ -189,7 +189,7 @@ function renderDashboard() {
         </div>
         <div class="order-feed-right">
           <span class="order-feed-time">11:42 AM</span>
-          <button class="order-feed-action-btn" title="Atender por WhatsApp" onclick="if(typeof showToast==='function')showToast('Abriendo conversación WhatsApp Concierge...')">
+          <button class="order-feed-action-btn" title="Atender por WhatsApp" onclick="if(typeof showToast==='function')showToast('Abriendo conversación de WhatsApp...')">
             <span class="material-symbols-outlined" style="font-size:16px;">send</span>
           </button>
         </div>
@@ -210,7 +210,7 @@ function renderDashboard() {
         </div>
         <div class="order-feed-right">
           <span class="order-feed-time">09:15 AM</span>
-          <button class="order-feed-action-btn" title="Atender por WhatsApp" onclick="if(typeof showToast==='function')showToast('Abriendo conversación WhatsApp Concierge...')">
+          <button class="order-feed-action-btn" title="Atender por WhatsApp" onclick="if(typeof showToast==='function')showToast('Abriendo conversación de WhatsApp...')">
             <span class="material-symbols-outlined" style="font-size:16px;">send</span>
           </button>
         </div>
@@ -436,7 +436,7 @@ function renderDashboard() {
         </div>
         <div class="inv-editorial-content">
           <p class="inv-editorial-label">AURA ATELIER STUDIO</p>
-          <h4 class="inv-editorial-title">Colección Silueta '25</h4>
+          <h4 class="inv-editorial-title">Colección Silueta '26</h4>
           <p class="inv-editorial-body">Nuevas reposiciones programadas para el fin de semana.</p>
         </div>
         <span class="material-symbols-outlined inv-editorial-arrow">arrow_forward</span>
