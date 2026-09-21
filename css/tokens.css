@@ -1,11 +1,11 @@
 :root {
   /* Colors */
-  --cream: #F5F0E8;
-  --champagne: #C9A96E;
-  --wine: #7A1E2E;
-  --brown: #5C3825;
-  --ink: #1C1410;
-  --pearl: #E8E4DF;
+  --cream: #fff8f5;
+  --champagne: #ffeada;
+  --wine: #9c404e;
+  --brown: #6f5100;
+  --ink: #27180a;
+  --pearl: #ffffff;
 
   /* Semantic tokens */
   --bg: var(--cream);
