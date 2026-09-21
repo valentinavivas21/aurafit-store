@@ -216,7 +216,290 @@ function renderDashboard() {
         </div>
       </div>
     </div>
+
+    <!-- SECCIÓN INVENTARIO & MATRIZ DE STOCK -->
+    <section class="inv-section" id="inv-section">
+      <!-- 1. STRIP DE ACCESO VERIFICADO -->
+      <div class="inv-access-strip">
+        <div class="inv-access-left">
+          <span class="material-symbols-outlined inv-access-icon">verified_user</span>
+          <span>Acceso seguro verificado: aurafit2024</span>
+        </div>
+        <span class="inv-live-pill">EN VIVO</span>
+      </div>
+
+      <!-- 2. TÍTULO DE SECCIÓN -->
+      <div class="inv-section-header">
+        <h2 class="inv-title">Inventario & Matriz</h2>
+        <p class="inv-subtitle">Control de Existencias por Color y Talla & Gestión de Catálogo</p>
+      </div>
+
+      <!-- 3. MINI KPIs BENTO (3 columnas) -->
+      <div class="inv-kpi-bento">
+        <!-- Mini KPI 1 -->
+        <div class="inv-kpi-mini">
+          <span class="inv-kpi-label" style="color:#6a5220;">UNIDADES</span>
+          <div class="inv-kpi-value">95</div>
+          <div class="inv-kpi-sub" style="color:var(--brown);">
+            <span class="material-symbols-outlined">check_circle</span>
+            <span>6 Lotes</span>
+          </div>
+        </div>
+
+        <!-- Mini KPI 2 -->
+        <div class="inv-kpi-mini">
+          <span class="inv-kpi-label" style="color:var(--wine);">BAJO STOCK</span>
+          <div class="inv-kpi-value" style="color:var(--wine);">2</div>
+          <div class="inv-kpi-sub" style="color:var(--wine);">
+            <span class="material-symbols-outlined">warning</span>
+            <span>Crítico</span>
+          </div>
+        </div>
+
+        <!-- Mini KPI 3 -->
+        <div class="inv-kpi-mini">
+          <span class="inv-kpi-label" style="color:var(--brown);">ÓPTIMOS</span>
+          <div class="inv-kpi-value">3</div>
+          <div class="inv-kpi-sub" style="color:#6a5220;">
+            <span class="material-symbols-outlined">spa</span>
+            <span>Estable</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. CONTROLES DE FILTRO + ACCIONES -->
+      <div class="inv-controls-wrap">
+        <div class="inv-filter-track">
+          <button type="button" class="inv-filter-tab inv-filter-tab-active" data-filter="all">Todos los productos</button>
+          <button type="button" class="inv-filter-tab" data-filter="low">Bajo stock (&lt; 3)</button>
+          <button type="button" class="inv-filter-tab" data-filter="out">Agotados</button>
+        </div>
+
+        <div class="inv-actions-row">
+          <button type="button" class="inv-btn-primary" id="inv-add-btn">
+            <span class="material-symbols-outlined">add_circle</span>
+            <span>+ Agregar Nuevo</span>
+          </button>
+          <button type="button" class="inv-btn-secondary" id="inv-export-btn">
+            <span class="material-symbols-outlined" style="color:var(--brown)">file_download</span>
+            <span>Exportar Reporte CSV</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 5. TABLA MATRIZ DE EXISTENCIAS -->
+      <div class="inv-matrix-card">
+        <div class="inv-matrix-header-strip">
+          <div class="inv-matrix-header-left">
+            <span class="material-symbols-outlined">grid_view</span>
+            <span>MATRIZ DE EXISTENCIAS</span>
+          </div>
+          <span class="inv-matrix-header-right">Desliza para ver tallas →</span>
+        </div>
+
+        <div class="inv-table-wrap">
+          <table class="inv-table">
+            <thead>
+              <tr>
+                <th>Producto</th>
+                <th>Color</th>
+                <th>XS</th>
+                <th>S</th>
+                <th>M</th>
+                <th>L</th>
+                <th>XL</th>
+                <th>Total</th>
+                <th>Estado/Alerta</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Fila 1 -->
+              <tr class="inv-stock-row" data-status="optimal" data-name="Legging Sculpt Pro" data-color="Negro Obsidiana" data-total="25">
+                <td>Legging Sculpt Pro</td>
+                <td>
+                  <div class="inv-color-cell">
+                    <span class="inv-color-dot" style="background:#27180a;"></span>
+                    <span>Negro Obsidiana</span>
+                  </div>
+                </td>
+                <td>4</td>
+                <td>8</td>
+                <td>6</td>
+                <td>5</td>
+                <td>2</td>
+                <td class="inv-total-cell">25</td>
+                <td><span class="inv-badge inv-badge-optimal">Óptimo</span></td>
+              </tr>
+
+              <!-- Fila 2 -->
+              <tr class="inv-stock-row inv-row-low" data-status="low" data-name="Legging Sculpt Pro" data-color="Vino Intenso" data-total="4">
+                <td>Legging Sculpt Pro</td>
+                <td>
+                  <div class="inv-color-cell">
+                    <span class="inv-color-dot inv-color-dot-pulse"></span>
+                    <span>Vino Intenso</span>
+                  </div>
+                </td>
+                <td>1</td>
+                <td class="inv-zero-cell">0</td>
+                <td>2</td>
+                <td>1</td>
+                <td class="inv-zero-cell">0</td>
+                <td class="inv-total-cell">4</td>
+                <td><span class="inv-badge inv-badge-low">BAJO STOCK</span></td>
+              </tr>
+
+              <!-- Fila 3 -->
+              <tr class="inv-stock-row" data-status="optimal" data-name="Top Elevation" data-color="Crema Suave" data-total="29">
+                <td>Top Elevation</td>
+                <td>
+                  <div class="inv-color-cell">
+                    <span class="inv-color-dot" style="background:#fff8f5;border:1px solid #d1c5b2;"></span>
+                    <span>Crema Suave</span>
+                  </div>
+                </td>
+                <td>5</td>
+                <td>7</td>
+                <td>10</td>
+                <td>4</td>
+                <td>3</td>
+                <td class="inv-total-cell">29</td>
+                <td><span class="inv-badge inv-badge-optimal">Óptimo</span></td>
+              </tr>
+
+              <!-- Fila 4 -->
+              <tr class="inv-stock-row inv-row-reorder" data-status="low" data-name="Top Elevation" data-color="Champagne" data-total="6">
+                <td>Top Elevation</td>
+                <td>
+                  <div class="inv-color-cell">
+                    <span class="inv-color-dot" style="background:#ffeada;border:1px solid #e4c285;"></span>
+                    <span>Champagne</span>
+                  </div>
+                </td>
+                <td>2</td>
+                <td>1</td>
+                <td class="inv-zero-cell">0</td>
+                <td>2</td>
+                <td>1</td>
+                <td class="inv-total-cell">6</td>
+                <td><span class="inv-badge inv-badge-low">REABASTECER</span></td>
+              </tr>
+
+              <!-- Fila 5 -->
+              <tr class="inv-stock-row" data-status="optimal" data-name="Set Aura Completo" data-color="Negro Obsidiana" data-total="17">
+                <td>Set Aura Completo</td>
+                <td>
+                  <div class="inv-color-cell">
+                    <span class="inv-color-dot" style="background:#27180a;"></span>
+                    <span>Negro Obsidiana</span>
+                  </div>
+                </td>
+                <td style="color:#4e4637;">-</td>
+                <td>6</td>
+                <td>5</td>
+                <td>4</td>
+                <td>2</td>
+                <td class="inv-total-cell">17</td>
+                <td><span class="inv-badge inv-badge-regular">Regular</span></td>
+              </tr>
+
+              <!-- Fila 6 -->
+              <tr class="inv-stock-row" data-status="optimal" data-name="Bolso Mesh" data-color="Negro Obsidiana" data-total="14">
+                <td>Bolso Mesh</td>
+                <td>
+                  <div class="inv-color-cell">
+                    <span class="inv-color-dot" style="background:#27180a;"></span>
+                    <span>Negro Obsidiana</span>
+                  </div>
+                </td>
+                <td colspan="5" style="font-style:italic;color:#6B5E52;">Talla Única: 14</td>
+                <td class="inv-total-cell">14</td>
+                <td><span class="inv-badge inv-badge-optimal">Óptimo</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="inv-table-footer">
+          <span>Mostrando 6 variantes activas</span>
+          <button class="inv-footer-action-btn" type="button" onclick="document.querySelector('.inv-stock-row')?.click()">
+            <span>Toca una fila para editar</span>
+            <span class="material-symbols-outlined" style="font-size:14px;">edit</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 6. BANNER EDITORIAL -->
+      <div class="inv-editorial-banner">
+        <div class="inv-editorial-thumb">
+          <span class="material-symbols-outlined" style="font-size:32px;">styler</span>
+        </div>
+        <div class="inv-editorial-content">
+          <p class="inv-editorial-label">AURA ATELIER STUDIO</p>
+          <h4 class="inv-editorial-title">Colección Silueta '25</h4>
+          <p class="inv-editorial-body">Nuevas reposiciones programadas para el fin de semana.</p>
+        </div>
+        <span class="material-symbols-outlined inv-editorial-arrow">arrow_forward</span>
+      </div>
+    </section>
+
+    <!-- 7. DRAWER DESLIZANTE (Bottom Sheet) -->
+    <div id="inventory-drawer" class="inv-drawer-overlay">
+      <div class="inv-drawer-panel" id="inv-drawer-panel">
+        <!-- Header -->
+        <div class="inv-drawer-header">
+          <div class="inv-drawer-header-icon">
+            <span class="material-symbols-outlined" style="font-size:20px;">edit</span>
+          </div>
+          <div class="inv-drawer-header-text">
+            <h3 class="inv-drawer-title" id="inv-drawer-title">Edición Rápida de Producto</h3>
+            <p class="inv-drawer-subtitle" id="inv-drawer-subtitle">Ajuste de inventario</p>
+          </div>
+          <button type="button" class="inv-drawer-close-btn" id="inv-close-btn" aria-label="Cerrar">&times;</button>
+        </div>
+
+        <!-- Toggle Activo / Inactivo -->
+        <div class="inv-drawer-toggle-card">
+          <div>
+            <p class="inv-drawer-toggle-label">Estado del Producto</p>
+            <p class="inv-drawer-toggle-sub">Visible en la boutique digital</p>
+          </div>
+          <label class="inv-switch" aria-label="Estado activo del producto">
+            <input type="checkbox" id="inv-product-active-toggle" checked>
+            <span class="inv-slider"></span>
+          </label>
+        </div>
+
+        <!-- Input Stock -->
+        <div class="inv-stock-control-group">
+          <label for="inv-stock-input" class="inv-stock-control-label">Actualizar Stock / Inyección de Lote</label>
+          <div class="inv-stock-stepper-row">
+            <button type="button" class="inv-step-btn" id="inv-dec-btn" aria-label="Disminuir stock">−</button>
+            <input type="number" id="inv-stock-input" class="inv-stock-input" value="25" min="0" step="1">
+            <button type="button" class="inv-step-btn" id="inv-inc-btn" aria-label="Aumentar stock">＋</button>
+          </div>
+        </div>
+
+        <p class="inv-drawer-hint">El ajuste recalculará automáticamente la alerta de stock y sincronizará con la boutique.</p>
+
+        <!-- Botones -->
+        <div class="inv-drawer-actions">
+          <button type="button" class="inv-drawer-save-btn" id="inv-save-btn">Guardar Cambios</button>
+          <button type="button" class="inv-drawer-cancel-btn" id="inv-cancel-btn">Descartar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. TOAST DE FEEDBACK -->
+    <div id="inv-toast" role="alert" aria-live="polite">
+      <span class="material-symbols-outlined" id="inv-toast-icon" style="font-size:18px;">check_circle</span>
+      <span id="inv-toast-msg">Stock actualizado correctamente</span>
+    </div>
   `;
+
+  if (typeof initInventory === 'function') {
+    initInventory();
+  }
 }
 
 function exportStockCSV() {
