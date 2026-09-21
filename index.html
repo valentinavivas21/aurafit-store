@@ -28,6 +28,16 @@
 </head>
 <body>
 
+<div id="aura-splash">
+  <div class="splash-inner">
+    <p class="splash-sub-top">Atelier</p>
+    <h1 class="splash-title">AURA FIT</h1>
+    <p class="splash-sub">Activewear Studio</p>
+    <span class="splash-ornament">✦</span>
+  </div>
+</div>
+
+
   <!-- =========================================================================
        SCREEN 1: STORE
        ========================================================================= -->
@@ -1102,6 +1112,21 @@
 
   <!-- Toast Notification Container -->
   <div id="toast" class="toast" role="alert" aria-live="polite"></div>
+
+  <script>
+    (function () {
+      var splash = document.getElementById('aura-splash');
+      if (!splash) return;
+      // Oculta el splash a los 2s con fade de 0.7s
+      setTimeout(function () {
+        splash.classList.add('hide');
+        // Lo elimina del DOM cuando termina la transición
+        splash.addEventListener('transitionend', function () {
+          splash.remove();
+        }, { once: true });
+      }, 2000);
+    })();
+  </script>
 
 </body>
 </html>
