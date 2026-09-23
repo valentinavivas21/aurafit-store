@@ -563,7 +563,7 @@ function renderOutOfStock() {
     `}
 
     <!-- Zero stock variants table -->
-    <div style="background:var(--bg-card);border:1px solid var(--border);padding:24px;border-radius:var(--radius-lg);margin-bottom:24px">
+    <div class="out-of-stock-section" style="background:var(--cream, #fff8f5);border:1px solid var(--border);padding:24px;border-radius:var(--radius-lg);margin-bottom:24px">
       <h3 style="font-size:14px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:16px">Variantes Agotadas (${zeroStockVariants.length})</h3>
       <div style="overflow-x:auto">
         <table style="width:100%;border-collapse:collapse;font-size:13px">

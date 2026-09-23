@@ -3084,6 +3084,29 @@
   50%       { transform: scale(1.3); opacity: 1;   }
 }
 
+/* ======== OUT OF STOCK / SIN STOCK STYLES ======== */
+.out-of-stock-section table th,
+.stock-zero-section table th,
+[class*="sin-stock"] table th,
+[class*="stock"] .table-header {
+  background: #e4c285 !important;
+  color: #27180a !important;
+}
+
+.out-of-stock-section table td,
+.stock-zero-section table td,
+[class*="sin-stock"] table td {
+  color: var(--ink, #27180a) !important;
+  background: var(--cream, #fff8f5) !important;
+}
+
+.out-of-stock-section,
+.stock-zero-section,
+[class*="sin-stock"] {
+  background: var(--cream, #fff8f5) !important;
+  border-radius: 12px;
+}
+
 
 
 
