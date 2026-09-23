@@ -3113,10 +3113,30 @@ button.btn-reponer {
 /* Alerta de stock agotado — texto legible */
 .stock-alert-banner,
 .out-of-stock-alert,
+.stock-warning-bar,
+.out-of-stock-banner,
 [class*="stock-alert"],
-[class*="alert-stock"] {
+[class*="alert-stock"],
+[class*="warning-bar"] {
   color: var(--ink, #27180a) !important;
   opacity: 1 !important;
+}
+
+.stock-alert-banner span,
+.stock-alert-banner p,
+.stock-alert-banner div,
+.stock-alert-banner strong,
+.stock-warning-bar span,
+.stock-warning-bar p,
+[class*="stock-alert"] span,
+[class*="stock-alert"] p,
+[class*="stock-alert"] div,
+[class*="stock-alert"] strong,
+[class*="alert-stock"] span,
+[class*="alert-stock"] p,
+[class*="alert-stock"] div,
+[class*="alert-stock"] strong {
+  color: var(--ink, #27180a) !important;
 }
 
 
