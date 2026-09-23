@@ -297,7 +297,7 @@
           </svg>
           Finalizar y Confirmar por WhatsApp
         </button>
-        <p class="cart-cta-note">✅ Atención personalizada directa con Atelier AURA FIT</p>
+        <p class="cart-cta-note">✅ Atención personalizada directa con AURA FIT</p>
       </div>
 
       <!-- Perks -->
@@ -414,24 +414,24 @@
 
   <!-- Bottom Navigation Bar (mobile) -->
   <nav class="bottom-nav" id="bottom-nav">
-    <button class="bottom-nav-item active" onclick="showScreen('store')" id="nav-store">
+    <button class="bottom-nav-item active" onclick="goTo('screen-store')" id="nav-store">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
         <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
       </svg>
       Tienda
     </button>
-    <button class="bottom-nav-item" onclick="filterCategory('Leggings')" id="nav-cats">
+    <button class="bottom-nav-item" onclick="filterCategory('Todas'); goTo('screen-store')" id="nav-cats">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
         <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
       </svg>
       Catálogo
     </button>
-    <button class="bottom-nav-item" onclick="showScreen('cart')" id="nav-cart">
+    <button class="bottom-nav-item" onclick="renderCart(); goTo('screen-cart')" id="nav-cart">
       <span class="material-symbols-outlined">shopping_cart</span>
       CARRITO
       <span class="bottom-nav-badge" id="nav-cart-count">0</span>
     </button>
-    <button class="bottom-nav-item" onclick="showScreen('about')" id="nav-about">
+    <button class="bottom-nav-item" onclick="goTo('screen-store'); setTimeout(()=>document.getElementById('about')?.scrollIntoView({behavior:'smooth'}),300)" id="nav-about">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
         <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
       </svg>
