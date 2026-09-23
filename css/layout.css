@@ -908,19 +908,19 @@
 }
 
 #screen-admin .admin-sidebar {
-  background: #C9A96E !important;
-  border-right: 2px solid #B8944E !important;
+  background: #27180a !important;
+  border-right: 1px solid rgba(255,255,255,0.08) !important;
 }
 
 #screen-admin .admin-nav-item {
-  color: #6B1A2A !important;
+  color: rgba(255,255,255,0.75) !important;
 }
 
 #screen-admin .admin-nav-item:hover,
 #screen-admin .admin-nav-item.active {
-  background: rgba(107, 26, 42, 0.15) !important;
-  color: #6B1A2A !important;
-  border-left: 3px solid #6B1A2A !important;
+  background: rgba(156, 64, 78, 0.2) !important;
+  color: #fff !important;
+  border-left: 3px solid #9c404e !important;
 }
 
 #screen-admin .admin-sidebar h1,
@@ -928,7 +928,7 @@
 #screen-admin .admin-sidebar .logo-aura,
 #screen-admin .admin-sidebar .logo-fit,
 #screen-admin .admin-sidebar .admin-badge {
-  color: #6B1A2A !important;
+  color: #fff !important;
 }
 
 #screen-admin #admin-content {
@@ -945,8 +945,8 @@
   top: 0;
   height: 100vh;
   width: 240px;
-  background: #C9A96E;
-  border-right: 2px solid #B8944E;
+  background: #27180a;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
   padding: 24px 0;
   z-index: 50;
   display: flex;
@@ -957,23 +957,24 @@
 
 .admin-sidebar .logo-aura,
 .admin-sidebar .logo-fit {
-  color: #6B1A2A;
+  color: #fff;
 }
 
 .admin-sidebar-header {
   padding: 0 24px 16px;
-  border-bottom: 1px solid rgba(107, 26, 42, 0.15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   flex-direction: column;
   gap: 6px;
+  align-items: center;
+  text-align: center;
 }
 
 .admin-badge {
   font-size: 10px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #6B1A2A;
-  opacity: 0.8;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .admin-nav {
