@@ -14,15 +14,15 @@ function renderDashboard() {
       <div class="admin-status-top">
         <div class="admin-status-online">
           <span class="admin-pulse-dot"></span>
-          <span>En Línea • Cifrado TLS 1.3</span>
+          <span>En Línea</span>
         </div>
         <div class="admin-status-pill">
           <span class="material-symbols-outlined" style="font-size:14px;">verified_user</span>
-          <span>Atelier Autenticado</span>
+          <span>Autenticado</span>
         </div>
       </div>
       <div class="admin-status-bottom">
-        <h2 class="admin-status-title">Atelier AURA FIT — Panel Administrativo</h2>
+        <h2 class="admin-status-title">AURA FIT — Panel Administrativo</h2>
         <p class="admin-status-date">
           <span class="material-symbols-outlined" style="font-size:16px;">calendar_today</span>
           <span id="admin-current-date">${formattedDate}</span>

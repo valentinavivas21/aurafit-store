@@ -947,7 +947,7 @@
   width: 240px;
   background: #27180a;
   border-right: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 24px 0;
+  padding: 16px 0 24px;
   z-index: 50;
   display: flex;
   flex-direction: column;
@@ -958,6 +958,12 @@
 .admin-sidebar .logo-aura,
 .admin-sidebar .logo-fit {
   color: #fff;
+}
+
+.admin-sidebar .logo-wrap,
+.admin-sidebar .admin-logo-section {
+  margin-top: 0;
+  padding-top: 16px;
 }
 
 .admin-sidebar-header {
