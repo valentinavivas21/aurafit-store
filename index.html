@@ -45,7 +45,7 @@
     <!-- Header -->
     <header class="store-header">
       <div class="header-container">
-        <a href="#top" class="brand-logo" aria-label="Aura Fit Inicio">
+        <a href="#top" class="brand-logo" id="store-logo-trigger" style="cursor:default; user-select:none;" aria-label="Aura Fit Inicio">
           <span class="logo-aura">AURA</span><span class="logo-fit">FIT</span>
         </a>
         
@@ -1045,7 +1045,7 @@
   </div>
 
   <!-- Floating Admin Button -->
-  <button id="btn-admin-float" onclick="openAdminLogin()" title="Panel Admin">
+  <button id="btn-admin-float" onclick="openAdminModal()" title="Panel Admin" style="display:none;">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
       <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
     </svg>
@@ -1096,6 +1096,28 @@
         }, { once: true });
       }, 2000);
     })();
+  </script>
+
+  <script>
+  (function() {
+    var logo = document.getElementById('store-logo-trigger');
+    if (!logo) return;
+    var holdTimer;
+    logo.addEventListener('mousedown', function() {
+      holdTimer = setTimeout(function() {
+        if (typeof openAdminModal === 'function') openAdminModal();
+      }, 1500);
+    });
+    logo.addEventListener('mouseup', function() { clearTimeout(holdTimer); });
+    logo.addEventListener('mouseleave', function() { clearTimeout(holdTimer); });
+    logo.addEventListener('touchstart', function() {
+      holdTimer = setTimeout(function() {
+        if (typeof openAdminModal === 'function') openAdminModal();
+      }, 1500);
+    }, { passive: true });
+    logo.addEventListener('touchend', function() { clearTimeout(holdTimer); });
+    logo.addEventListener('touchcancel', function() { clearTimeout(holdTimer); });
+  })();
   </script>
 
 </body>

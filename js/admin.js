@@ -90,6 +90,8 @@ function submitAdminPin() {
 
 const closeAdminLogin = closeAdminModal;
 const doLogin = submitAdminPin;
+const openAdminModal = openAdminLogin;
+window.openAdminModal = openAdminLogin;
 
 // Permite presionar Enter / Escape para interactuar con el modal
 document.addEventListener('keydown', function(e) {
