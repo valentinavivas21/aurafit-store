@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AURA FIT — Admin</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+</head>
+<body>
+
+  <!-- LOGIN MODAL -->
+  <div id="admin-login-modal" class="admin-modal-overlay" style="display:flex">
+    <div class="admin-modal-card">
+      <div class="admin-modal-title-block">
+        <h2 class="admin-modal-title">AURA FIT</h2>
+        <p class="admin-modal-subtitle">Admin</p>
+      </div>
+      <div class="admin-pin-input-wrap">
+        <span class="admin-pin-lock-icon">🔐</span>
+        <input type="password" id="admin-pin-display" class="admin-pin-input"
+               autocomplete="off" placeholder="Clave de acceso">
+        <button class="admin-pin-toggle" id="toggle-pin-visibility" onclick="togglePinVisibility()" type="button">👁</button>
+      </div>
+      <button class="admin-unlock-btn" onclick="submitAdminPin()" id="btn-unlock-panel">
+        Ingresar
+      </button>
+      <p class="admin-pin-error" id="admin-pin-error" style="display:none">
+        Clave incorrecta. Intenta de nuevo.
+      </p>
+      <a href="index.html" class="admin-modal-back">← Volver a la tienda</a>
+    </div>
+  </div>
+
+  <!-- PANEL ADMIN (oculto hasta autenticar) -->
+  <div id="screen-admin" class="screen" data-theme="light" style="display:none">
+    <button id="admin-menu-toggle" class="btn-ghost" aria-label="Menú" style="background:var(--bg-card);border:1px solid var(--border);padding:10px 12px;border-radius:var(--radius)">☰</button>
+
+    <!-- Admin Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="admin-sidebar-header">
+        <div class="brand-logo">
+          <img src="img/logo.jpg" alt="AURA FIT" style="width:64px;height:64px;border-radius:50%;object-fit:cover;margin-bottom:4px;">
+          <span class="logo-aura">AURA</span><span class="logo-fit">FIT</span>
+        </div>
+      </div>
+
+      <nav class="admin-nav" role="navigation" aria-label="Menú administrador">
+        <button id="nav-dashboard" class="admin-nav-item active">
+          <span class="nav-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg></span>
+          <span class="nav-item-text">Dashboard</span>
+        </button>
+        <button id="nav-products" class="admin-nav-item">
+          <span class="nav-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg></span>
+          <span class="nav-item-text">Productos</span>
+        </button>
+        <button id="nav-incomes" class="admin-nav-item">
+          <span class="nav-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
+          <span class="nav-item-text">Ingresos</span>
+        </button>
+        <button id="nav-sales" class="admin-nav-item">
+          <span class="nav-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg></span>
+          <span class="nav-item-text">Ventas</span>
+        </button>
+        <button id="nav-outofstock" class="admin-nav-item">
+          <span class="nav-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg></span>
+          <span class="nav-item-text">Sin Stock</span>
+        </button>
+        <button id="nav-logout" class="admin-nav-item logout-item" onclick="window.location.href='index.html'">
+          <span class="nav-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg></span>
+          <span class="nav-item-text">Cerrar Sesión</span>
+        </button>
+      </nav>
+    </aside>
+
+    <!-- Admin Main Content Area -->
+    <main id="admin-content" class="admin-main">
+      <!-- 1. STRIP DE ESTADO -->
+      <div class="admin-status-strip">
+        <div class="admin-status-top">
+          <div class="admin-status-online">
+            <span class="admin-pulse-dot"></span>
+            <span>En Línea</span>
+          </div>
+          <div class="admin-status-pill">
+            <span class="material-symbols-outlined" style="font-size:14px;">verified_user</span>
+            <span>Autenticado</span>
+          </div>
+        </div>
+        <div class="admin-status-bottom">
+          <h2 class="admin-status-title">AURA FIT — Panel Administrativo</h2>
+          <p class="admin-status-date">
+            <span class="material-symbols-outlined" style="font-size:16px;">calendar_today</span>
+            <span id="admin-current-date">Lunes, 28 de Octubre 2024</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- 2. ACCIONES RÁPIDAS -->
+      <div class="admin-quick-actions">
+        <button class="quick-action-btn primary" onclick="loadPanel('sales')">
+          <span class="material-symbols-outlined" style="font-size:18px;">add_circle</span>
+          <span>+ Registrar Venta Manual</span>
+        </button>
+        <button class="quick-action-btn secondary" onclick="loadPanel('incomes')">
+          <span class="material-symbols-outlined" style="font-size:18px;">add_box</span>
+          <span>+ Registrar Ingreso</span>
+        </button>
+        <button class="quick-action-btn secondary" onclick="exportSalesCSV()">
+          <span class="material-symbols-outlined" style="font-size:18px;">download</span>
+          <span>Exportar CSV</span>
+        </button>
+        <button class="quick-action-btn secondary" onclick="if(typeof showToast==='function')showToast('Configuración del Atelier ✨')">
+          <span class="material-symbols-outlined" style="font-size:18px;">settings</span>
+          <span>Configuración</span>
+        </button>
+      </div>
+
+      <!-- 3. GRID 2×2 DE KPI CARDS -->
+      <div class="admin-kpi-grid">
+        <!-- Card 1 — Ingresos Totales -->
+        <div class="kpi-card">
+          <div class="kpi-card-header">
+            <span class="kpi-card-label">INGRESOS TOTALES</span>
+            <span class="material-symbols-outlined kpi-card-icon">payments</span>
+          </div>
+          <div class="kpi-card-value">$24,850</div>
+          <div class="kpi-card-sub">USD • Mes en curso</div>
+          <div class="kpi-card-pill kpi-pill-champagne">
+            <span class="material-symbols-outlined" style="font-size:14px;">trending_up</span>
+            <span>+18.4%</span>
+          </div>
+        </div>
+
+        <!-- Card 2 — Margen Bruto -->
+        <div class="kpi-card">
+          <div class="kpi-card-header">
+            <span class="kpi-card-label">MARGEN BRUTO</span>
+            <span class="material-symbols-outlined kpi-card-icon">pie_chart</span>
+          </div>
+          <div class="kpi-card-value">68.2%</div>
+          <div class="kpi-card-sub">Rentabilidad Neta</div>
+          <div class="kpi-card-pill kpi-pill-gold">
+            <span class="material-symbols-outlined" style="font-size:14px;">check_circle</span>
+            <span>Saludable</span>
+          </div>
+        </div>
+
+        <!-- Card 3 — Prendas -->
+        <div class="kpi-card">
+          <div class="kpi-card-header">
+            <span class="kpi-card-label">PRENDAS</span>
+            <span class="material-symbols-outlined kpi-card-icon">styler</span>
+          </div>
+          <div class="kpi-card-value">312</div>
+          <div class="kpi-card-sub">Unidades atelier</div>
+          <div class="kpi-card-pill kpi-pill-brown">
+            <span class="material-symbols-outlined" style="font-size:14px;">north_east</span>
+            <span>+9.1%</span>
+          </div>
+        </div>
+
+        <!-- Card 4 — Alerta de Stock -->
+        <div class="kpi-card kpi-card-alert">
+          <div class="kpi-card-header">
+            <span class="kpi-card-label">SIN STOCK / ALERTA</span>
+            <span class="material-symbols-outlined kpi-card-icon">warning</span>
+          </div>
+          <div class="kpi-card-value">2</div>
+          <div class="kpi-card-sub">Variantes críticas</div>
+          <button class="kpi-card-pill" onclick="loadPanel('outofstock')">
+            <span>Reordenar</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 4. SECCIÓN GRÁFICO SVG — Rendimiento Semestral / Ventas Mensuales -->
+      <div class="admin-chart-card">
+        <div class="admin-chart-header">
+          <div class="admin-chart-titles">
+            <span class="admin-chart-label">RENDIMIENTO SEMESTRAL</span>
+            <h3 class="admin-chart-title">Ventas Mensuales</h3>
+          </div>
+          <div class="admin-chart-chip">Mayo — Octubre</div>
+        </div>
+        <div class="admin-chart-svg-wrap">
+          <svg viewBox="0 0 340 180" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;overflow:visible">
+            <defs>
+              <linearGradient id="barGoldGrad" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stop-color="#ecc165"/>
+                <stop offset="100%" stop-color="#8b6914"/>
+              </linearGradient>
+              <linearGradient id="trendGlow" x1="0" x2="1" y1="0" y2="0">
+                <stop offset="0%" stop-color="#9c404e" stop-opacity="0.2"/>
+                <stop offset="100%" stop-color="#9c404e" stop-opacity="0.9"/>
+              </linearGradient>
+            </defs>
+            <line stroke="#d1c5b2" stroke-dasharray="3 3" stroke-opacity="0.35" x1="10" x2="330" y1="30" y2="30"/>
+            <line stroke="#d1c5b2" stroke-dasharray="3 3" stroke-opacity="0.35" x1="10" x2="330" y1="75" y2="75"/>
+            <line stroke="#d1c5b2" stroke-dasharray="3 3" stroke-opacity="0.35" x1="10" x2="330" y1="120" y2="120"/>
+            <line stroke="#807665" stroke-opacity="0.25" x1="10" x2="330" y1="150" y2="150"/>
+            <rect fill="url(#barGoldGrad)" height="60" opacity="0.8" rx="4" width="22" x="25" y="90"/>
+            <text fill="#807665" font-family="DM Sans" font-size="9" text-anchor="middle" x="36" y="166">MAY</text>
+            <text fill="#27180a" font-family="DM Sans" font-size="8" font-weight="600" text-anchor="middle" x="36" y="82">$14k</text>
+            <rect fill="url(#barGoldGrad)" height="72" opacity="0.85" rx="4" width="22" x="75" y="78"/>
+            <text fill="#807665" font-family="DM Sans" font-size="9" text-anchor="middle" x="86" y="166">JUN</text>
+            <text fill="#27180a" font-family="DM Sans" font-size="8" font-weight="600" text-anchor="middle" x="86" y="70">$16.2k</text>
+            <rect fill="url(#barGoldGrad)" height="85" opacity="0.9" rx="4" width="22" x="125" y="65"/>
+            <text fill="#807665" font-family="DM Sans" font-size="9" text-anchor="middle" x="136" y="166">JUL</text>
+            <text fill="#27180a" font-family="DM Sans" font-size="8" font-weight="600" text-anchor="middle" x="136" y="57">$18.9k</text>
+            <rect fill="url(#barGoldGrad)" height="95" opacity="0.9" rx="4" width="22" x="175" y="55"/>
+            <text fill="#807665" font-family="DM Sans" font-size="9" text-anchor="middle" x="186" y="166">AGO</text>
+            <text fill="#27180a" font-family="DM Sans" font-size="8" font-weight="600" text-anchor="middle" x="186" y="47">$20.5k</text>
+            <rect fill="url(#barGoldGrad)" height="102" opacity="0.95" rx="4" width="22" x="225" y="48"/>
+            <text fill="#807665" font-family="DM Sans" font-size="9" text-anchor="middle" x="236" y="166">SEP</text>
+            <text fill="#27180a" font-family="DM Sans" font-size="8" font-weight="600" text-anchor="middle" x="236" y="40">$22.1k</text>
+            <rect fill="url(#barGoldGrad)" height="116" rx="4" width="22" x="275" y="34"/>
+            <text fill="#6f5100" font-family="DM Sans" font-size="9" font-weight="700" text-anchor="middle" x="286" y="166">OCT</text>
+            <text fill="#9c404e" font-family="DM Sans" font-size="9" font-weight="700" text-anchor="middle" x="286" y="24">$24.8k</text>
+            <path d="M 36 88 Q 86 76 136 62 T 236 44 T 286 28" fill="none" stroke="url(#trendGlow)" stroke-linecap="round" stroke-width="2.5"/>
+            <circle cx="286" cy="28" fill="#9c404e" r="4" stroke="#fff8f5" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="admin-trend-note">
+          <div class="admin-trend-left">
+            <span class="material-symbols-outlined admin-trend-icon">auto_graph</span>
+            <span>Proyección cierre Q4: Superando meta en +12%</span>
+          </div>
+          <span class="admin-trend-badge">SÓLIDO</span>
+        </div>
+      </div>
+
+      <!-- 5. FEED DE PEDIDOS RECIENTES -->
+      <div class="admin-orders-feed-section">
+        <div class="admin-orders-feed-header">
+          <div>
+            <span class="admin-feed-label">CANAL EXCLUSIVO</span>
+            <h3 class="admin-feed-title">Pedidos WhatsApp Concierge</h3>
+          </div>
+          <button class="admin-feed-view-all" onclick="loadPanel('sales')">Ver Todos ›</button>
+        </div>
+
+        <!-- Item 1 -->
+        <div class="order-feed-item">
+          <div class="order-feed-thumb">
+            <span class="material-symbols-outlined">checkroom</span>
+          </div>
+          <div class="order-feed-info">
+            <div class="order-feed-header-line">
+              <span class="order-feed-id">ORD-20241028-9412</span>
+              <span class="order-feed-dot">•</span>
+              <span class="order-feed-badge order-badge-pending">Pendiente de Envío</span>
+            </div>
+            <p class="order-feed-desc">Legging Escultor Seda • Talla M • $185</p>
+          </div>
+          <div class="order-feed-right">
+            <span class="order-feed-time">11:42 AM</span>
+            <button class="order-feed-action-btn" title="Atender por WhatsApp" onclick="if(typeof showToast==='function')showToast('Abriendo conversación WhatsApp Concierge...')">
+              <span class="material-symbols-outlined" style="font-size:16px;">send</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="order-feed-item">
+          <div class="order-feed-thumb">
+            <span class="material-symbols-outlined">shopping_bag</span>
+          </div>
+          <div class="order-feed-info">
+            <div class="order-feed-header-line">
+              <span class="order-feed-id">ORD-20241028-8801</span>
+              <span class="order-feed-dot">•</span>
+              <span class="order-feed-badge order-badge-confirmed">Confirmado</span>
+            </div>
+            <p class="order-feed-desc">Set Deportivo Café • Talla S • $210</p>
+          </div>
+          <div class="order-feed-right">
+            <span class="order-feed-time">09:15 AM</span>
+            <button class="order-feed-action-btn" title="Atender por WhatsApp" onclick="if(typeof showToast==='function')showToast('Abriendo conversación WhatsApp Concierge...')">
+              <span class="material-symbols-outlined" style="font-size:16px;">send</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECCIÓN INVENTARIO & MATRIZ DE STOCK -->
+      <section class="inv-section" id="inv-section">
+        <!-- 1. STRIP DE ACCESO VERIFICADO -->
+        <div class="inv-access-strip">
+          <div class="inv-access-left">
+            <span class="material-symbols-outlined inv-access-icon">verified_user</span>
+            <span>Acceso seguro verificado: aurafit2024</span>
+          </div>
+          <span class="inv-live-pill">EN VIVO</span>
+        </div>
+
+        <!-- 2. TÍTULO DE SECCIÓN -->
+        <div class="inv-section-header">
+          <h2 class="inv-title">Inventario & Matriz</h2>
+          <p class="inv-subtitle">Control de Existencias por Color y Talla & Gestión de Catálogo</p>
+        </div>
+
+        <!-- 3. MINI KPIs BENTO (3 columnas) -->
+        <div class="inv-kpi-bento">
+          <!-- Mini KPI 1 -->
+          <div class="inv-kpi-mini">
+            <span class="inv-kpi-label" style="color:#6a5220;">UNIDADES</span>
+            <div class="inv-kpi-value">95</div>
+            <div class="inv-kpi-sub" style="color:var(--brown);">
+              <span class="material-symbols-outlined">check_circle</span>
+              <span>6 Lotes</span>
+            </div>
+          </div>
+
+          <!-- Mini KPI 2 -->
+          <div class="inv-kpi-mini">
+            <span class="inv-kpi-label" style="color:var(--wine);">BAJO STOCK</span>
+            <div class="inv-kpi-value" style="color:var(--wine);">2</div>
+            <div class="inv-kpi-sub" style="color:var(--wine);">
+              <span class="material-symbols-outlined">warning</span>
+              <span>Crítico</span>
+            </div>
+          </div>
+
+          <!-- Mini KPI 3 -->
+          <div class="inv-kpi-mini">
+            <span class="inv-kpi-label" style="color:var(--brown);">ÓPTIMOS</span>
+            <div class="inv-kpi-value">3</div>
+            <div class="inv-kpi-sub" style="color:#6a5220;">
+              <span class="material-symbols-outlined">spa</span>
+              <span>Estable</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. CONTROLES DE FILTRO + ACCIONES -->
+        <div class="inv-controls-wrap">
+          <div class="inv-filter-track">
+            <button type="button" class="inv-filter-tab inv-filter-tab-active" data-filter="all">Todos los productos</button>
+            <button type="button" class="inv-filter-tab" data-filter="low">Bajo stock (&lt; 3)</button>
+            <button type="button" class="inv-filter-tab" data-filter="out">Agotados</button>
+          </div>
+
+          <div class="inv-actions-row">
+            <button type="button" class="inv-btn-primary" id="inv-add-btn">
+              <span class="material-symbols-outlined">add_circle</span>
+              <span>+ Agregar Nuevo</span>
+            </button>
+            <button type="button" class="inv-btn-secondary" id="inv-export-btn">
+              <span class="material-symbols-outlined" style="color:var(--brown)">file_download</span>
+              <span>Exportar Reporte CSV</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 5. TABLA MATRIZ DE EXISTENCIAS -->
+        <div class="inv-matrix-card">
+          <div class="inv-matrix-header-strip">
+            <div class="inv-matrix-header-left">
+              <span class="material-symbols-outlined">grid_view</span>
+              <span>MATRIZ DE EXISTENCIAS</span>
+            </div>
+            <span class="inv-matrix-header-right">Desliza para ver tallas →</span>
+          </div>
+
+          <div class="inv-table-wrap">
+            <table class="inv-table">
+              <thead>
+                <tr>
+                  <th>Producto</th>
+                  <th>Color</th>
+                  <th>XS</th>
+                  <th>S</th>
+                  <th>M</th>
+                  <th>L</th>
+                  <th>XL</th>
+                  <th>Total</th>
+                  <th>Estado/Alerta</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Fila 1 -->
+                <tr class="inv-stock-row" data-status="optimal" data-name="Legging Sculpt Pro" data-color="Negro Obsidiana" data-total="25">
+                  <td>Legging Sculpt Pro</td>
+                  <td>
+                    <div class="inv-color-cell">
+                      <span class="inv-color-dot" style="background:#27180a;"></span>
+                      <span>Negro Obsidiana</span>
+                    </div>
+                  </td>
+                  <td>4</td>
+                  <td>8</td>
+                  <td>6</td>
+                  <td>5</td>
+                  <td>2</td>
+                  <td class="inv-total-cell">25</td>
+                  <td><span class="inv-badge inv-badge-optimal">Óptimo</span></td>
+                </tr>
+
+                <!-- Fila 2 -->
+                <tr class="inv-stock-row inv-row-low" data-status="low" data-name="Legging Sculpt Pro" data-color="Vino Intenso" data-total="4">
+                  <td>Legging Sculpt Pro</td>
+                  <td>
+                    <div class="inv-color-cell">
+                      <span class="inv-color-dot inv-color-dot-pulse"></span>
+                      <span>Vino Intenso</span>
+                    </div>
+                  </td>
+                  <td>1</td>
+                  <td class="inv-zero-cell">0</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td class="inv-zero-cell">0</td>
+                  <td class="inv-total-cell">4</td>
+                  <td><span class="inv-badge inv-badge-low">BAJO STOCK</span></td>
+                </tr>
+
+                <!-- Fila 3 -->
+                <tr class="inv-stock-row" data-status="optimal" data-name="Top Elevation" data-color="Crema Suave" data-total="29">
+                  <td>Top Elevation</td>
+                  <td>
+                    <div class="inv-color-cell">
+                      <span class="inv-color-dot" style="background:#fff8f5;border:1px solid #d1c5b2;"></span>
+                      <span>Crema Suave</span>
+                    </div>
+                  </td>
+                  <td>5</td>
+                  <td>7</td>
+                  <td>10</td>
+                  <td>4</td>
+                  <td>3</td>
+                  <td class="inv-total-cell">29</td>
+                  <td><span class="inv-badge inv-badge-optimal">Óptimo</span></td>
+                </tr>
+
+                <!-- Fila 4 -->
+                <tr class="inv-stock-row inv-row-reorder" data-status="low" data-name="Top Elevation" data-color="Champagne" data-total="6">
+                  <td>Top Elevation</td>
+                  <td>
+                    <div class="inv-color-cell">
+                      <span class="inv-color-dot" style="background:#ffeada;border:1px solid #e4c285;"></span>
+                      <span>Champagne</span>
+                    </div>
+                  </td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td class="inv-zero-cell">0</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td class="inv-total-cell">6</td>
+                  <td><span class="inv-badge inv-badge-low">REABASTECER</span></td>
+                </tr>
+
+                <!-- Fila 5 -->
+                <tr class="inv-stock-row" data-status="optimal" data-name="Set Aura Completo" data-color="Negro Obsidiana" data-total="17">
+                  <td>Set Aura Completo</td>
+                  <td>
+                    <div class="inv-color-cell">
+                      <span class="inv-color-dot" style="background:#27180a;"></span>
+                      <span>Negro Obsidiana</span>
+                    </div>
+                  </td>
+                  <td style="color:#4e4637;">-</td>
+                  <td>6</td>
+                  <td>5</td>
+                  <td>4</td>
+                  <td>2</td>
+                  <td class="inv-total-cell">17</td>
+                  <td><span class="inv-badge inv-badge-regular">Regular</span></td>
+                </tr>
+
+                <!-- Fila 6 -->
+                <tr class="inv-stock-row" data-status="optimal" data-name="Bolso Mesh" data-color="Negro Obsidiana" data-total="14">
+                  <td>Bolso Mesh</td>
+                  <td>
+                    <div class="inv-color-cell">
+                      <span class="inv-color-dot" style="background:#27180a;"></span>
+                      <span>Negro Obsidiana</span>
+                    </div>
+                  </td>
+                  <td colspan="5" style="font-style:italic;color:#6B5E52;">Talla Única: 14</td>
+                  <td class="inv-total-cell">14</td>
+                  <td><span class="inv-badge inv-badge-optimal">Óptimo</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="inv-table-footer">
+            <span>Mostrando 6 variantes activas</span>
+            <button class="inv-footer-action-btn" type="button" onclick="document.querySelector('.inv-stock-row')?.click()">
+              <span>Toca una fila para editar</span>
+              <span class="material-symbols-outlined" style="font-size:14px;">edit</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 6. BANNER EDITORIAL -->
+        <div class="inv-editorial-banner">
+          <div class="inv-editorial-thumb">
+            <span class="material-symbols-outlined" style="font-size:32px;">styler</span>
+          </div>
+          <div class="inv-editorial-content">
+            <p class="inv-editorial-label">AURA ATELIER STUDIO</p>
+            <h4 class="inv-editorial-title">Colección Silueta '25</h4>
+            <p class="inv-editorial-body">Nuevas reposiciones programadas para el fin de semana.</p>
+          </div>
+          <span class="material-symbols-outlined inv-editorial-arrow">arrow_forward</span>
+        </div>
+      </section>
+
+      <!-- 7. DRAWER DESLIZANTE (Bottom Sheet) -->
+      <div id="inventory-drawer" class="inv-drawer-overlay">
+        <div class="inv-drawer-panel" id="inv-drawer-panel">
+          <!-- Header -->
+          <div class="inv-drawer-header">
+            <div class="inv-drawer-header-icon">
+              <span class="material-symbols-outlined" style="font-size:20px;">edit</span>
+            </div>
+            <div class="inv-drawer-header-text">
+              <h3 class="inv-drawer-title" id="inv-drawer-title">Edición Rápida de Producto</h3>
+              <p class="inv-drawer-subtitle" id="inv-drawer-subtitle">Ajuste de inventario</p>
+            </div>
+            <button type="button" class="inv-drawer-close-btn" id="inv-close-btn" aria-label="Cerrar">&times;</button>
+          </div>
+
+          <!-- Toggle Activo / Inactivo -->
+          <div class="inv-drawer-toggle-card">
+            <div>
+              <p class="inv-drawer-toggle-label">Estado del Producto</p>
+              <p class="inv-drawer-toggle-sub">Visible en la tienda digital</p>
+            </div>
+            <label class="inv-switch" aria-label="Estado activo del producto">
+              <input type="checkbox" id="inv-product-active-toggle" checked>
+              <span class="inv-slider"></span>
+            </label>
+          </div>
+
+          <!-- Input Stock -->
+          <div class="inv-stock-control-group">
+            <label for="inv-stock-input" class="inv-stock-control-label">Actualizar Stock / Inyección de Lote</label>
+            <div class="inv-stock-stepper-row">
+              <button type="button" class="inv-step-btn" id="inv-dec-btn" aria-label="Disminuir stock">−</button>
+              <input type="number" id="inv-stock-input" class="inv-stock-input" value="25" min="0" step="1">
+              <button type="button" class="inv-step-btn" id="inv-inc-btn" aria-label="Aumentar stock">＋</button>
+            </div>
+          </div>
+
+          <p class="inv-drawer-hint">El ajuste recalculará automáticamente la alerta de stock y sincronizará con la boutique.</p>
+
+          <!-- Botones -->
+          <div class="inv-drawer-actions">
+            <button type="button" class="inv-drawer-save-btn" id="inv-save-btn">Guardar Cambios</button>
+            <button type="button" class="inv-drawer-cancel-btn" id="inv-cancel-btn">Descartar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8. TOAST DE FEEDBACK -->
+      <div id="inv-toast" role="alert" aria-live="polite">
+        <span class="material-symbols-outlined" id="inv-toast-icon" style="font-size:18px;">check_circle</span>
+        <span id="inv-toast-msg">Stock actualizado correctamente</span>
+      </div>
+
+      <!-- 9. INVENTARIO JS INICIALIZACIÓN -->
+      <script>
+        function initInventory() {
+          const filterTabs = document.querySelectorAll('.inv-filter-tab');
+          const tableRows = document.querySelectorAll('.inv-stock-row');
+          const overlay = document.getElementById('inventory-drawer');
+          const panel = document.getElementById('inv-drawer-panel');
+          const toast = document.getElementById('inv-toast');
+          
+          function showInvToast(msg, icon='check_circle') {
+            const msgEl = document.getElementById('inv-toast-msg');
+            const iconEl = document.getElementById('inv-toast-icon');
+            if (msgEl) msgEl.textContent = msg;
+            if (iconEl) iconEl.textContent = icon;
+            if (toast) {
+              toast.classList.add('inv-toast-show');
+              setTimeout(() => toast.classList.remove('inv-toast-show'), 2600);
+            }
+          }
+          
+          function openDrawer(title, subtitle, qty) {
+            const titleEl = document.getElementById('inv-drawer-title');
+            const subEl = document.getElementById('inv-drawer-subtitle');
+            const inp = document.getElementById('inv-stock-input');
+            if (titleEl) titleEl.textContent = title;
+            if (subEl) subEl.textContent = subtitle;
+            if (inp) inp.value = qty;
+            if (overlay) {
+              overlay.style.opacity = '1';
+              overlay.style.pointerEvents = 'auto';
+            }
+            if (panel) panel.style.transform = 'translateY(0)';
+          }
+          
+          function closeDrawer() {
+            if (panel) panel.style.transform = 'translateY(100%)';
+            if (overlay) {
+              overlay.style.opacity = '0';
+              overlay.style.pointerEvents = 'none';
+            }
+          }
+          
+          // Filtros
+          filterTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+              filterTabs.forEach(t => t.classList.remove('inv-filter-tab-active'));
+              tab.classList.add('inv-filter-tab-active');
+              const f = tab.dataset.filter;
+              tableRows.forEach(row => {
+                row.style.display = f === 'all' ? '' :
+                  f === 'low' && row.dataset.status === 'low' ? '' :
+                  f === 'out' && row.dataset.status === 'out' ? '' : 'none';
+              });
+            });
+          });
+          
+          // Fila click → editar
+          tableRows.forEach(row => {
+            row.addEventListener('click', () => {
+              openDrawer(`Editar: ${row.dataset.name}`, `${row.dataset.color} • ${row.dataset.total} unidades`, row.dataset.total);
+            });
+          });
+          
+          // Botón agregar nuevo
+          document.getElementById('inv-add-btn')?.addEventListener('click', () =>
+            openDrawer('+ Agregar Nuevo Producto', 'Nuevo registro al catálogo AURA FIT', 20)
+          );
+          
+          // Cerrar drawer
+          document.getElementById('inv-close-btn')?.addEventListener('click', closeDrawer);
+          document.getElementById('inv-cancel-btn')?.addEventListener('click', closeDrawer);
+          overlay?.addEventListener('click', e => { if(e.target === overlay) closeDrawer(); });
+          
+          // +/- stock
+          document.getElementById('inv-inc-btn')?.addEventListener('click', () => {
+            const inp = document.getElementById('inv-stock-input');
+            if (inp) inp.value = parseInt(inp.value||'0') + 1;
+          });
+          document.getElementById('inv-dec-btn')?.addEventListener('click', () => {
+            const inp = document.getElementById('inv-stock-input');
+            if (inp) inp.value = Math.max(0, parseInt(inp.value||'0') - 1);
+          });
+          
+          // Guardar
+          document.getElementById('inv-save-btn')?.addEventListener('click', () => {
+            closeDrawer();
+            showInvToast('Stock actualizado correctamente');
+          });
+          
+          // Exportar CSV (mock)
+          document.getElementById('inv-export-btn')?.addEventListener('click', () =>
+            showInvToast('Reporte CSV descargado con éxito', 'download')
+          );
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initInventory);
+        } else {
+          initInventory();
+        }
+      </script>
+    </main>
+  </div>
+
+  <!-- MODAL: PRODUCT (ADD / EDIT) -->
+  <div id="modal-product" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-product-title" style="display: none;">
+    <div class="modal-card modal-card-lg">
+      <div class="modal-card-header">
+        <h3 id="modal-product-title" class="modal-heading">Nuevo Producto</h3>
+        <button type="button" class="modal-close-btn" aria-label="Cerrar modal" onclick="document.getElementById('modal-product').style.display = 'none';">&times;</button>
+      </div>
+
+      <form id="product-form" onsubmit="event.preventDefault(); saveProduct();">
+        <div class="form-group">
+          <label for="prod-name" class="label">Nombre del Producto</label>
+          <input type="text" id="prod-name" name="name" class="input" placeholder="Ej. Legging Sculpt Seamless" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-half">
+            <label for="prod-category" class="label">Categoría</label>
+            <select id="prod-category" name="category" class="select" required>
+              <option value="Tops">Tops</option>
+              <option value="Leggings">Leggings</option>
+              <option value="Sets">Sets</option>
+              <option value="Accesorios">Accesorios</option>
+            </select>
+          </div>
+
+          <div class="form-group col-quarter">
+            <label for="prod-price" class="label">Precio USD ($)</label>
+            <input type="number" id="prod-price" name="price" class="input" step="0.01" min="0" placeholder="0.00" required>
+          </div>
+
+          <div class="form-group col-quarter">
+            <label for="prod-cost" class="label">Costo USD ($)</label>
+            <input type="number" id="prod-cost" name="cost" class="input" step="0.01" min="0" placeholder="0.00">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="prod-description" class="label">Descripción</label>
+          <textarea id="prod-description" name="description" class="input textarea" rows="3" placeholder="Describe los materiales, ajuste y características..."></textarea>
+        </div>
+
+        <!-- Colors Section -->
+        <div class="form-section">
+          <div class="section-heading-row">
+            <label class="label">Colores Disponibles</label>
+            <button type="button" id="btn-add-color" class="btn-outline btn-sm">＋ Agregar Color</button>
+          </div>
+          <div id="colors-list" class="colors-list-container">
+            <!-- Dynamic color items -->
+          </div>
+        </div>
+
+        <!-- Sizes Section -->
+        <div class="form-section">
+          <label class="label">Tallas Disponibles</label>
+          <div class="sizes-checkbox-grid">
+            <label class="checkbox-label"><input type="checkbox" id="size-XS" name="sizes" value="XS"> <span>XS</span></label>
+            <label class="checkbox-label"><input type="checkbox" id="size-S" name="sizes" value="S"> <span>S</span></label>
+            <label class="checkbox-label"><input type="checkbox" id="size-M" name="sizes" value="M"> <span>M</span></label>
+            <label class="checkbox-label"><input type="checkbox" id="size-L" name="sizes" value="L"> <span>L</span></label>
+            <label class="checkbox-label"><input type="checkbox" id="size-XL" name="sizes" value="XL"> <span>XL</span></label>
+            <label class="checkbox-label"><input type="checkbox" id="size-XXL" name="sizes" value="XXL"> <span>XXL</span></label>
+            <label class="checkbox-label"><input type="checkbox" id="size-ÚNICO" name="sizes" value="ÚNICO"> <span>ÚNICO</span></label>
+            <label class="checkbox-label"><input type="checkbox" id="size-T1" name="sizes" value="T1"> <span>T1</span></label>
+            <label class="checkbox-label"><input type="checkbox" id="size-T2" name="sizes" value="T2"> <span>T2</span></label>
+            <label class="checkbox-label"><input type="checkbox" id="size-T3" name="sizes" value="T3"> <span>T3</span></label>
+          </div>
+        </div>
+
+        <!-- Stock Grid -->
+        <div class="form-section">
+          <label class="label">Inventario por Variante (Color / Talla)</label>
+          <div id="stock-grid" class="stock-grid-container">
+            <!-- Dynamically populated based on selected colors and sizes -->
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="modal-actions">
+          <button type="button" id="btn-cancel-product" class="btn-ghost" onclick="document.getElementById('modal-product').style.display = 'none';">Cancelar</button>
+          <button type="submit" id="btn-save-product" class="btn-primary">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="alert" aria-live="polite"></div>
+
+  <script src="js/config.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script>
+    // Al autenticar, ocultar modal y mostrar panel
+    const _origSubmit = window.submitAdminPin;
+    window.submitAdminPin = function() {
+      _origSubmit && _origSubmit();
+      setTimeout(function() {
+        if (document.getElementById('admin-login-modal').style.display === 'none') {
+          document.getElementById('screen-admin').style.display = 'block';
+        }
+      }, 100);
+    };
+  </script>
+</body>
+</html>
