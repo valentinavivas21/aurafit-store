@@ -372,8 +372,8 @@
 }
 
 .about-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
+  background: var(--cream, #fff8f5);
+  border: 1px solid rgba(111, 81, 0, 0.08);
   padding: 48px 36px;
   text-align: center;
   display: flex;
@@ -381,6 +381,15 @@
   align-items: center;
   gap: 16px;
   border-radius: var(--radius-lg);
+}
+
+.about-card .hero-eyebrow {
+  color: var(--wine, #9c404e);
+}
+
+.about-card .section-title,
+.about-card .about-text {
+  color: var(--ink, #27180a);
 }
 
 .about-text {
