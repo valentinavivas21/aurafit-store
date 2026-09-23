@@ -173,24 +173,37 @@ function selectDelivery(type) {
   selectedDelivery = type;
   selectedAgency = null;
 
-  // Estilos de botones
   const btnRetiro = document.getElementById('btn-retiro');
   const btnEnvio = document.getElementById('btn-envio');
   const panel = document.getElementById('shipping-panel');
   const label = document.getElementById('delivery-label');
+  const addressFields = document.getElementById('address-fields');
+  const formTitle = document.getElementById('cart-form-title');
+  const cartForm = document.getElementById('cart-form');
 
-  if (btnRetiro) btnRetiro.style.background = type === 'retiro' ? '#27180a' : '#fff8f5';
-  if (btnRetiro) btnRetiro.style.color = type === 'retiro' ? '#fff8f5' : '#27180a';
-  if (btnEnvio) btnEnvio.style.background = type === 'envio' ? '#27180a' : '#fff8f5';
-  if (btnEnvio) btnEnvio.style.color = type === 'envio' ? '#fff8f5' : '#27180a';
+  // Estilos botones
+  if (btnRetiro) { btnRetiro.style.background = type === 'retiro' ? '#27180a' : '#fff8f5'; btnRetiro.style.color = type === 'retiro' ? '#fff8f5' : '#27180a'; }
+  if (btnEnvio) { btnEnvio.style.background = type === 'envio' ? '#27180a' : '#fff8f5'; btnEnvio.style.color = type === 'envio' ? '#fff8f5' : '#27180a'; }
 
+  // Panel agencias solo si es envío
   if (panel) panel.style.display = type === 'envio' ? 'block' : 'none';
+
+  // Campos de dirección solo si es envío
+  if (addressFields) addressFields.style.display = type === 'envio' ? 'block' : 'none';
+
+  // Título del formulario cambia según el tipo
+  if (formTitle) formTitle.textContent = type === 'retiro' ? 'Datos del Cliente' : 'Datos para el Envío';
+  if (formTitle) formTitle.previousSibling.textContent = type === 'retiro' ? '👤 ' : '📍 ';
+
+  // Mostrar el formulario si estaba oculto
+  if (cartForm) cartForm.style.display = '';
+
   if (label) label.textContent = type === 'retiro' ? 'Retiro en tienda' : 'Envío — elige agencia';
 
   // Resetear agencias
   ['Domesa','MRW','Tealca'].forEach(a => {
     const el = document.getElementById('agency-' + a);
-    if (el) { el.style.background = '#fff8f5'; el.style.color = '#27180a'; }
+    if (el) { el.style.background = '#fff8f5'; el.style.color = '#27180a'; el.style.borderColor = '#e4c285'; }
   });
 
   updateWhatsAppPreview();

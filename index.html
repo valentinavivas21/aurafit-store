@@ -252,7 +252,7 @@
       <!-- Customer Form -->
       <div class="cart-form" id="cart-form" style="display:none">
         <div class="cart-form-header">
-          📍 <h3>Datos para el Envío</h3>
+          👤 <h3 id="cart-form-title">Datos del Cliente</h3>
         </div>
         <div class="form-group">
           <label for="cust-name">Nombre Completo</label>
@@ -268,13 +268,16 @@
             <input type="tel" id="cust-phone" placeholder="+58 ...">
           </div>
         </div>
-        <div class="form-group">
-          <label for="cust-address">Dirección</label>
-          <input type="text" id="cust-address" placeholder="Calle, número, sector" oninput="updateWhatsAppPreview()">
+        <!-- Solo visible si eligen envío a domicilio -->
+        <div id="address-fields" style="display:none;">
+          <div class="form-group">
+            <label for="cust-address">Dirección de Entrega</label>
+            <input type="text" id="cust-address" placeholder="Calle, número, sector" oninput="updateWhatsAppPreview()">
+          </div>
         </div>
         <div class="form-group">
           <label for="cust-notes">Notas Especiales</label>
-          <textarea id="cust-notes" rows="2" placeholder="Empaque especial, timbre, etc." oninput="updateWhatsAppPreview()"></textarea>
+          <textarea id="cust-notes" rows="2" placeholder="Empaque especial, instrucciones, etc." oninput="updateWhatsAppPreview()"></textarea>
         </div>
       </div>
 
