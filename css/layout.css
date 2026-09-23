@@ -1526,6 +1526,7 @@
 }
 .bottom-nav-item.active { color: #9C404E; }
 .bottom-nav-item svg { width: 22px; height: 22px; }
+.bottom-nav-item .material-symbols-outlined { font-size: 22px; width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; }
 .bottom-nav-badge {
   position: absolute;
   top: 4px;

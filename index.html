@@ -62,7 +62,7 @@
             <span class="theme-icon" aria-hidden="true">◑</span>
           </button>
           <button id="btn-cart" class="cart-btn" aria-label="Ver carrito" onclick="if(typeof goTo==='function')goTo('screen-cart')">
-            <span class="cart-icon" aria-hidden="true">🛍️</span>
+            <span class="material-symbols-outlined" style="font-size:18px;">shopping_cart</span>
             <span class="cart-text">Carrito</span>
             <span id="cart-badge" class="cart-badge">0</span>
           </button>
@@ -160,16 +160,16 @@
       <div class="cart-header-badge">
         <div class="cart-header-left">
           <span class="cart-live-dot"></span>
-          <span class="cart-live-label">Tu Bolsa</span>
+          <span class="cart-live-label">Tu Carrito</span>
         </div>
         <div class="cart-items-pill" id="cart-items-pill">
-          🛍 <span id="cart-item-count">0</span> Piezas seleccionadas
+          🛒 <span id="cart-item-count">0</span> Piezas seleccionadas
         </div>
       </div>
 
       <!-- Title -->
       <div class="cart-title-block">
-        <h1 class="cart-title">Su Bolsa de Selección</h1>
+        <h1 class="cart-title">Tu Carrito</h1>
         <p class="cart-subtitle">Piezas reservadas bajo confirmación WhatsApp.</p>
       </div>
 
@@ -177,8 +177,8 @@
       <div class="cart-items-list" id="cart-items-list">
         <!-- Se llena dinámicamente con JS -->
         <div class="cart-empty" id="cart-empty">
-          <span class="cart-empty-icon">🛍</span>
-          <p>Tu bolsa está vacía</p>
+          <span class="cart-empty-icon">🛒</span>
+          <p>Tu carrito está vacío</p>
           <button onclick="showScreen('store')" class="btn-go-store">Ver colección</button>
         </div>
       </div>
@@ -427,10 +427,8 @@
       Catálogo
     </button>
     <button class="bottom-nav-item" onclick="showScreen('cart')" id="nav-cart">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
-      </svg>
-      Bolsa
+      <span class="material-symbols-outlined">shopping_cart</span>
+      CARRITO
       <span class="bottom-nav-badge" id="nav-cart-count">0</span>
     </button>
     <button class="bottom-nav-item" onclick="showScreen('about')" id="nav-about">

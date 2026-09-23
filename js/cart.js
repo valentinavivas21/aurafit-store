@@ -53,7 +53,7 @@ function addToCart(product, color, size, qty) {
     });
   }
   saveCartItems(cart);
-  showToast('¡Producto agregado a la bolsa! 🛍️');
+  showToast('¡Producto agregado al carrito! 🛒');
 }
 
 // Muestra el carrito con los items actuales
@@ -151,7 +151,7 @@ function removeFromCart(idx) {
   items.splice(idx, 1);
   saveCartItems(items);
   renderCart();
-  showToast('Prenda eliminada de la bolsa');
+  showToast('Prenda eliminada del carrito');
 }
 
 function copyOrderId() {
