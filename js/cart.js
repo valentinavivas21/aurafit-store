@@ -166,6 +166,54 @@ function copyOrderId() {
   showToast('ID de reserva copiado 📋');
 }
 
+let selectedDelivery = null;
+let selectedAgency = null;
+
+function selectDelivery(type) {
+  selectedDelivery = type;
+  selectedAgency = null;
+
+  // Estilos de botones
+  const btnRetiro = document.getElementById('btn-retiro');
+  const btnEnvio = document.getElementById('btn-envio');
+  const panel = document.getElementById('shipping-panel');
+  const label = document.getElementById('delivery-label');
+
+  if (btnRetiro) btnRetiro.style.background = type === 'retiro' ? '#27180a' : '#fff8f5';
+  if (btnRetiro) btnRetiro.style.color = type === 'retiro' ? '#fff8f5' : '#27180a';
+  if (btnEnvio) btnEnvio.style.background = type === 'envio' ? '#27180a' : '#fff8f5';
+  if (btnEnvio) btnEnvio.style.color = type === 'envio' ? '#fff8f5' : '#27180a';
+
+  if (panel) panel.style.display = type === 'envio' ? 'block' : 'none';
+  if (label) label.textContent = type === 'retiro' ? 'Retiro en tienda' : 'Envío — elige agencia';
+
+  // Resetear agencias
+  ['Domesa','MRW','Tealca'].forEach(a => {
+    const el = document.getElementById('agency-' + a);
+    if (el) { el.style.background = '#fff8f5'; el.style.color = '#27180a'; }
+  });
+
+  updateWhatsAppPreview();
+}
+
+function selectAgency(name) {
+  selectedAgency = name;
+  ['Domesa','MRW','Tealca'].forEach(a => {
+    const el = document.getElementById('agency-' + a);
+    if (el) {
+      el.style.background = a === name ? '#9c404e' : '#fff8f5';
+      el.style.color = a === name ? '#fff8f5' : '#27180a';
+      el.style.borderColor = a === name ? '#9c404e' : '#e4c285';
+    }
+  });
+  const label = document.getElementById('delivery-label');
+  if (label) label.textContent = `Envío por ${name}`;
+  updateWhatsAppPreview();
+}
+
+window.selectDelivery = selectDelivery;
+window.selectAgency = selectAgency;
+
 function updateWhatsAppPreview() {
   const items = getCartItems();
   const name = document.getElementById('cust-name')?.value || 'Cliente';
@@ -174,9 +222,10 @@ function updateWhatsAppPreview() {
   const notes = document.getElementById('cust-notes')?.value || 'Ninguna';
   const subtotal = items.reduce((sum, i) => sum + i.price * i.qty, 0);
 
+  const deliveryInfo = selectedDelivery === 'retiro' ? 'Retiro en tienda' : selectedAgency ? `Envío por ${selectedAgency}` : 'Envío (agencia por confirmar)';
   const itemLines = items.map(i => `  - ${i.qty}x ${i.name} (${i.color || ''}, Talla ${i.size || 'M'})`).join('\n');
 
-  const text = `Hola Atelier AURA FIT ✨ Quisiera confirmar mi pedido:\n• ID: ${currentOrderId}\n• Cliente: ${name}\n• Ciudad: ${city}${address ? '\n• Dirección: ' + address : ''}\n• Prendas:\n${itemLines}\n• Total: $${subtotal.toFixed(0)} USD\n• Nota: ${notes}\n¿Podrían confirmarme los métodos de pago y tiempo de entrega?`;
+  const text = `Hola AURA FIT ✨ Quisiera confirmar mi pedido:\n• ID: ${currentOrderId}\n• Cliente: ${name}\n• Ciudad: ${city}${address ? '\n• Dirección: ' + address : ''}\n• Entrega: ${deliveryInfo}\n• Prendas:\n${itemLines}\n• Total: $${subtotal.toFixed(0)} USD\n• Nota: ${notes}\n¿Podrían confirmarme los métodos de pago y tiempo de entrega?`;
 
   const preview = document.getElementById('whatsapp-preview-text');
   if (preview) preview.textContent = text;
@@ -185,7 +234,7 @@ function updateWhatsAppPreview() {
 function sendOrderToWhatsApp() {
   updateWhatsAppPreview();
   const preview = document.getElementById('whatsapp-preview-text');
-  const msg = preview?.textContent || 'Hola Atelier AURA FIT, quisiera confirmar mi pedido.';
+  const msg = preview?.textContent || 'Hola AURA FIT, quisiera confirmar mi pedido.';
   const waNumber = typeof WHATSAPP_NUMBER !== 'undefined' ? WHATSAPP_NUMBER : '584120000000';
   window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}`, '_blank');
   showToast('¡Redirigiendo a WhatsApp! 💬');
