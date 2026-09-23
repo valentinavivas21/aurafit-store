@@ -1567,222 +1567,94 @@
   padding: 1rem;
 }
 .admin-modal-card {
-  background: #FFF8F5;
+  background: var(--cream, #fff8f5);
   border-radius: 20px;
-  padding: 1.5rem 1.25rem;
+  padding: 48px 36px 36px;
   width: 100%;
-  max-width: 400px;
-  max-height: 90vh;
-  overflow-y: auto;
+  max-width: 340px;
   display: flex;
   flex-direction: column;
+  gap: 20px;
   align-items: center;
-  gap: 1rem;
-  box-shadow: 0 20px 60px rgba(39,24,10,0.25);
-  position: relative;
+  text-align: center;
 }
-.admin-modal-badge {
-  background: #FFE3CD;
-  color: #6F5100;
-  font-size: 0.6875rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 4px 14px;
-  border-radius: 999px;
-}
-.admin-modal-title-block { text-align: center; }
 .admin-modal-title {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: #27180A;
-  margin: 0 0 4px;
-  line-height: 1.2;
+  font-size: 2rem;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  color: var(--ink, #27180a);
+  margin: 0;
 }
 .admin-modal-subtitle {
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  color: #6F5100;
-  text-transform: uppercase;
-  margin: 0 0 6px;
-}
-.admin-modal-desc {
-  font-size: 0.8125rem;
-  font-style: italic;
-  color: #4E4637;
-  margin: 0;
-  max-width: 260px;
-}
-
-/* Vault icon */
-.admin-vault-icon-wrap {
-  position: relative;
-  width: 64px;
-  height: 64px;
-}
-.admin-vault-icon {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: #FFEADA;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.75rem;
-  box-shadow: inset 0 2px 6px rgba(0,0,0,0.08);
-}
-.admin-vault-lock {
-  position: absolute;
-  bottom: -2px;
-  right: -2px;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: #9C404E;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  font-family: 'DM Sans', sans-serif;
   font-size: 0.7rem;
-  color: white;
-}
-
-/* Security badge */
-.admin-security-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: #FFF1E8;
-  color: #4E4637;
-  font-size: 0.6875rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  padding: 4px 12px;
-  border-radius: 999px;
-}
-.admin-security-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #6F5100;
-  animation: pulse 1.5s infinite;
-  flex-shrink: 0;
-}
-
-/* PIN Input */
-.admin-pin-section { width: 100%; display: flex; flex-direction: column; gap: 6px; }
-.admin-pin-label-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 2px;
-}
-.admin-pin-label {
-  font-size: 0.6875rem;
-  font-weight: 700;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: #27180A;
-}
-.admin-pin-level {
-  font-size: 0.6875rem;
-  font-weight: 700;
-  color: #9C404E;
+  color: var(--wine, #9c404e);
+  margin: 4px 0 0;
 }
 .admin-pin-input-wrap {
-  position: relative;
+  width: 100%;
   display: flex;
   align-items: center;
-  background: #FFF1E8;
+  border: 1px solid rgba(156,64,78,0.25);
   border-radius: 10px;
   overflow: hidden;
+  background: #fff;
 }
 .admin-pin-lock-icon {
-  position: absolute;
-  left: 12px;
+  padding-left: 14px;
   font-size: 1rem;
-  pointer-events: none;
 }
 .admin-pin-input {
-  width: 100%;
-  background: transparent;
+  flex: 1;
   border: none;
-  padding: 12px 44px 12px 40px;
-  font-size: 1.25rem;
-  letter-spacing: 0.25em;
-  color: #27180A;
   outline: none;
-  box-sizing: border-box;
+  padding: 14px 12px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  background: transparent;
+  color: var(--ink, #27180a);
 }
 .admin-pin-toggle {
-  position: absolute;
-  right: 8px;
   background: none;
   border: none;
+  padding: 0 14px;
   cursor: pointer;
   font-size: 1rem;
-  padding: 4px;
-  color: #807665;
-  transition: color 0.2s;
+  opacity: 0.5;
 }
-.admin-pin-toggle:hover { color: #27180A; }
-.admin-pin-hint {
-  font-size: 0.75rem;
-  color: #807665;
-  text-align: center;
-  margin: 0;
-}
-
-
-/* Unlock button */
 .admin-unlock-btn {
   width: 100%;
-  padding: 14px;
-  border-radius: 12px;
-  background: #9C404E;
-  color: #FFFFFF;
+  background: var(--wine, #9c404e);
+  color: #fff;
   border: none;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.05rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
+  border-radius: 10px;
+  padding: 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
   cursor: pointer;
-  box-shadow: 0 4px 16px rgba(156,64,78,0.3);
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
+  transition: background 0.2s;
 }
-.admin-unlock-btn:hover { background: #7E2837; transform: scale(1.01); }
-.admin-unlock-btn:active { transform: scale(0.98); }
-
-/* Error */
+.admin-unlock-btn:hover { background: #7d3140; }
 .admin-pin-error {
-  font-size: 0.8125rem;
-  color: #BA1A1A;
-  text-align: center;
-  margin: 0;
-  animation: shake 0.3s ease;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  color: var(--wine, #9c404e);
 }
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-6px); }
-  75% { transform: translateX(6px); }
-}
-
-/* Back link */
 .admin-modal-back {
   background: none;
   border: none;
-  color: #807665;
-  font-size: 0.8125rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  color: var(--text-muted, #6B5E52);
   cursor: pointer;
-  padding: 4px 8px;
-  transition: color 0.2s;
+  opacity: 0.7;
 }
-.admin-modal-back:hover { color: #6F5100; }
+.admin-modal-back:hover { opacity: 1; }
 
 /* === DASHBOARD KPI === */
 
