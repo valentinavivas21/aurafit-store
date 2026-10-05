@@ -549,14 +549,14 @@ function renderOutOfStock() {
 
     <!-- Alert Banner -->
     ${zeroStockVariants.length > 0 ? `
-      <div style="background:rgba(122, 30, 46, 0.08);border:1px solid var(--danger);padding:16px 20px;border-radius:var(--radius);margin-bottom:24px;display:flex;align-items:center;gap:12px">
+      <div class="stock-alert-banner" style="background:rgba(122, 30, 46, 0.08);border:1px solid var(--danger);padding:16px 20px;border-radius:var(--radius);margin-bottom:24px;display:flex;align-items:center;gap:12px">
         <span style="font-size:20px">⚠️</span>
         <div style="font-size:13px;color:var(--text)">
           Hay <strong>${zeroStockVariants.length} variante(s)</strong> y <strong>${outOfStockProducts.length} producto(s) totalmente agotados</strong>.
         </div>
       </div>
     ` : `
-      <div style="background:rgba(46, 125, 50, 0.08);border:1px solid #2E7D32;padding:16px 20px;border-radius:var(--radius);margin-bottom:24px;display:flex;align-items:center;gap:12px">
+      <div class="stock-alert-banner" style="background:rgba(46, 125, 50, 0.08);border:1px solid #2E7D32;padding:16px 20px;border-radius:var(--radius);margin-bottom:24px;display:flex;align-items:center;gap:12px">
         <span style="font-size:20px">✅</span>
         <div style="font-size:13px;color:var(--text)">¡Excelente! Todas las variantes tienen inventario disponible.</div>
       </div>
@@ -588,7 +588,7 @@ function renderOutOfStock() {
                   <td style="padding:10px 12px;font-weight:600;color:var(--danger)">${v.size}</td>
                   <td style="padding:10px 12px">$${v.product.price} USD</td>
                   <td style="padding:10px 12px">
-                    <button class="btn-ghost" style="font-size:12px;color:var(--champagne)" onclick="loadPanel('incomes')">Reponer</button>
+                    <button class="btn-ghost btn-reponer" style="font-size:12px;" onclick="loadPanel('incomes')">Reponer</button>
                     <button class="btn-ghost" style="font-size:12px;margin-left:8px" onclick="openProductForm('${v.product.id}')">Editar</button>
                   </td>
                 </tr>
