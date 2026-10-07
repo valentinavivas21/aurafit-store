@@ -9,6 +9,9 @@ let activeCategory = 'all';
 // 2. Fallback de getProducts si no existe en el scope global
 if (typeof window.getProducts !== 'function') {
   window.getProducts = function() {
+    if (typeof PRODUCTS !== 'undefined' && Array.isArray(PRODUCTS) && PRODUCTS.length > 0) {
+      return PRODUCTS;
+    }
     return (typeof products !== 'undefined' && Array.isArray(products)) ? products : [];
   };
 }
