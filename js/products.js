@@ -1,15 +1,10 @@
-// =============================================
-// AURA FIT — Catálogo de Productos
-// Precios actualizados desde catálogo real
-// =============================================
-
 const PRODUCTS = [
   {
     id: 'baggys',
     name: 'Baggys',
     category: 'Leggings',
     price: 8,
-    description: 'Pantalón baggy deportivo, cómodo y versátil para entrenamiento o uso casual.',
+    description: 'Pantalón baggy deportivo con efecto push up.',
     image: 'img/mono_baggys.png',
     colors: ['Azul', 'Azul Marino', 'Blanco', 'Negro', 'Rojo', 'Vinotinto'],
     sizes: ['S', 'M', 'L', 'XL', 'U'],
@@ -21,7 +16,7 @@ const PRODUCTS = [
     name: 'Biker Cruzado ULLU',
     category: 'Leggings',
     price: 8,
-    description: 'Biker cruzado de diseño escultor con efecto push up y corte en V.',
+    description: 'Biker cruzado con efecto push up y corte en V.',
     image: 'img/bikers_cruzado.png',
     colors: ['Morado', 'Verde', 'Gris', 'Negro'],
     sizes: ['S/M', 'L/XL'],
@@ -41,6 +36,18 @@ const PRODUCTS = [
     featured: false
   },
   {
+    id: 'biker-degradado',
+    name: 'Biker Degradado',
+    category: 'Leggings',
+    price: 7,
+    description: 'Biker degradado bicolor con efecto push up.',
+    image: 'img/biker_degradado.png',
+    colors: ['By Color'],
+    sizes: ['U'],
+    stock: { 'By Color-U': 4 },
+    featured: false
+  },
+  {
     id: 'conjunto-floyd-biker',
     name: 'Conjunto Floyd Biker',
     category: 'Sets',
@@ -57,7 +64,7 @@ const PRODUCTS = [
     name: 'Conjunto Floyd Cierre',
     category: 'Sets',
     price: 20,
-    description: 'Conjunto deportivo con efecto push up. Top + biker de alta compresión.',
+    description: 'Conjunto deportivo con efecto push up. Top + biker.',
     image: 'img/conjunto2.png',
     colors: ['Gris', 'Negro', 'Rosado'],
     sizes: ['S/M', 'L/XL'],
@@ -84,8 +91,8 @@ const PRODUCTS = [
     description: 'Enterizo deportivo con efecto push up. Talla única.',
     image: 'img/enterizo2.png',
     colors: ['Azul Marino', 'Rojo', 'Rosado'],
-    sizes: ['S', 'M'],
-    stock: { 'Azul Marino-S': 1, 'Rojo-S': 1, 'Rosado-M': 1 },
+    sizes: ['U'],
+    stock: { 'Azul Marino-U': 1, 'Rojo-U': 1, 'Rosado-U': 1 },
     featured: false
   },
   {
@@ -93,7 +100,7 @@ const PRODUCTS = [
     name: 'Falda Short Kirios',
     category: 'Leggings',
     price: 10,
-    description: 'Falda short deportiva de tela gruesa. Perfecta para tenis o pádel.',
+    description: 'Falda short deportiva de tela gruesa.',
     image: 'img/falda_short.png',
     colors: ['Verde'],
     sizes: ['U'],
@@ -105,12 +112,24 @@ const PRODUCTS = [
     name: 'Top de Compresión',
     category: 'Tops',
     price: 13,
-    description: 'Top de compresión de manga larga. Alta elasticidad y soporte muscular.',
+    description: 'Top de compresión de manga larga. Alta elasticidad.',
     image: 'img/franela_decompresion.png',
     colors: ['Negro', 'Rojo', 'Blanco'],
     sizes: ['U'],
     stock: { 'Negro-U': 2, 'Rojo-U': 1, 'Blanco-U': 1 },
     featured: true
+  },
+  {
+    id: 'top-manga-larga',
+    name: 'Top Manga Larga',
+    category: 'Tops',
+    price: 13,
+    description: 'Top manga larga deportivo.',
+    image: 'img/top_mangalarga.png',
+    colors: ['Negro'],
+    sizes: ['U'],
+    stock: { 'Negro-U': 1 },
+    featured: false
   },
   {
     id: 'franela-terry',
@@ -141,7 +160,7 @@ const PRODUCTS = [
     name: 'Jacket',
     category: 'Tops',
     price: 15,
-    description: 'Jacket deportivo de tela delgada, ideal para entrenamiento.',
+    description: 'Jacket deportivo de tela delgada.',
     image: 'img/jacket1.png',
     colors: ['Negro', 'Rosado Viejo'],
     sizes: ['M', 'L', 'XL'],
@@ -173,28 +192,16 @@ const PRODUCTS = [
     featured: false
   },
   {
-    id: 'short-performance',
-    name: 'Short Performance',
-    category: 'Leggings',
-    price: 16,
-    description: 'Short deportivo con licra interior. Alto rendimiento.',
-    image: 'img/shortrunning.png',
-    colors: ['Azul Marino', 'Gris', 'Negro'],
-    sizes: ['M'],
-    stock: { 'Azul Marino-M': 1, 'Gris-M': 1, 'Negro-M': 1 },
-    featured: false
-  },
-  {
     id: 'short-running',
     name: 'Short Running',
     category: 'Leggings',
     price: 16,
     description: 'Short running con licra interior. Ligero y de secado rápido.',
-    image: 'img/shortrunning2.png',
-    colors: ['Beige', 'Fucsia', 'Verde Agua'],
-    sizes: ['S'],
-    stock: { 'Beige-S': 1, 'Fucsia-S': 1, 'Verde Agua-S': 1 },
-    featured: false
+    image: 'img/shortrunning.png',
+    colors: ['Azul Marino', 'Beige', 'Fucsia', 'Gris', 'Negro', 'Verde Agua'],
+    sizes: ['S', 'M'],
+    stock: { 'Azul Marino-M': 1, 'Beige-S': 1, 'Fucsia-S': 1, 'Gris-M': 1, 'Negro-M': 1, 'Verde Agua-S': 1 },
+    featured: true
   },
   {
     id: 'short-running-alo',
@@ -202,7 +209,7 @@ const PRODUCTS = [
     category: 'Leggings',
     price: 16,
     description: 'Short running línea ALO con licra interior.',
-    image: 'img/shortrunning3.png',
+    image: 'img/shortrunning4.png',
     colors: ['Azul Bebé', 'Beige', 'Negro', 'Vinotinto'],
     sizes: ['S', 'L'],
     stock: { 'Azul Bebé-L': 1, 'Beige-L': 1, 'Negro-S': 1, 'Vinotinto-S': 1 },
@@ -229,7 +236,7 @@ const PRODUCTS = [
     image: 'img/sudadera_de_malla.png',
     colors: ['Blanco', 'Negro'],
     sizes: ['U'],
-    stock: { 'Blanco-U': 1 },
+    stock: { 'Blanco-U': 1, 'Negro-U': 1 },
     featured: false
   },
   {
@@ -237,11 +244,11 @@ const PRODUCTS = [
     name: 'Top',
     category: 'Tops',
     price: 5,
-    description: 'Top deportivo cómodo y versátil. Talla única.',
-    image: 'img/franelilla.png',
-    colors: ['Blanco', 'Negro'],
+    description: 'Top deportivo cómodo y versátil.',
+    image: 'img/top.png',
+    colors: ['Blanco', 'Negro', 'By Color'],
     sizes: ['U'],
-    stock: { 'Blanco-U': 1, 'Negro-U': 2 },
+    stock: { 'Blanco-U': 1, 'Negro-U': 2, 'By Color-U': 3 },
     featured: false
   },
   {
@@ -249,7 +256,7 @@ const PRODUCTS = [
     name: 'Top Sin Mangas',
     category: 'Tops',
     price: 5,
-    description: 'Top sin mangas deportivo. Talla M.',
+    description: 'Top sin mangas deportivo.',
     image: 'img/franelilla2.png',
     colors: ['Beige', 'Marrón', 'Negro'],
     sizes: ['M'],
@@ -261,7 +268,7 @@ const PRODUCTS = [
     name: 'Top con Copa',
     category: 'Tops',
     price: 5,
-    description: 'Top sostén deportivo con copa integrada.',
+    description: 'Top sostén con copa integrada.',
     image: 'img/franelilla3.png',
     colors: ['Borgoña', 'Rojo'],
     sizes: ['S'],
@@ -273,7 +280,7 @@ const PRODUCTS = [
     name: 'Top Tirantes',
     category: 'Tops',
     price: 5,
-    description: 'Top de tirantes con push up. Talla única.',
+    description: 'Top de tirantes con push up.',
     image: 'img/franelilla4.png',
     colors: ['Blanco'],
     sizes: ['S', 'M'],
@@ -334,7 +341,7 @@ const PRODUCTS = [
     category: 'Accesorios',
     price: 12,
     description: 'Bolso running ligero para llevar lo esencial.',
-    image: 'img/placeholder.png',
+    image: 'img/placeholder.jpg',
     colors: ['Negro'],
     sizes: ['U'],
     stock: { 'Negro-U': 1 },
@@ -345,8 +352,8 @@ const PRODUCTS = [
     name: 'Juego de Ligas 5 Niveles',
     category: 'Accesorios',
     price: 8,
-    description: 'Set de 5 ligas de resistencia progresiva para glúteos y piernas.',
-    image: 'img/placeholder.png',
+    description: 'Set de 5 ligas de resistencia progresiva.',
+    image: 'img/banditas.png',
     colors: ['Azul', 'Rosado'],
     sizes: ['U'],
     stock: { 'Azul-U': 1, 'Rosado-U': 1 },
@@ -358,7 +365,7 @@ const PRODUCTS = [
     category: 'Accesorios',
     price: 6,
     description: 'Medias deportivas línea ALO.',
-    image: 'img/placeholder.png',
+    image: 'img/placeholder.jpg',
     colors: ['By Color'],
     sizes: ['U'],
     stock: { 'By Color-U': 12 },
