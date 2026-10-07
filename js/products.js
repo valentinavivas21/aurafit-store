@@ -262,9 +262,9 @@ const PRODUCTS = [
     price: 10,
     description: 'Short deportivo para caballero.',
     image: 'img/short_caballero.png',
-    colors: ['Gris', 'Azul', 'Negro', 'Azul Marino', 'Beige', 'Vinotinto', 'Blanco', 'Verde'],
+    colors: ['Gris Oscuro', 'Azul', 'Negro 1', 'Azul Marino', 'Negro 2', 'Azul Eléctrico', 'Beige', 'Vinotinto', 'Blanco', 'Azul Noche', 'Verde'],
     sizes: ['S', 'M', 'L'],
-    stock: { 'Gris-S': 1, 'Azul-M': 1, 'Negro-M': 2, 'Azul Marino-M': 1, 'Beige-M': 1, 'Vinotinto-L': 1, 'Blanco-M': 1, 'Verde-M': 1 },
+    stock: { 'Gris Oscuro-S': 1, 'Azul-M': 1, 'Negro 1-M': 1, 'Azul Marino-M': 1, 'Negro 2-M': 1, 'Azul Eléctrico-M': 1, 'Beige-M': 1, 'Vinotinto-L': 1, 'Blanco-M': 1, 'Azul Noche-L': 1, 'Verde-M': 1 },
     featured: true
   },
   {
