@@ -269,40 +269,56 @@ const PRODUCTS = [
     stock: { 'Negro-M': 1, 'Negro-L': 1, 'Negro-XL': 1, 'Rosado Viejo-M': 1 },
     featured: true
   },
+  // ── SUDADERAS ─────────────────────────────────────────────
   {
     id: 'sudadera',
     name: 'Sudadera',
-    category: 'Tops',
+    category: 'Sudaderas',
     price: 12,
-    description: 'Sudadera deportiva cómoda.',
+    description: 'Sudadera deportiva manga larga.',
     image: 'img/sudadera.png',
-    colors: ['Blanco', 'By Color'],
-    sizes: ['S', 'M', 'L'],
-    stock: { 'Blanco-S': 1, 'Blanco-L': 1 },
-    featured: false
-  },
-  {
-    id: 'sudadera-malla',
-    name: 'Sudadera de Malla',
-    category: 'Tops',
-    price: 6,
-    description: 'Sudadera ligera con tejido de malla y capucha.',
-    image: 'img/sudadera_de_malla.png',
-    colors: ['Blanco', 'Negro'],
-    sizes: ['U'],
-    stock: { 'Blanco-U': 1, 'Negro-U': 1 },
+    colorImages: {
+      'Blanco':      'img/sudadera.png',
+      'Blanco Gris': 'img/sudadera2.png',
+      'Negro 1':     'img/sudadera3.png',
+      'Negro 2':     'img/sudadera4.png'
+    },
+    colors: ['Blanco', 'Blanco Gris', 'Negro 1', 'Negro 2'],
+    sizes: ['XS','S','M','L','XL'],
+    stock: true,
     featured: false
   },
   {
     id: 'sudadera-compresion',
     name: 'Sudadera de Compresión',
-    category: 'Tops',
+    category: 'Sudaderas',
     price: 18,
-    description: 'Sudadera de compresión manga larga.',
+    description: 'Sudadera de compresión manga larga. Caballero.',
     image: 'img/sudadera_decompresion.png',
-    colors: ['Blanco', 'Azul Marino', 'Gris'],
-    sizes: ['S', 'M', 'L'],
-    stock: { 'Blanco-S': 1, 'Azul Marino-L': 1, 'Gris-M': 1 },
+    colorImages: {
+      'Gris Oscuro': 'img/sudadera_decompresion.png',
+      'Gris':        'img/sudadera_decompresion2.png',
+      'Blanco':      'img/sudadera_decompresion3.png'
+    },
+    colors: ['Gris Oscuro', 'Gris', 'Blanco'],
+    sizes: ['XS','S','M','L','XL'],
+    stock: true,
+    featured: false
+  },
+  {
+    id: 'sudadera-malla',
+    name: 'Sudadera de Malla',
+    category: 'Sudaderas',
+    price: 6,
+    description: 'Sudadera ligera con tejido de malla.',
+    image: 'img/sudadera_de_malla.png',
+    colorImages: {
+      'Negro Gris':  'img/sudadera_de_malla.png',
+      'Azul Marino': 'img/sudadera_de_malla2.png'
+    },
+    colors: ['Negro Gris', 'Azul Marino'],
+    sizes: ['XS','S','M','L','XL'],
+    stock: true,
     featured: false
   },
   // ── SETS / CONJUNTOS ─────────────────────────────────────
