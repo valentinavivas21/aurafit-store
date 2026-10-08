@@ -37,15 +37,39 @@ const PRODUCTS = [
     featured: false
   },
   {
-    id: 'biker-degradado',
+    id: 'biker-degradado-1',
     name: 'Biker Degradado',
     category: 'Leggings',
     price: 8,
     description: 'Biker degradado bicolor con efecto push up.',
     image: 'img/biker_degradado.png',
-    colors: ['Rosado', 'Azul', 'By Color'],
-    sizes: ['U'],
-    stock: { 'Rosado-U': 2, 'Azul-U': 1, 'By Color-U': 2 },
+    colors: ['Azul y Rosa'],
+    sizes: ['XS','S','M','L','XL'],
+    stock: true,
+    featured: false
+  },
+  {
+    id: 'biker-degradado-2',
+    name: 'Biker Degradado',
+    category: 'Leggings',
+    price: 8,
+    description: 'Biker degradado bicolor con efecto push up.',
+    image: 'img/biker_degradado2.png',
+    colors: ['Negro y Blanco'],
+    sizes: ['XS','S','M','L','XL'],
+    stock: true,
+    featured: false
+  },
+  {
+    id: 'biker-degradado-3',
+    name: 'Biker Degradado',
+    category: 'Leggings',
+    price: 8,
+    description: 'Biker degradado bicolor con efecto push up.',
+    image: 'img/biker_degradado3.png',
+    colors: ['Rosado y Lila'],
+    sizes: ['XS','S','M','L','XL'],
+    stock: true,
     featured: false
   },
   {
