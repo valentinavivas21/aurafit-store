@@ -67,16 +67,42 @@ const PRODUCTS = [
     featured: false
   },
   {
-    id: 'licra',
-    name: 'Licra',
+    id: 'licra-unicolor',
+    name: 'Licra Unicolor',
     category: 'Leggings',
     price: 8,
-    description: 'Licra deportiva con efecto push up. Talla única.',
+    description: 'Licra deportiva con efecto push up.',
     image: 'img/lycra.png',
-    colors: ['Gris', 'Rosado', 'Blanco', 'By Color', 'Negro', 'Verde', 'Marrón', 'Naranja', 'Azul'],
-    sizes: ['U', 'S', 'L/XL'],
-    stock: { 'Gris-U': 1, 'Rosado-U': 1, 'Blanco-U': 1, 'By Color-U': 4, 'Negro-U': 1, 'Verde-L/XL': 1, 'Marrón-U': 1 },
+    colorImages: {
+      'Gris Oscuro': 'img/lycra.png',
+      'Rosado':      'img/lycra2.png',
+      'Gris Claro':  'img/lycra3.png',
+      'Azul Gris':   'img/lycra4.png',
+      'Verde Khaki': 'img/lycra5.png',
+      'Marrón':      'img/lycra6.png'
+    },
+    colors: ['Gris Oscuro', 'Rosado', 'Gris Claro', 'Azul Gris', 'Verde Khaki', 'Marrón'],
+    sizes: ['XS','S','M','L','XL'],
+    stock: true,
     featured: true
+  },
+  {
+    id: 'licra-degradada',
+    name: 'Licra Degradada',
+    category: 'Leggings',
+    price: 8,
+    description: 'Licra degradada bicolor con efecto push up.',
+    image: 'img/lycra7.png',
+    colorImages: {
+      'Azul Claro':  'img/lycra7.png',
+      'Turquesa':    'img/lycra8.png',
+      'Rosado':      'img/lycra9.png',
+      'Negro':       'img/lycra10.png'
+    },
+    colors: ['Azul Claro', 'Turquesa', 'Rosado', 'Negro'],
+    sizes: ['XS','S','M','L','XL'],
+    stock: true,
+    featured: false
   },
   {
     id: 'falda-short',
