@@ -221,6 +221,7 @@ function colorNameToHex(name) {
     'crema': '#F5F0E8',
     'cream': '#F5F0E8',
     'beige': '#E8DCC4',
+    'nude': '#E8C4A0',
     'champagne': '#C9A96E',
     'marrón cacao': '#5C3825',
     'marrón': '#5C3825',

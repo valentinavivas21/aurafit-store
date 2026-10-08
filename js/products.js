@@ -157,34 +157,65 @@ const PRODUCTS = [
     price: 5,
     description: 'Top sostén con copa integrada.',
     image: 'img/top4.png',
-    colors: ['Rosado', 'Blanco', 'By Color'],
-    sizes: ['S/M', 'M'],
-    stock: { 'Rosado-S/M': 1, 'Blanco-M': 1 },
+    colorImages: {
+      'Rosado': 'img/top4.png',
+      'Blanco':  'img/top5.png'
+    },
+    colors: ['Rosado', 'Blanco'],
+    sizes: ['XS','S','M','L','XL'],
+    stock: true,
     featured: false
   },
   {
-    id: 'top',
-    name: 'Top',
+    id: 'top-deportivo',
+    name: 'Top Deportivo',
     category: 'Tops',
     price: 5,
     description: 'Top deportivo cómodo y versátil.',
     image: 'img/top.png',
-    colors: ['Azul', 'Amarillo', 'Blanco', 'Beige', 'By Color'],
-    sizes: ['U', 'M'],
-    stock: { 'Azul-U': 1, 'Amarillo-U': 1, 'Blanco-U': 1, 'Beige-M': 1 },
+    colorImages: {
+      'Azul':     'img/top.png',
+      'Amarillo': 'img/top2.png',
+      'Blanco':   'img/top3.png'
+    },
+    colors: ['Azul', 'Amarillo', 'Blanco'],
+    sizes: ['XS','S','M','L','XL'],
+    stock: true,
     featured: false
   },
   {
-    id: 'top-push-up',
-    name: 'Top Push Up',
+    id: 'top-bikini',
+    name: 'Top Bikini',
     category: 'Tops',
     price: 12,
-    description: 'Top con push up integrado.',
-    image: 'img/top6.png',
-    colors: ['Morado', 'Rojo', 'By Color'],
-    sizes: ['U'],
-    stock: { 'Morado-U': 1, 'Rojo-U': 1 },
+    description: 'Top estilo bikini con push up integrado.',
+    image: 'img/top11.png',
+    colorImages: {
+      'Rojo':        'img/top11.png',
+      'Azul Marino': 'img/top10.png',
+      'Vinotinto':   'img/top6.png'
+    },
+    colors: ['Rojo', 'Azul Marino', 'Vinotinto'],
+    sizes: ['XS','S','M','L','XL'],
+    stock: true,
     featured: true
+  },
+  {
+    id: 'top-halter',
+    name: 'Top Halter',
+    category: 'Tops',
+    price: 10,
+    description: 'Top halter deportivo de tiras.',
+    image: 'img/top7.png',
+    colorImages: {
+      'Negro':  'img/top7.png',
+      'Marrón': 'img/top8.png',
+      'Nude':   'img/top9.png'
+    },
+    colors: ['Negro', 'Marrón', 'Nude'],
+    sizes: ['XS','S','M','L','XL'],
+    stock: true,
+    featured: false
   },
   {
     id: 'top-compresion',
@@ -192,23 +223,15 @@ const PRODUCTS = [
     category: 'Tops',
     price: 13,
     description: 'Top de compresión manga larga. Alta elasticidad.',
-    image: 'img/franela_decompresion.png',
-    colors: ['Blanco', 'Negro'],
-    sizes: ['U'],
-    stock: { 'Blanco-U': 1, 'Negro-U': 2 },
+    image: 'img/top_decompresion.png',
+    colorImages: {
+      'Blanco':      'img/top_decompresion.png',
+      'Azul Marino': 'img/top_mangalarga.png'
+    },
+    colors: ['Blanco', 'Azul Marino'],
+    sizes: ['XS','S','M','L','XL'],
+    stock: true,
     featured: true
-  },
-  {
-    id: 'top-manga-larga',
-    name: 'Top Manga Larga',
-    category: 'Tops',
-    price: 13,
-    description: 'Top manga larga deportivo.',
-    image: 'img/top_mangalarga.png',
-    colors: ['Negro'],
-    sizes: ['U'],
-    stock: { 'Negro-U': 1 },
-    featured: false
   },
   {
     id: 'franela-terry',
