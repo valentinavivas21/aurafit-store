@@ -313,10 +313,10 @@ const PRODUCTS = [
     description: 'Sudadera ligera con tejido de malla.',
     image: 'img/sudadera_de_malla.png',
     colorImages: {
-      'Negro Gris':  'img/sudadera_de_malla.png',
-      'Azul Marino': 'img/sudadera_de_malla2.png'
+      'Negro':  'img/sudadera_de_malla.png',
+      'Blanco': 'img/sudadera_de_malla2.png'
     },
-    colors: ['Negro Gris', 'Azul Marino'],
+    colors: ['Negro', 'Blanco'],
     sizes: ['XS','S','M','L','XL'],
     stock: true,
     featured: false
