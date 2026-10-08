@@ -364,7 +364,7 @@ function renderProducts(filter) {
         card.dataset.selectedColor = dot.dataset.color;
         // Cambiar imagen si el producto tiene colorImages
         if (product.colorImages && product.colorImages[dot.dataset.color]) {
-          const img = card.querySelector('.product-img');
+          const img = card.querySelector('.product-card-img');
           if (img) img.src = product.colorImages[dot.dataset.color];
         }
       });
