@@ -215,6 +215,7 @@ function colorNameToHex(name) {
     'vinotinto': '#6B1D2F',
     'wine': '#9C404E',
     'borgoña': '#6A1B29',
+    'burdeos': '#6A1B29',
     'rojo': '#C53030',
     'crema suave': '#F5F0E8',
     'crema': '#F5F0E8',

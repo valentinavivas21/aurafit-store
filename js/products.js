@@ -7,9 +7,18 @@ const PRODUCTS = [
     price: 12,
     description: 'Pantalón baggy deportivo con efecto push up.',
     image: 'img/mono_baggys.png',
-    colors: ['Negro', 'Vinotinto', 'Blanco', 'Azul', 'Rojo', 'Azul Marino'],
-    sizes: ['S', 'M', 'L', 'XL', 'S/XL'],
-    stock: { 'Negro-S/XL': 1, 'Vinotinto-S': 1, 'Blanco-M/L': 1, 'Azul-M': 1, 'Rojo-L': 2, 'Azul Marino-S': 1 },
+    colorImages: {
+      'Negro':       'img/mono_baggys.png',
+      'Gris':        'img/mono_baggys2.png',
+      'Blanco':      'img/mono_baggys3.png',
+      'Burdeos':     'img/mono_baggys4.png',
+      'Vinotinto':   'img/mono_baggys5.png',
+      'Azul Marino': 'img/mono_baggys6.png',
+      'Azul':        'img/mono_baggys7.png'
+    },
+    colors: ['Negro', 'Gris', 'Blanco', 'Burdeos', 'Vinotinto', 'Azul Marino', 'Azul'],
+    sizes: ['XS','S','M','L','XL'],
+    stock: true,
     featured: true
   },
   {
