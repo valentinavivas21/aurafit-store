@@ -94,12 +94,11 @@ const PRODUCTS = [
     description: 'Licra degradada bicolor con efecto push up.',
     image: 'img/lycra7.png',
     colorImages: {
-      'Azul Claro':  'img/lycra7.png',
-      'Turquesa':    'img/lycra8.png',
-      'Rosado':      'img/lycra9.png',
-      'Negro':       'img/lycra10.png'
+      'Azul Claro': 'img/lycra7.png',
+      'Rosado':     'img/lycra9.png',
+      'Negro':      'img/lycra10.png'
     },
-    colors: ['Azul Claro', 'Turquesa', 'Rosado', 'Negro'],
+    colors: ['Azul Claro', 'Rosado', 'Negro'],
     sizes: ['XS','S','M','L','XL'],
     stock: true,
     featured: false
