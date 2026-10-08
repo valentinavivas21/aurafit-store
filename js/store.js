@@ -255,7 +255,10 @@ function colorNameToHex(name) {
     'gris oscuro': '#4A4A4A',
     'gray': '#807665',
     'grey': '#807665',
-    'by color': 'linear-gradient(135deg, #FF6B6B, #4ECDC4, #FFE66D)'
+    'by color':        'linear-gradient(135deg, #FF6B6B, #4ECDC4, #FFE66D)',
+    'azul y rosa':     'linear-gradient(135deg, #6EB5FF 0%, #FFB3C6 100%)',
+    'negro y blanco':  'linear-gradient(135deg, #1a1a1a 0%, #f0f0f0 100%)',
+    'rosado y lila':   'linear-gradient(135deg, #FF6EB4 0%, #C8A4E8 100%)'
   };
   return map[n] || '#C9A96E';
 }
@@ -330,7 +333,7 @@ function renderProducts(filter) {
             ${colors.map((c, idx) => `
               <span class="color-dot ${idx === 0 ? 'active' : ''}" 
                     data-color="${c.name}" 
-                    style="background:${c.hex};" 
+                    style="background-image:${c.hex.startsWith('linear') ? c.hex : 'none'}; background-color:${c.hex.startsWith('linear') ? 'transparent' : c.hex};" 
                     title="${c.name}"
                     aria-label="${c.name}"></span>
             `).join('')}
