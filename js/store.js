@@ -247,6 +247,8 @@ function colorNameToHex(name) {
     'verde militar': '#4B5320',
     'verde oliva': '#556B2F',
     'verde agua': '#76D7C4',
+    'verde claro': '#90EE90',
+    'rosa':        '#FF9DB5',
     'blanco': '#FFFFFF',
     'blanco 2': '#F8F9FA',
     'amarillo': '#ECC94B',

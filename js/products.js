@@ -19,9 +19,16 @@ const PRODUCTS = [
     price: 8,
     description: 'Biker cruzado con efecto push up y corte en V.',
     image: 'img/bikers_cruzado.png',
-    colors: ['Morado', 'Gris', 'Negro', 'By Color'],
-    sizes: ['S/M', 'L/XL'],
-    stock: { 'Morado-L/XL': 1, 'Gris-L/XL': 3, 'Negro-S/M': 1, 'Negro-L/XL': 1 },
+    colorImages: {
+      'Rosado':      'img/bikers_cruzado.png',
+      'Negro':       'img/bikers_cruzado3.png',
+      'Gris':        'img/bikers_cruzado4.png',
+      'Verde Claro': 'img/bikers_cruzado5.png',
+      'Rosa':        'img/bikers_cruzado6.png'
+    },
+    colors: ['Rosado', 'Negro', 'Gris', 'Verde Claro', 'Rosa'],
+    sizes: ['XS','S','M','L','XL'],
+    stock: true,
     featured: false
   },
   {
@@ -46,9 +53,10 @@ const PRODUCTS = [
     colorImages: {
       'Azul y Rosa':    'img/biker_degradado.png',
       'Negro y Blanco': 'img/biker_degradado2.png',
-      'Rosado y Lila':  'img/biker_degradado3.png'
+      'Rosado y Lila':  'img/biker_degradado3.png',
+      'Azul':           'img/biker_degradado4.png'
     },
-    colors: ['Azul y Rosa', 'Negro y Blanco', 'Rosado y Lila'],
+    colors: ['Azul y Rosa', 'Negro y Blanco', 'Rosado y Lila', 'Azul'],
     sizes: ['XS','S','M','L','XL'],
     stock: true,
     featured: false
