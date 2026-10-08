@@ -126,11 +126,16 @@ function injectStoreStyles() {
       transition: border-color 0.15s, transform 0.15s;
       box-sizing: border-box;
     }
+    .color-dot[style*="FFFFFF"],
+    .color-dot[style*="ffffff"],
+    .color-dot[style*="fff"] {
+      border: 1.5px solid #ccc !important;
+    }
     .color-dot:hover {
       transform: scale(1.1);
     }
     .color-dot.active {
-      border-color: var(--wine, #9c404e);
+      border-color: var(--wine, #9c404e) !important;
       outline: 1px solid #fff;
       outline-offset: -3px;
     }
