@@ -328,7 +328,7 @@ function renderProducts(filter) {
     card.innerHTML = `
       <div class="product-card-img-wrap">
         <span class="badge-category">${badgeText}</span>
-        <img src="${imgSrc}" alt="${product.name}" class="product-card-img" loading="lazy" style="${imgSrc.includes('lycra9') ? 'transform:rotate(90deg)' : ''}" onerror="this.onerror=null;this.src='img/placeholder.svg';">
+        <img src="${imgSrc}" alt="${product.name}" class="product-card-img" loading="lazy" style="${imgSrc.includes('lycra9') ? 'transform:rotate(-90deg);transition:none' : ''}" onerror="this.onerror=null;this.src='img/placeholder.svg';">
       </div>
       <div class="product-card-body">
         <h3 class="product-name">${product.name}</h3>
@@ -377,7 +377,8 @@ function renderProducts(filter) {
           const img = card.querySelector('.product-card-img');
           if (img) {
             img.src = product.colorImages[dot.dataset.color];
-            img.style.transform = img.src.includes('lycra9') ? 'rotate(90deg)' : '';
+            img.style.transition = 'none';
+            img.style.transform = img.src.includes('lycra9') ? 'rotate(-90deg)' : '';
           }
         }
       });
