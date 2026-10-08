@@ -131,9 +131,22 @@ const PRODUCTS = [
     price: 16,
     description: 'Short running con licra interior. Ligero y de secado rápido.',
     image: 'img/shortrunning.png',
-    colors: ['Beige', 'Vinotinto', 'Azul Bebé', 'Fucsia', 'Negro', 'Blanco', 'Azul', 'By Color'],
-    sizes: ['S', 'M'],
-    stock: { 'Beige-S': 1, 'Vinotinto-S': 1, 'Azul Bebé-S': 1, 'Fucsia-S': 1, 'Negro-M': 1, 'Blanco-M': 1 },
+    colorImages: {
+      'Marrón':        'img/shortrunning.png',
+      'Vinotinto':     'img/shortrunning2.png',
+      'Azul Claro':    'img/shortrunning3.png',
+      'Negro Doble':   'img/shortrunning4.png',
+      'Beige Oscuro':  'img/shortrunning5.png',
+      'Fucsia':        'img/shortrunning6.png',
+      'Beige Claro':   'img/shortrunning7.png',
+      'Crema':         'img/shortrunning8.png',
+      'Negro Liso':    'img/shortrunning9.png',
+      'Negro Sport':   'img/shortrunning10.png',
+      'Azul Marino':   'img/shortrunning11.png'
+    },
+    colors: ['Marrón','Vinotinto','Azul Claro','Negro Doble','Beige Oscuro','Fucsia','Beige Claro','Crema','Negro Liso','Negro Sport','Azul Marino'],
+    sizes: ['XS','S','M','L','XL'],
+    stock: true,
     featured: true
   },
   // ── TOPS DAMA ────────────────────────────────────────────
