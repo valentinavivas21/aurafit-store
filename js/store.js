@@ -328,7 +328,7 @@ function renderProducts(filter) {
     card.innerHTML = `
       <div class="product-card-img-wrap">
         <span class="badge-category">${badgeText}</span>
-        <img src="${imgSrc}" alt="${product.name}" class="product-card-img" loading="lazy" style="${imgSrc.includes('lycra9') ? 'transform:rotate(-90deg);transition:none' : ''}" onerror="this.onerror=null;this.src='img/placeholder.svg';">
+        <img src="${imgSrc}" alt="${product.name}" class="product-card-img" loading="lazy" style="${imgSrc.includes('lycra9') ? 'transform:rotate(-90deg);transition:none;width:140%;height:140%;object-fit:cover;margin:-20%' : ''}" onerror="this.onerror=null;this.src='img/placeholder.svg';">
       </div>
       <div class="product-card-body">
         <h3 class="product-name">${product.name}</h3>
@@ -378,7 +378,18 @@ function renderProducts(filter) {
           if (img) {
             img.src = product.colorImages[dot.dataset.color];
             img.style.transition = 'none';
-            img.style.transform = img.src.includes('lycra9') ? 'rotate(-90deg)' : '';
+            if (img.src.includes('lycra9')) {
+              img.style.transform = 'rotate(-90deg)';
+              img.style.width = '140%';
+              img.style.height = '140%';
+              img.style.objectFit = 'cover';
+              img.style.margin = '-20%';
+            } else {
+              img.style.transform = '';
+              img.style.width = '';
+              img.style.height = '';
+              img.style.margin = '';
+            }
           }
         }
       });
