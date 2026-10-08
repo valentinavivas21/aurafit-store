@@ -362,6 +362,11 @@ function renderProducts(filter) {
         colorDots.forEach(d => d.classList.remove('active'));
         dot.classList.add('active');
         card.dataset.selectedColor = dot.dataset.color;
+        // Cambiar imagen si el producto tiene colorImages
+        if (product.colorImages && product.colorImages[dot.dataset.color]) {
+          const img = card.querySelector('.product-img');
+          if (img) img.src = product.colorImages[dot.dataset.color];
+        }
       });
     });
 
