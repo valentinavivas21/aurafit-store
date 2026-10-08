@@ -73,8 +73,17 @@
 
     <!-- Hero Section -->
     <section class="store-hero">
+      <div class="hero-slides">
+        <div class="hero-slide active" style="background-image:url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1400&q=80')"></div>
+        <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1518310383802-640c2de311b2?w=1400&q=80')"></div>
+        <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1534258936925-c58bed479fcb?w=1400&q=80')"></div>
+        <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1607962837359-5e7e89f86776?w=1400&q=80')"></div>
+      </div>
+      <div class="hero-overlay"></div>
       <div class="store-hero-inner">
-        <p class="hero-desc">Activewear de compresión · Compra directa vía WhatsApp</p>
+        <p class="hero-label">Activewear · Compresión</p>
+        <h1 class="hero-title">AURA FIT</h1>
+        <p class="hero-desc">Compra directa vía WhatsApp</p>
       </div>
     </section>
 
@@ -445,6 +454,20 @@
           splash.remove();
         }, { once: true });
       }, 2000);
+    })();
+  </script>
+
+  <script>
+    // Hero slideshow
+    (function(){
+      const slides = document.querySelectorAll('.hero-slide');
+      let current = 0;
+      if(!slides.length) return;
+      setInterval(() => {
+        slides[current].classList.remove('active');
+        current = (current + 1) % slides.length;
+        slides[current].classList.add('active');
+      }, 4000);
     })();
   </script>
 

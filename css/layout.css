@@ -178,98 +178,90 @@
   font-weight: 600;
 }
 
-/* ==========================================================================
-   HERO SECTION — Clean Minimal
-   ========================================================================== */
-
+/* ── Hero animado ── */
 .store-hero {
-  padding: 3.5rem 1.5rem 2.5rem;
-  background: #FFFFFF;
-  border-bottom: 1px solid rgba(92, 56, 37, 0.08);
+  position: relative;
+  height: clamp(320px, 55vw, 560px);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-slides {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1.2s ease-in-out;
+}
+
+.hero-slide.active {
+  opacity: 1;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(17, 14, 12, 0.35) 0%,
+    rgba(17, 14, 12, 0.55) 100%
+  );
+  z-index: 1;
 }
 
 .store-hero-inner {
+  position: relative;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  max-width: 560px;
-  margin: 0 auto;
-  gap: 1.25rem;
+  gap: 0.75rem;
+  padding: 1.5rem;
 }
 
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 14px;
-  border-radius: 0;
-  background: transparent;
-  border: 1px solid rgba(111, 81, 0, 0.25);
-  font-size: 0.6rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
+.hero-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #6A5220;
-}
-
-.hero-badge-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #9C404E;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(1.4); }
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
 }
 
 .hero-title {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2.4rem, 6vw, 3.5rem);
+  font-size: clamp(2.8rem, 8vw, 5rem);
   font-weight: 300;
-  line-height: 1.15;
-  letter-spacing: 0.02em;
-  color: #27180A;
+  letter-spacing: 0.12em;
+  color: #FFFFFF;
   margin: 0;
-}
-
-.hero-subtitle-em {
-  font-style: italic;
-  color: #9C404E;
-  font-weight: 300;
-  display: block;
+  line-height: 1;
 }
 
 .hero-desc {
-  font-size: 0.875rem;
-  color: #807665;
-  max-width: 360px;
-  line-height: 1.7;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.8);
   margin: 0;
-  letter-spacing: 0.02em;
 }
 
-.hero-banner-img {
-  display: none;
-}
-
-.hero-banner-overlay,
-.hero-banner-tag,
-.hero-banner-name {
-  display: none;
-}
-
-/* Línea divisoria decorativa bajo el hero */
 .store-hero::after {
   content: '';
-  display: block;
-  width: 48px;
-  height: 1px;
-  background: #9C404E;
-  margin: 0.5rem auto 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--wine, #9C404E);
+  z-index: 3;
 }
 
 /* WhatsApp Ribbon */
