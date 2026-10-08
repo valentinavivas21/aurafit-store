@@ -33,14 +33,19 @@ const PRODUCTS = [
   },
   {
     id: 'bikers',
-    name: 'Bikers',
+    name: 'Biker Unicolor',
     category: 'Leggings',
     price: 7,
-    description: 'Biker deportivo con efecto push up. Talla única.',
+    description: 'Biker deportivo con efecto push up.',
     image: 'img/biker_unicolor.png',
-    colors: ['Lila', 'Marrón', 'Negro', 'By Color'],
-    sizes: ['U'],
-    stock: { 'Lila-U': 1, 'Marrón-U': 1, 'Negro-U': 1, 'By Color-U': 3 },
+    colorImages: {
+      'Lila':   'img/biker_unicolor.png',
+      'Gris':   'img/biker_unicolor2.png',
+      'Marrón': 'img/biker_unicolor3.png'
+    },
+    colors: ['Lila', 'Gris', 'Marrón'],
+    sizes: ['XS','S','M','L','XL'],
+    stock: true,
     featured: false
   },
   {
