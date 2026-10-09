@@ -243,7 +243,7 @@ function colorNameToHex(name) {
     'fucsia': '#D91E75',
     'pink': '#E08594',
     'azul': '#2A4D69',
-    'azul marino': '#1B2A4A',
+    'azul marino': '#1C3A6E',
     'azul noche': '#141E30',
     'azul eléctrico': '#0055FF',
     'azul electrico': '#0055FF',
