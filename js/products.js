@@ -296,11 +296,11 @@ const PRODUCTS = [
     description: 'Sudadera de compresión manga larga. Caballero.',
     image: 'img/sudadera_decompresion.png',
     colorImages: {
-      'Gris Oscuro': 'img/sudadera_decompresion.png',
-      'Gris':        'img/sudadera_decompresion2.png',
+      'Gris':        'img/sudadera_decompresion.png',
+      'Azul Marino': 'img/sudadera_decompresion2.png',
       'Blanco':      'img/sudadera_decompresion3.png'
     },
-    colors: ['Gris Oscuro', 'Gris', 'Blanco'],
+    colors: ['Gris', 'Azul Marino', 'Blanco'],
     sizes: ['XS','S','M','L','XL'],
     stock: true,
     featured: false
