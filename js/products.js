@@ -339,16 +339,14 @@ const PRODUCTS = [
     name: 'Conjunto Leggings',
     category: 'Sets',
     price: 20,
-    description: 'Set deportivo de leggings y camisa manga corta con efecto push up.',
+    description: 'Set deportivo de leggings y top manga corta con efecto push up.',
     image: 'img/conjunto.png',
     colorImages: {
       'Rosado':     'img/conjunto.png',
-      'Marrón':     'img/conjunto2.png',
-      'Gris':       'img/conjunto3.png',
       'Negro':      'img/conjunto5.png',
       'Gris Claro': 'img/conjunto6.png'
     },
-    colors: ['Rosado', 'Marrón', 'Gris', 'Negro', 'Gris Claro'],
+    colors: ['Rosado', 'Negro', 'Gris Claro'],
     sizes: ['S/M', 'M', 'L/XL'],
     stock: true,
     featured: true
@@ -358,15 +356,17 @@ const PRODUCTS = [
     name: 'Conjunto Short',
     category: 'Sets',
     price: 20,
-    description: 'Set deportivo de short y camisa manga corta.',
-    image: 'img/conjunto7.png',
+    description: 'Set deportivo de short y top manga larga.',
+    image: 'img/conjunto2.png',
     colorImages: {
-      'Negro': 'img/conjunto7.png'
+      'Marrón': 'img/conjunto2.png',
+      'Gris':   'img/conjunto3.png',
+      'Negro':  'img/conjunto7.png'
     },
-    colors: ['Negro'],
+    colors: ['Marrón', 'Gris', 'Negro'],
     sizes: ['S/M', 'M', 'L/XL'],
     stock: true,
-    featured: false
+    featured: true
   },
   {
     id: 'conjunto-especial',
