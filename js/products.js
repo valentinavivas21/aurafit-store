@@ -349,7 +349,7 @@ const PRODUCTS = [
   {
     id: 'mono-deportivo',
     name: 'Mono Deportivo',
-    category: 'Sets',
+    category: 'Leggings',
     price: 18,
     description: 'Mono deportivo unisex de una pieza.',
     image: 'img/mono_deportivo.png',
