@@ -149,6 +149,18 @@ const PRODUCTS = [
     stock: true,
     featured: true
   },
+  {
+    id: 'mono-deportivo',
+    name: 'Mono Deportivo',
+    category: 'Leggings',
+    price: 18,
+    description: 'Mono deportivo unisex de una pieza.',
+    image: 'img/mono_deportivo.png',
+    colors: ['Negro', 'Rojo', 'Azul Marino', 'Gris', 'Blanco'],
+    sizes: ['M', 'U'],
+    stock: { 'Negro-M': 1, 'Rojo-U': 1, 'Azul Marino-M': 1, 'Gris-U': 1 },
+    featured: true
+  },
   // ── TOPS DAMA ────────────────────────────────────────────
   {
     id: 'top-copa',
@@ -323,16 +335,50 @@ const PRODUCTS = [
   },
   // ── SETS / CONJUNTOS ─────────────────────────────────────
   {
-    id: 'conjunto',
-    name: 'Conjunto',
+    id: 'conjunto-leggings',
+    name: 'Conjunto Leggings',
     category: 'Sets',
     price: 20,
-    description: 'Set deportivo completo con efecto push up.',
+    description: 'Set deportivo de leggings y camisa manga corta con efecto push up.',
     image: 'img/conjunto.png',
-    colors: ['Rosado', 'Marrón', 'Negro', 'Gris', 'By Color'],
+    colorImages: {
+      'Rosado':     'img/conjunto.png',
+      'Marrón':     'img/conjunto2.png',
+      'Gris':       'img/conjunto3.png',
+      'Negro':      'img/conjunto5.png',
+      'Gris Claro': 'img/conjunto6.png'
+    },
+    colors: ['Rosado', 'Marrón', 'Gris', 'Negro', 'Gris Claro'],
     sizes: ['S/M', 'M', 'L/XL'],
-    stock: { 'Rosado-L/XL': 1, 'Marrón-S/M': 1, 'Negro-M': 1, 'Gris-L/XL': 1 },
+    stock: true,
     featured: true
+  },
+  {
+    id: 'conjunto-short',
+    name: 'Conjunto Short',
+    category: 'Sets',
+    price: 20,
+    description: 'Set deportivo de short y camisa manga corta.',
+    image: 'img/conjunto7.png',
+    colorImages: {
+      'Negro': 'img/conjunto7.png'
+    },
+    colors: ['Negro'],
+    sizes: ['S/M', 'M', 'L/XL'],
+    stock: true,
+    featured: false
+  },
+  {
+    id: 'conjunto-especial',
+    name: 'Conjunto Negro con Blanco',
+    category: 'Sets',
+    price: 20,
+    description: 'Set deportivo bicolor negro con blanco.',
+    image: 'img/conjunto4.png',
+    colors: ['Negro con Blanco'],
+    sizes: ['S/M', 'M', 'L/XL'],
+    stock: true,
+    featured: false
   },
   {
     id: 'enterizo',
@@ -341,23 +387,17 @@ const PRODUCTS = [
     price: 20,
     description: 'Enterizo deportivo de una pieza con efecto push up.',
     image: 'img/enterizo.png',
-    colors: ['Rojo', 'Rosado', 'Azul Marino', 'Negro'],
+    colorImages: {
+      'Rojo': 'img/enterizo.png',
+      'Rosa': 'img/enterizo2.png',
+      'Azul': 'img/enterizo3.png'
+    },
+    colors: ['Rojo', 'Rosa', 'Azul'],
     sizes: ['U'],
-    stock: { 'Rojo-U': 1, 'Rosado-U': 1, 'Azul Marino-U': 1, 'Negro-U': 1 },
+    stock: true,
     featured: true
   },
-  {
-    id: 'mono-deportivo',
-    name: 'Mono Deportivo',
-    category: 'Leggings',
-    price: 18,
-    description: 'Mono deportivo unisex de una pieza.',
-    image: 'img/mono_deportivo.png',
-    colors: ['Negro', 'Rojo', 'Azul Marino', 'Gris', 'Blanco'],
-    sizes: ['M', 'U'],
-    stock: { 'Negro-M': 1, 'Rojo-U': 1, 'Azul Marino-M': 1, 'Gris-U': 1 },
-    featured: true
-  },
+
   // ── CABALLERO ────────────────────────────────────────────
   {
     id: 'short-caballero-1',
