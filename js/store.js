@@ -283,6 +283,7 @@ function colorNameToHex(name) {
     'by color':        'linear-gradient(135deg, #FF6B6B, #4ECDC4, #FFE66D)',
     'azul y rosa':     'linear-gradient(135deg, #6EB5FF 0%, #FFB3C6 100%)',
     'negro y blanco':  'linear-gradient(135deg, #1a1a1a 0%, #f0f0f0 100%)',
+    'negro con blanco': '#1A1A1A',
     'rosado y lila':   'linear-gradient(135deg, #FF6EB4 0%, #C8A4E8 100%)'
   };
   return map[n] || '#C9A96E';
