@@ -690,18 +690,6 @@ const PRODUCTS = [
     sizes: ['XS','S','M','L','XL'],
     stock: true,
     featured: false
-  },
-  {
-    id: 'bolso-cintura',
-    name: 'Bolso de Cintura',
-    category: 'Accesorios',
-    price: 10,
-    description: 'Bolso de cintura ligero para entrenamiento.',
-    image: 'img/placeholder.jpg',
-    colors: ['Negro'],
-    sizes: ['U'],
-    stock: { 'Negro-U': 1 },
-    featured: false
   }
 ];
 
