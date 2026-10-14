@@ -578,15 +578,117 @@ const PRODUCTS = [
     featured: false
   },
   {
+    id: 'biker-short',
+    name: 'Biker Short',
+    category: 'Leggings',
+    price: 8,
+    description: 'Biker short deportivo con efecto push up.',
+    image: 'img/biker_nuevo1.jpg',
+    colorImages: {
+      'Amarillo': 'img/biker_nuevo1.jpg',
+      'Negro':    'img/biker_nuevo2.jpg',
+      'Azul':     'img/biker_nuevo3.jpg'
+    },
+    colors: ['Amarillo', 'Negro', 'Azul'],
+    sizes: ['XS','S','M','L','XL'],
+    stock: true,
+    featured: false
+  },
+  {
+    id: 'crop-top',
+    name: 'Crop Top',
+    category: 'Leggings',
+    price: 8,
+    description: 'Crop top deportivo.',
+    image: 'img/crop_top1.jpg',
+    colorImages: {
+      'Negro':  'img/crop_top1.jpg',
+      'Blanco': 'img/crop_top2.jpg'
+    },
+    colors: ['Negro', 'Blanco'],
+    sizes: ['XS','S','M','L','XL'],
+    stock: true,
+    featured: false
+  },
+  {
+    id: 'conjunto-manga-larga',
+    name: 'Conjunto Manga Larga',
+    category: 'Sets',
+    price: 22,
+    description: 'Conjunto deportivo manga larga.',
+    image: 'img/Conjunto_manga_larga.jpg',
+    colorImages: {
+      'Vinotinto': 'img/Conjunto_manga_larga.jpg',
+      'Negro':     'img/Conjunto_manga_larga2.jpg'
+    },
+    colors: ['Vinotinto', 'Negro'],
+    sizes: ['XS','S','M','L','XL'],
+    stock: true,
+    featured: false
+  },
+  {
+    id: 'medias',
+    name: 'Medias',
+    category: 'Accesorios',
+    price: 3,
+    description: 'Medias deportivas.',
+    image: 'img/medias.jpg',
+    colorImages: {
+      'Gris':          'img/medias.jpg',
+      'Blanco Hueso':  'img/medias2.jpg',
+      'Morado Claro':  'img/medias3.jpg',
+      'Morado':        'img/medias4.jpg',
+      'Rosado Fuerte': 'img/medias5.jpg',
+      'Rosado':        'img/medias6.jpg',
+      'Blanco':        'img/medias7.jpg',
+      'Rosa':          'img/medias8.jpg',
+      'Azul Claro':    'img/medias9.jpg'
+    },
+    colors: ['Gris','Blanco Hueso','Morado Claro','Morado','Rosado Fuerte','Rosado','Blanco','Rosa','Azul Claro'],
+    sizes: ['U'],
+    stock: true,
+    featured: false
+  },
+  {
     id: 'morral',
     name: 'Morral',
     category: 'Accesorios',
     price: 8,
     description: 'Morral deportivo resistente.',
-    image: 'img/placeholder.jpg',
-    colors: ['Negro', 'Rojo', 'Azul', 'Verde', 'By Color'],
+    image: 'img/morral1.jpg',
+    colorImages: {
+      'Verde Oliva':   'img/morral1.jpg',
+      'Rojo':          'img/morral2.jpg',
+      'Negro':         'img/morral3.jpg',
+      'Azul Claro':    'img/morral4.jpg',
+      'Negro 2':       'img/morral5.jpg',
+      'Verde Oliva 2': 'img/morral6.jpg',
+      'Verde Oliva 3': 'img/morral7.jpg',
+      'Rojo 2':        'img/morral8.jpg',
+      'Verde Oliva 4': 'img/morral9.jpg',
+      'Gris':          'img/morral10.jpg',
+      'Rojo 3':        'img/morral11.jpg',
+      'Rosado':        'img/morral12.jpg'
+    },
+    colors: ['Verde Oliva','Rojo','Negro','Azul Claro','Negro 2','Verde Oliva 2','Verde Oliva 3','Rojo 2','Verde Oliva 4','Gris','Rojo 3','Rosado'],
     sizes: ['U'],
-    stock: { 'Negro-U': 2, 'Rojo-U': 1, 'Azul-U': 1 },
+    stock: true,
+    featured: false
+  },
+  {
+    id: 'mono-deportivo-hombre',
+    name: 'Mono Deportivo',
+    category: 'Caballero',
+    price: 18,
+    description: 'Mono deportivo para caballero.',
+    image: 'img/mono_deportivo_hombre.jpg',
+    colorImages: {
+      'Gris':  'img/mono_deportivo_hombre.jpg',
+      'Negro': 'img/mono_deportivo_hombre2.jpg'
+    },
+    colors: ['Gris', 'Negro'],
+    sizes: ['XS','S','M','L','XL'],
+    stock: true,
     featured: false
   },
   {
