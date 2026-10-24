@@ -9,14 +9,14 @@ const PRODUCTS = [
     image: 'img/mono_baggys.png',
     colorImages: {
       'Negro':       'img/mono_baggys.png',
-
+      'Negro 2':     'img/mono_baggys2.png',
       'Blanco':      'img/mono_baggys3.png',
       'Burdeos':     'img/mono_baggys4.png',
       'Vinotinto':   'img/mono_baggys5.png',
       'Azul Marino': 'img/mono_baggys6.png',
       'Azul':        'img/mono_baggys7.png'
     },
-    colors: ['Negro', 'Blanco', 'Burdeos', 'Vinotinto', 'Azul Marino', 'Azul'],
+    colors: ['Negro', 'Negro 2', 'Blanco', 'Burdeos', 'Vinotinto', 'Azul Marino', 'Azul'],
     sizes: ['XS','S','M','L','XL'],
     stock: true,
     featured: true
