@@ -86,6 +86,7 @@ products = products.map(p => {
   }
   return p;
 });
+applyInventorySeed();
 let cart = JSON.parse(localStorage.getItem('aurafit_cart')) || [];
 
 function saveProducts() {

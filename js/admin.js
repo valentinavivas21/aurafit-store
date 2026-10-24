@@ -153,7 +153,7 @@ function renderProducts_admin() {
       <table style="width:100%;border-collapse:collapse">
         <thead>
           <tr style="border-bottom:2px solid var(--border)">
-            ${['Nombre', 'Categoría', 'Precio', 'Costo', 'Stock Total', 'Estado', 'Acciones'].map(h =>
+            ${['Nombre', 'Categoría', 'Precio', 'Costo', 'Stock Total', 'Estado', 'Revisar', 'Acciones'].map(h =>
               `<th style="text-align:left;padding:12px 16px;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted)">${h}</th>`
             ).join('')}
           </tr>
@@ -171,6 +171,9 @@ function renderProducts_admin() {
               </td>
               <td style="padding:14px 16px">
                 <span class="badge ${p.active ? 'badge-active' : 'badge-inactive'}">${p.active ? 'Activo' : 'Inactivo'}</span>
+              </td>
+              <td style="padding:14px 16px">
+                ${p.needsReview ? '<span class="badge" style="background:#F5C542;color:#1C1410">Por verificar</span>' : ''}
               </td>
               <td style="padding:14px 16px">
                 <button class="btn-ghost" style="font-size:13px;margin-right:8px" onclick="openProductForm('${p.id}')">Editar</button>
@@ -206,6 +209,8 @@ function openProductForm(productId = null) {
   document.getElementById('prod-price').value = p?.price !== undefined ? p.price : '';
   document.getElementById('prod-cost').value = p?.cost !== undefined ? p.cost : '';
   document.getElementById('prod-description').value = p?.description || '';
+  const verifiedCb = document.getElementById('prod-verified');
+  if (verifiedCb) verifiedCb.checked = false;
 
   // Initialize colors
   formColors = p?.colors ? JSON.parse(JSON.stringify(p.colors)) : [{ name: '', hex: '#000000' }];
@@ -346,6 +351,7 @@ function saveProduct() {
     const p = products.find(x => x.id === editingProductId);
     if (p) {
       Object.assign(p, { name, category, price, cost, description, colors, sizes, stock });
+      if (document.getElementById('prod-verified')?.checked) p.needsReview = false;
     }
   } else {
     products.push({
