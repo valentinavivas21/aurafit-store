@@ -165,6 +165,17 @@ function injectStoreStyles() {
       background: var(--wine, #9c404e);
       color: #fff;
     }
+    .size-pill.out-of-stock {
+      opacity: 0.35;
+      cursor: not-allowed;
+      border-color: #ccc;
+      color: #aaa;
+      text-decoration: line-through;
+      pointer-events: none;
+    }
+    .size-pill.out-of-stock:hover {
+      background: transparent;
+    }
     .btn-add-cart {
       width: 100%;
       background: var(--wine, #9c404e);
@@ -294,6 +305,52 @@ function colorNameToHex(name) {
   return map[n] || '#C9A96E';
 }
 
+// Helper: obtiene el stock del producto desde aurafit_products (admin data)
+function getAdminStock(productName) {
+  try {
+    const adminProducts = JSON.parse(localStorage.getItem('aurafit_products') || '[]');
+    const match = adminProducts.find(p =>
+      p.name && productName &&
+      p.name.trim().toLowerCase() === productName.trim().toLowerCase()
+    );
+    return match ? (match.stock || null) : null;
+  } catch (e) {
+    return null;
+  }
+}
+
+// Actualiza las pills de talla según el color seleccionado y el stock disponible
+function updateSizePillsForColor(card, colorName, adminStock) {
+  if (!adminStock || typeof adminStock !== 'object') return;
+  const sizePills = card.querySelectorAll('.size-pill');
+  sizePills.forEach(pill => {
+    const size = pill.dataset.size;
+    const stockKey = `${colorName}-${size}`;
+    const qty = adminStock[stockKey];
+    const isOut = (qty !== undefined && qty !== null && Number(qty) === 0);
+    if (isOut) {
+      pill.classList.add('out-of-stock');
+      pill.setAttribute('disabled', 'true');
+      pill.setAttribute('title', 'Agotado');
+      // Si esta pill estaba activa, quitar .active
+      pill.classList.remove('active');
+    } else {
+      pill.classList.remove('out-of-stock');
+      pill.removeAttribute('disabled');
+      pill.removeAttribute('title');
+    }
+  });
+  // Si la talla activa actual quedó agotada, activar la primera disponible
+  const activePill = card.querySelector('.size-pill.active');
+  if (!activePill) {
+    const firstAvailable = card.querySelector('.size-pill:not(.out-of-stock)');
+    if (firstAvailable) {
+      firstAvailable.classList.add('active');
+      card.dataset.selectedSize = firstAvailable.dataset.size;
+    }
+  }
+}
+
 // 3. Renderizado de tarjetas de producto
 function renderProducts(filter) {
   const grid = document.getElementById('products-grid');
@@ -341,6 +398,9 @@ function renderProducts(filter) {
       sizes = product.sizes;
     }
     const defaultSize = sizes[0];
+
+    // Stock del admin para este producto
+    const adminStock = getAdminStock(product.name);
 
     // 4. Estado local por tarjeta
     card.dataset.selectedColor = defaultColor;
@@ -417,8 +477,13 @@ function renderProducts(filter) {
             }
           }
         }
+        // Actualizar tallas según stock del color seleccionado
+        updateSizePillsForColor(card, dot.dataset.color, adminStock);
       });
     });
+
+    // Aplicar stock al color inicial al cargar
+    if (adminStock) updateSizePillsForColor(card, defaultColor, adminStock);
 
     // Event listeners para pills de talla
     const sizePills = card.querySelectorAll('.size-pill');
