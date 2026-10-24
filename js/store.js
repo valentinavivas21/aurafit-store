@@ -306,12 +306,12 @@ function colorNameToHex(name) {
 }
 
 // Helper: obtiene el stock del producto desde aurafit_products (admin data)
-function getAdminStock(productName) {
+function getAdminStock(productName, productId) {
   try {
     const adminProducts = JSON.parse(localStorage.getItem('aurafit_products') || '[]');
     const match = adminProducts.find(p =>
-      p.name && productName &&
-      p.name.trim().toLowerCase() === productName.trim().toLowerCase()
+      (productId && p.storeId && p.storeId === productId) ||
+      (p.name && productName && p.name.trim().toLowerCase() === productName.trim().toLowerCase())
     );
     return match ? (match.stock || null) : null;
   } catch (e) {
@@ -325,8 +325,8 @@ function updateSizePillsForColor(card, colorName, adminStock) {
   const sizePills = card.querySelectorAll('.size-pill');
   sizePills.forEach(pill => {
     const size = pill.dataset.size;
-    const stockKey = `${colorName}-${size}`;
-    const qty = adminStock[stockKey];
+    const colorStock = adminStock[colorName];
+    const qty = colorStock ? colorStock[size] : undefined;
     const isOut = (qty !== undefined && qty !== null && Number(qty) === 0);
     if (isOut) {
       pill.classList.add('out-of-stock');
@@ -400,7 +400,7 @@ function renderProducts(filter) {
     const defaultSize = sizes[0];
 
     // Stock del admin para este producto
-    const adminStock = getAdminStock(product.name);
+    const adminStock = getAdminStock(product.name, product.id);
 
     // 4. Estado local por tarjeta
     card.dataset.selectedColor = defaultColor;

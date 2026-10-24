@@ -17,7 +17,7 @@ const PRODUCTS = [
       'Azul':        'img/mono_baggys7.png'
     },
     colors: ['Negro', 'Negro 2', 'Blanco', 'Burdeos', 'Vinotinto', 'Azul Marino', 'Azul'],
-    sizes: ['XS','S','M','L','XL'],
+    sizes: ['S', 'M', 'L', 'XL', 'U'],
     stock: true,
     featured: true
   },

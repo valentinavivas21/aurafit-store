@@ -3,69 +3,34 @@
 const INVENTORY_SEED_VERSION = '2026-10-24-v1';
 const INVENTORY_SEED = [
  {
-  "id": "inv-baggys",
-  "name": "Baggys",
-  "category": "Leggings",
-  "price": 12,
-  "cost": 0,
-  "description": "",
-  "colors": [
-   {
-    "name": "Azul Marino",
-    "hex": "#1B2A4A"
-   },
-   {
-    "name": "Rojo",
-    "hex": "#C0392B"
-   },
-   {
-    "name": "Vinotinto",
-    "hex": "#6B1426"
-   },
-   {
-    "name": "Azul",
-    "hex": "#2E6FD8"
-   },
-   {
-    "name": "Blanco",
-    "hex": "#FFFFFF"
-   },
-   {
-    "name": "Negro",
-    "hex": "#1C1410"
-   }
+  id: 'inv-baggys',
+  name: 'Mono Baggys',
+  storeId: 'baggys',
+  category: 'Leggings',
+  price: 12,
+  cost: 0,
+  description: 'Pantalón baggy deportivo con efecto push up.',
+  colors: [
+    { name: 'Negro',       hex: '#1C1410' },
+    { name: 'Negro 2',     hex: '#2A2A2A' },
+    { name: 'Blanco',      hex: '#FFFFFF'  },
+    { name: 'Burdeos',     hex: '#6A1B29' },
+    { name: 'Vinotinto',   hex: '#6B1D2F' },
+    { name: 'Azul Marino', hex: '#1C3A6E' },
+    { name: 'Azul',        hex: '#2A4D69' },
   ],
-  "sizes": [
-   "S",
-   "L",
-   "S-XL",
-   "M",
-   "M-L",
-   "U-S-M"
-  ],
-  "stock": {
-   "Azul Marino": {
-    "S": 1
-   },
-   "Rojo": {
-    "L": 2
-   },
-   "Vinotinto": {
-    "S-XL": 2
-   },
-   "Azul": {
-    "M": 1
-   },
-   "Blanco": {
-    "M-L": 1
-   },
-   "Negro": {
-    "U-S-M": 2
-   }
+  sizes: ['S', 'M', 'L', 'XL', 'U'],
+  stock: {
+    'Negro':       { 'S': 0, 'M': 0, 'L': 0, 'XL': 0, 'U': 3 },
+    'Negro 2':     { 'S': 0, 'M': 0, 'L': 0, 'XL': 0, 'U': 0 },
+    'Blanco':      { 'S': 0, 'M': 1, 'L': 1, 'XL': 0, 'U': 0 },
+    'Burdeos':     { 'S': 0, 'M': 0, 'L': 0, 'XL': 0, 'U': 0 },
+    'Vinotinto':   { 'S': 1, 'M': 0, 'L': 0, 'XL': 1, 'U': 0 },
+    'Azul Marino': { 'S': 1, 'M': 0, 'L': 0, 'XL': 0, 'U': 0 },
+    'Azul':        { 'S': 0, 'M': 1, 'L': 0, 'XL': 0, 'U': 0 },
   },
-  "active": true,
-  "needsReview": true,
-  "storeId": "baggys"
+  active: true,
+  needsReview: true,
  },
  {
   "id": "inv-biker-cruzado-ullu",
