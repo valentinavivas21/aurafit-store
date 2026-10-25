@@ -22,7 +22,7 @@ const INVENTORY_SEED = [
   sizes: ['S', 'M', 'L', 'XL', 'U'],
   stock: {
     'Negro':       { 'S': 0, 'M': 0, 'L': 0, 'XL': 0, 'U': 3 },
-    'Negro 2':     { 'S': 0, 'M': 0, 'L': 0, 'XL': 0, 'U': 0 },
+    'Negro 2':     { 'S': 1, 'M': 1, 'L': 0, 'XL': 0, 'U': 0 },
     'Blanco':      { 'S': 0, 'M': 1, 'L': 1, 'XL': 0, 'U': 0 },
     'Burdeos':     { 'S': 0, 'M': 0, 'L': 0, 'XL': 0, 'U': 0 },
     'Vinotinto':   { 'S': 1, 'M': 0, 'L': 0, 'XL': 1, 'U': 0 },
