@@ -1,6 +1,6 @@
 // AURA FIT - Inventario real (conteo físico INV 22/2026). Generado automáticamente.
 // Formato admin: stock[color][talla]. Todos los productos llevan needsReview:true hasta verificarlos uno por uno.
-const INVENTORY_SEED_VERSION = '2026-10-24-v1';
+const INVENTORY_SEED_VERSION = '2026-10-24-v2';
 const INVENTORY_SEED = [
  {
   id: 'inv-baggys',
@@ -33,162 +33,174 @@ const INVENTORY_SEED = [
   needsReview: true,
  },
  {
-  "id": "inv-biker-cruzado-ullu",
-  "name": "Biker Cruzado Ullu",
-  "category": "Leggings",
-  "price": 8,
-  "cost": 0,
-  "description": "",
-  "colors": [
-   {
-    "name": "Morado",
-    "hex": "#7B3FA0"
-   },
-   {
-    "name": "Verde",
-    "hex": "#3E9B5A"
-   }
+  id: 'inv-biker-cruzado',
+  name: 'Biker Cruzado',
+  storeId: 'biker-cruzado',
+  category: 'Leggings',
+  price: 8,
+  cost: 0,
+  description: 'Biker deportivo con detalle cruzado en cintura.',
+  colors: [
+    { name: 'Rosado',      hex: '#F4A6B8' },
+    { name: 'Negro',       hex: '#1C1410' },
+    { name: 'Gris',        hex: '#9A9A9A' },
+    { name: 'Verde Claro', hex: '#8FBF72' },
+    { name: 'Rosa',        hex: '#C2648A' },
+    { name: 'Azul Marino', hex: '#1C3A6E' },
   ],
-  "sizes": [
-   "L/XL"
-  ],
-  "stock": {
-   "Morado": {
-    "L/XL": 1
-   },
-   "Verde": {
-    "L/XL": 1
-   }
+  sizes: ['XS', 'S', 'M', 'L', 'XL'],
+  stock: {
+    'Rosado':      { 'XS': 0, 'S': 0, 'M': 0, 'L': 0, 'XL': 0 },
+    'Negro':       { 'XS': 0, 'S': 0, 'M': 0, 'L': 0, 'XL': 0 },
+    'Gris':        { 'XS': 0, 'S': 0, 'M': 0, 'L': 3, 'XL': 3 },
+    'Verde Claro': { 'XS': 0, 'S': 0, 'M': 0, 'L': 1, 'XL': 1 },
+    'Rosa':        { 'XS': 0, 'S': 0, 'M': 0, 'L': 1, 'XL': 1 },
+    'Azul Marino': { 'XS': 0, 'S': 0, 'M': 0, 'L': 0, 'XL': 0 },
   },
-  "active": true,
-  "needsReview": true,
-  "storeId": "biker-cruzado"
+  active: true,
+  needsReview: true,
  },
  {
-  "id": "inv-biker-cruzado-ullu-con-ralla",
-  "name": "Biker Cruzado Ullu Con Ralla",
-  "category": "Leggings",
-  "price": 0,
-  "cost": 0,
-  "description": "",
-  "colors": [
-   {
-    "name": "Gris",
-    "hex": "#9A9A9A"
-   },
-   {
-    "name": "Negro",
-    "hex": "#1C1410"
-   }
+  id: 'inv-biker-cruzado-con-ralla',
+  name: 'Biker Cruzado Con Ralla',
+  category: 'Leggings',
+  price: 8,
+  cost: 0,
+  description: '',
+  colors: [
+    { name: 'Gris',  hex: '#9A9A9A' },
+    { name: 'Negro', hex: '#1C1410' },
   ],
-  "sizes": [
-   "L/XL",
-   "S/M-L/XL"
-  ],
-  "stock": {
-   "Gris": {
-    "L/XL": 3
-   },
-   "Negro": {
-    "S/M-L/XL": 1
-   }
+  sizes: ['S', 'M', 'L', 'XL'],
+  stock: {
+    'Gris':  { 'S': 0, 'M': 0, 'L': 3, 'XL': 3 },
+    'Negro': { 'S': 1, 'M': 1, 'L': 1, 'XL': 1 },
   },
-  "active": true,
-  "needsReview": true
+  active: true,
+  needsReview: true,
  },
  {
-  "id": "inv-bikers",
-  "name": "Bikers",
-  "category": "Leggings",
-  "price": 7,
-  "cost": 0,
-  "description": "",
-  "colors": [
-   {
-    "name": "Amarillo",
-    "hex": "#F2C94C"
-   },
-   {
-    "name": "Azul Electrico",
-    "hex": "#0057FF"
-   },
-   {
-    "name": "Negro",
-    "hex": "#1C1410"
-   }
+  id: 'inv-biker-unicolor',
+  name: 'Biker Unicolor',
+  storeId: 'bikers',
+  category: 'Leggings',
+  price: 7,
+  cost: 0,
+  description: 'Biker deportivo unicolor.',
+  colors: [
+    { name: 'Lila',   hex: '#C3A6D8' },
+    { name: 'Gris',   hex: '#9A9A9A' },
+    { name: 'Marrón', hex: '#6B4226' },
   ],
-  "sizes": [
-   "U"
-  ],
-  "stock": {
-   "Amarillo": {
-    "U": 1
-   },
-   "Azul Electrico": {
-    "U": 1
-   },
-   "Negro": {
-    "U": 2
-   }
+  sizes: ['XS', 'S', 'M', 'L', 'XL'],
+  stock: {
+    'Lila':   { 'XS': 0, 'S': 0, 'M': 0, 'L': 0, 'XL': 0 },
+    'Gris':   { 'XS': 0, 'S': 0, 'M': 0, 'L': 0, 'XL': 0 },
+    'Marrón': { 'XS': 0, 'S': 0, 'M': 0, 'L': 0, 'XL': 0 },
   },
-  "active": true,
-  "needsReview": true,
-  "storeId": "bikers"
+  active: true,
+  needsReview: true,
  },
  {
-  "id": "inv-bikers-by-color",
-  "name": "Bikers By Color",
-  "category": "Leggings",
-  "price": 0,
-  "cost": 0,
-  "description": "",
-  "colors": [
-   {
-    "name": "By Color",
-    "hex": "#C9A96E"
-   }
+  id: 'inv-bikers-surtido',
+  name: 'Bikers Surtido',
+  category: 'Leggings',
+  price: 7,
+  cost: 0,
+  description: '',
+  colors: [
+    { name: 'Amarillo',       hex: '#F2C94C' },
+    { name: 'Azul Eléctrico', hex: '#0057FF' },
+    { name: 'Negro',          hex: '#1C1410' },
   ],
-  "sizes": [
-   "U"
-  ],
-  "stock": {
-   "By Color": {
-    "U": 3
-   }
+  sizes: ['U'],
+  stock: {
+    'Amarillo':       { 'U': 1 },
+    'Azul Eléctrico': { 'U': 1 },
+    'Negro':          { 'U': 2 },
   },
-  "active": true,
-  "needsReview": true
+  active: true,
+  needsReview: true,
  },
  {
-  "id": "inv-bikers-v",
-  "name": "Bikers V",
-  "category": "Leggings",
-  "price": 0,
-  "cost": 0,
-  "description": "",
-  "colors": [
-   {
-    "name": "Gris",
-    "hex": "#9A9A9A"
-   },
-   {
-    "name": "Morado",
-    "hex": "#7B3FA0"
-   }
+  id: 'inv-bikers-by-color',
+  name: 'Bikers By Color',
+  category: 'Leggings',
+  price: 7,
+  cost: 0,
+  description: '',
+  colors: [
+    { name: 'By Color', hex: '#C9A96E' },
   ],
-  "sizes": [
-   "U"
-  ],
-  "stock": {
-   "Gris": {
-    "U": 1
-   },
-   "Morado": {
-    "U": 1
-   }
+  sizes: ['U'],
+  stock: {
+    'By Color': { 'U': 3 },
   },
-  "active": true,
-  "needsReview": true
+  active: true,
+  needsReview: true,
+ },
+ {
+  id: 'inv-bikers-v',
+  name: 'Bikers V',
+  category: 'Leggings',
+  price: 7,
+  cost: 0,
+  description: '',
+  colors: [
+    { name: 'Gris',   hex: '#9A9A9A' },
+    { name: 'Morado', hex: '#7B3FA0' },
+  ],
+  sizes: ['U'],
+  stock: {
+    'Gris':   { 'U': 1 },
+    'Morado': { 'U': 1 },
+  },
+  active: true,
+  needsReview: true,
+ },
+ {
+  id: 'inv-biker-degradado',
+  name: 'Biker Degradado',
+  storeId: 'biker-degradado',
+  category: 'Leggings',
+  price: 8,
+  cost: 0,
+  description: 'Biker deportivo con efecto degradado.',
+  colors: [
+    { name: 'Azul y Rosa',    hex: '#89A7C8' },
+    { name: 'Negro y Blanco', hex: '#555555' },
+    { name: 'Rosado y Lila',  hex: '#D4809A' },
+  ],
+  sizes: ['XS', 'S', 'M', 'L', 'XL'],
+  stock: {
+    'Azul y Rosa':    { 'XS': 0, 'S': 0, 'M': 0, 'L': 0, 'XL': 0 },
+    'Negro y Blanco': { 'XS': 0, 'S': 0, 'M': 0, 'L': 0, 'XL': 0 },
+    'Rosado y Lila':  { 'XS': 0, 'S': 0, 'M': 0, 'L': 0, 'XL': 0 },
+  },
+  active: true,
+  needsReview: true,
+ },
+ {
+  id: 'inv-biker-short',
+  name: 'Biker Short',
+  storeId: 'biker-short',
+  category: 'Leggings',
+  price: 8,
+  cost: 0,
+  description: 'Biker short deportivo.',
+  colors: [
+    { name: 'Amarillo', hex: '#F2C94C' },
+    { name: 'Negro',    hex: '#1C1410' },
+    { name: 'Azul',     hex: '#2A4D69' },
+  ],
+  sizes: ['XS', 'S', 'M', 'L', 'XL'],
+  stock: {
+    'Amarillo': { 'XS': 0, 'S': 0, 'M': 0, 'L': 0, 'XL': 0 },
+    'Negro':    { 'XS': 0, 'S': 0, 'M': 0, 'L': 0, 'XL': 0 },
+    'Azul':     { 'XS': 0, 'S': 0, 'M': 0, 'L': 0, 'XL': 0 },
+  },
+  active: true,
+  needsReview: true,
  },
  {
   "id": "inv-bolso-running",
